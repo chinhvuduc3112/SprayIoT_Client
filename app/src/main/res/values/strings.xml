@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tlu Iot</string>
+    <string name="app_name">Spay IoT</string>
     <string name="action_notification">Notification</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
