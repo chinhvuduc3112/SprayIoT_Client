@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_item_account_management"
+            android:checked="true"
+            android:title="@string/nav_item_account_management" />
+        <item
+            android:id="@+id/navigation_item_actuator"
+            android:title="@string/nav_item_actuator" />
+        <item
+            android:id="@+id/navigation_item_area_management"
+            android:title="@string/nav_item_area_management" />
+        <item
+            android:id="@+id/navigation_item_node_sensor"
+            android:title="@string/nav_item_node_sensor" />
+    </group>
+
+    <!--<item android:title="@string/nav_sub_menu">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:icon="@drawable/ic_emoticon"-->
+                <!--android:title="@string/nav_sub_menu_item01" />-->
+            <!--<item-->
+                <!--android:icon="@drawable/ic_emoticon"-->
+                <!--android:title="@string/nav_sub_menu_item02" />-->
+        <!--</menu>-->
+    <!--</item>-->
+
+</menu>
