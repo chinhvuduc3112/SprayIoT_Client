@@ -83,13 +83,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.navigation_item_account_management) {
+        if (id == R.id.nav_item_account_management) {
 
-        } else if (id == R.id.navigation_item_actuator) {
+        } else if (id == R.id.nav_item_actuator) {
 
-        } else if (id == R.id.navigation_item_area_management) {
+        } else if (id == R.id.nav_item_area_management) {
 
-        } else if (id == R.id.navigation_item_node_sensor) {
+        } else if (id == R.id.nav_item_node_sensor) {
 
         }
 
