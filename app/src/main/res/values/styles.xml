@@ -34,6 +34,8 @@
 
     <style name="ButtonStyle">
         <item name="android:textColor">@color/textIcons</item>
+        <!--<item name="visible" type="id"/>-->
+        <!--<item name="masked" type="id"/>-->
         <item name="android:background">@drawable/selector_color_btn</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:paddingLeft">@dimen/margin_medium</item>
