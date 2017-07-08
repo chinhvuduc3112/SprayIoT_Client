@@ -16,37 +16,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:ms_multiline="false"
-            app:ms_hint="Danh sách node cảm biến"
-            app:ms_thickness="2dp"/>
-            <!--app:ms_dropDownHintView="@layout/my_custom_hint_item_layout"-->
-            <!--app:ms_hintView="@layout/my_custom_hint_item_layout"-->
+            app:ms_hint="Danh sách node cảm biến" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_medium"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="2">
 
             <LinearLayout
+                android:layout_marginLeft="@dimen/margin_medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/humidity" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/temperature"/>
 
-                <TextView
-                    android:id="@+id/txt_humidity"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Độ ẩm"
-                    android:textSize="20dp" />
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_gravity="top">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/temperature"
+                        android:textSize="@dimen/txt_small_medium"
+                        android:textColor="#000"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nulls"
+                        android:textSize="@dimen/txt_small_medium"
+                        android:textColor="#000"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -54,19 +67,79 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/cloud" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/sun"/>
 
-                <TextView
-                    android:id="@+id/txt_cloud"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Độ ẩm"
-                    android:textSize="20dp" />
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:orientation="vertical"
+                    android:layout_gravity="top">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sun"
+                        android:textSize="@dimen/txt_small_medium"
+                        android:textColor="#000"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nulls"
+                        android:textSize="@dimen/txt_small_medium"
+                        android:textColor="#000"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/margin_medium">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/air_humidity"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_gravity="top">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/humidity"
+                        android:textSize="@dimen/txt_small_medium"
+                        android:textColor="#000"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nulls"
+                        android:textSize="@dimen/txt_small_medium"
+                        android:textColor="#000"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -74,19 +147,34 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/wind_power" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/land_humidity"/>
 
-                <TextView
-                    android:id="@+id/txt_wind"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Độ ẩm"
-                    android:textSize="20dp" />
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:orientation="vertical"
+                    android:layout_gravity="top">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/land_humidity"
+                        android:textSize="@dimen/txt_small_medium"
+                        android:textColor="#000"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nulls"
+                        android:textSize="@dimen/txt_small_medium"
+                        android:textColor="#000"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

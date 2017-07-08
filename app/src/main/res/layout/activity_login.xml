@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="Email hoặc số điện thoại" />
+                android:hint="@string/login_name" />
         </android.support.design.widget.TextInputLayout>
 
         <!--  Password Label -->
@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Mật khẩu"/>
+                android:hint="@string/login_password"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
@@ -60,13 +60,13 @@
             android:layout_marginBottom="24dp"
             android:padding="12dp"
             style="@style/ButtonStyle"
-            android:text="Đăng Nhập"/>
+            android:text="@string/btn_login"/>
 
         <TextView android:id="@+id/link_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Quên mật khẩu"
+            android:text="@string/login_forgot_password"
             android:gravity="center"
             android:textSize="16dip"/>
 
