@@ -6,13 +6,15 @@ package com.vuduc.models;
 
 public class ActuatorRealtime {
     String actuatorName;
+    Long time;
     Boolean status;
 
     public ActuatorRealtime() {
     }
 
-    public ActuatorRealtime(String actuatorName, Boolean status) {
+    public ActuatorRealtime(String actuatorName, Long time, Boolean status) {
         this.actuatorName = actuatorName;
+        this.time = time;
         this.status = status;
     }
 
@@ -30,5 +32,13 @@ public class ActuatorRealtime {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
     }
 }
