@@ -1,5 +1,6 @@
 package com.vuduc.tluiot;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -11,10 +12,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 
 import com.vuduc.fragments.ActuatorRealtimeFragment;
 import com.vuduc.fragments.SensorRealtimeFragment;
@@ -22,19 +23,22 @@ import com.vuduc.fragments.SensorRealtimeFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindColor;
-import butterknife.BindDimen;
-import butterknife.BindDrawable;
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.navigation_view) NavigationView mNavigation_view;
-    @BindView(R.id.viewpager) ViewPager viewPager;
-    @BindView(R.id.tabs) TabLayout tabLayout;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.navigation_view)
+    NavigationView mNavigation_view;
+    @BindView(R.id.viewpager)
+    ViewPager viewPager;
+    @BindView(R.id.tabs)
+    TabLayout tabLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         addEvents();
     }
 
-    private void addControls(){
+    private void addControls() {
         ButterKnife.bind(this);
     }
 
@@ -62,8 +66,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //tabLayout
         setupViewPager(viewPager);
-
         tabLayout.setupWithViewPager(viewPager);
+
+
     }
 
     @Override
@@ -93,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
 
 
     @Override
