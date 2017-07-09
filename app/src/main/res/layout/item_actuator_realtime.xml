@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="5:00"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/switch_actuator_realtime"
+            android:layout_toLeftOf="@+id/switch_actuator_realtime"
             android:layout_marginRight="@dimen/margin_medium"
             android:textSize="@dimen/txt_medium"
             android:textColor="#4CAF50"/>
@@ -42,7 +42,7 @@
             android:id="@+id/switch_actuator_realtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/ivOptions"
+            android:layout_toLeftOf="@+id/img_options"
             android:layout_marginRight="@dimen/margin_big"
             android:layout_centerVertical="true"
             android:checked="true"
@@ -50,7 +50,7 @@
             style="@style/MySwitch"/>
 
         <ImageView
-            android:id="@+id/ivOptions"
+            android:id="@+id/img_options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_medium"
