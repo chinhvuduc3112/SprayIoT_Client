@@ -43,7 +43,7 @@ public class ActuatorRealtimeFragment extends Fragment {
 
     private void addEvents() {
         actuatorList = new ArrayList<>();
-        adapter = new ActuatorRealtimeAdapter(getActivity().getApplicationContext(), actuatorList);
+        adapter = new ActuatorRealtimeAdapter(getContext(), actuatorList);
         RecyclerView.LayoutManager mlayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mlayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
