@@ -31,12 +31,10 @@ public class ActuatorRealtimeAdapter extends RecyclerView.Adapter<ActuatorRealti
 
     private Context mContext;
     private List<ActuatorRealtime> mData;
-    private LayoutInflater mLayoutInflater;
 
     public ActuatorRealtimeAdapter(Context mContext, List<ActuatorRealtime> mData) {
         this.mContext = mContext;
         this.mData = mData;
-        mLayoutInflater = LayoutInflater.from(mContext);
     }
 
     @Override
@@ -63,7 +61,7 @@ public class ActuatorRealtimeAdapter extends RecyclerView.Adapter<ActuatorRealti
     // Tạo viewholder hiển thị 1 item
     @Override
     public ActuatorRealtimeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mLayoutInflater.inflate(R.layout.item_actuator_realtime, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_actuator_realtime, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
