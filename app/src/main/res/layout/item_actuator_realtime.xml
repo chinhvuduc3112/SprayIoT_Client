@@ -24,7 +24,7 @@
             android:paddingRight="@dimen/margin_medium"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@+id/txt_actuator_time"
-            android:textSize="@dimen/txt_large"
+            android:textSize="@dimen/txt_medium"
             android:textColor="#000"/>
 
         <TextView

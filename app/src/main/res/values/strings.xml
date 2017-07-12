@@ -22,6 +22,7 @@
     <string name="nav_item_area_management">Khu vực</string>
     <string name="nav_item_actuator">Thiết bị thực thi</string>
     <string name="nav_item_node_sensor">Node cảm biến</string>
+    <string name="nav_item_weather">Thời tiết</string>
     <string name="nav_item_signout">Đăng xuất</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
