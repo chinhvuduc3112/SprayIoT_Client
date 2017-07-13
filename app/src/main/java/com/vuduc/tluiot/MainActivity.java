@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //tabLayout
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
-
-
     }
 
     @Override

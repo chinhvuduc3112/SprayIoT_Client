@@ -14,6 +14,8 @@
     <string name="temperature">Nhiệt độ</string>
     <string name="sun">Ánh sáng</string>
     <string name="nulls">N/A</string>
+    <string name="cloudiness">Khả năng mưa</string>
+    <string name="city_name">Tên thành phố</string>
 
 
     <string name="drawer_header_text">Vũ Đức Chinh</string>
@@ -31,6 +33,7 @@
     <string name="login_password">Mật khẩu</string>
     <string name="login_forgot_password">Quên mật khẩu</string>
     <string name="btn_login">Đăng nhập</string>
+    <string name="btn_sreach">Tìm kiếm</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
