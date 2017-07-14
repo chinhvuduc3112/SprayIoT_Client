@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.vuduc.adapters.ViewPagerAdapter;
 import com.vuduc.fragments.ActuatorRealtimeFragment;
 import com.vuduc.fragments.SensorRealtimeFragment;
 
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_item_area_management) {
 
         } else if (id == R.id.nav_item_node_sensor) {
-
+            startActivity(new Intent(MainActivity.this, NodeActivity.class));
         } else if (id==R.id.nav_item_weather) {
             startActivity(new Intent(MainActivity.this, WeatherActivity.class));
         }
@@ -137,34 +138,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter.addFragment(new SensorRealtimeFragment(), "Cảm biến");
         adapter.addFragment(new ActuatorRealtimeFragment(), "Thực thi");
         viewPager.setAdapter(adapter);
-    }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
     }
 }

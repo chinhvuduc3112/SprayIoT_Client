@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cvProject"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_medium"
+    android:layout_marginLeft="@dimen/margin_small"
+    android:layout_marginRight="@dimen/margin_small"
+    android:elevation="@dimen/margin_medium">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivProjectImage"
+            android:layout_width="@dimen/icon_width_height"
+            android:layout_height="@dimen/icon_width_height"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tvProjectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_toRightOf="@+id/ivProjectImage"
+            android:text="Node 1"
+            android:textSize="@dimen/txt_medium"
+            android:textColor="@color/navigationBar"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/txtProjectDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvProjectName"
+            android:layout_below="@+id/tvProjectName"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="Thông tin cơ bản về node"
+            android:textSize="@dimen/txt_small_medium"/>
+
+        <ImageView
+            android:id="@+id/img_options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_medium"
+            android:src="@drawable/ic_more_vert_grey_500_24dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

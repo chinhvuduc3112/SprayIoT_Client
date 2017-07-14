@@ -8,6 +8,8 @@
 
     <string name="sensor">Cảm biến</string>
     <string name="actuator">Thực thi</string>
+    <string name="statistics">Thống kê</string>
+    <string name="info">Thông tin</string>
 
     <string name="humidity">Độ ẩm</string>
     <string name="land_humidity">Độ ẩm đất</string>
