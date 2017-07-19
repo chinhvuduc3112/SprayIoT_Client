@@ -36,6 +36,7 @@
     <string name="login_forgot_password">Quên mật khẩu</string>
     <string name="btn_login">Đăng nhập</string>
     <string name="btn_sreach">Tìm kiếm</string>
+    <string name="btn_update">Cập nhật</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

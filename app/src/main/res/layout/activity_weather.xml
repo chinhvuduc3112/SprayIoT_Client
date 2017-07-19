@@ -47,11 +47,11 @@
                     android:weightSum="16">
 
                     <EditText
-                        android:id="@+id/edit_email"
+                        android:id="@+id/edit_city_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="15"
-                        android:hint="@string/city_name"
+                        android:hint="Hà Nội"
                         android:inputType="textEmailAddress" />
 
                     <Button
@@ -59,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="@string/btn_sreach"
+                        android:text="@string/btn_update"
                         android:textAllCaps="false" />
                 </LinearLayout>
 
@@ -181,6 +181,7 @@
                                 android:textSize="@dimen/txt_small_medium" />
 
                             <TextView
+                                android:id="@+id/txt_humidity"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/nulls"
@@ -216,6 +217,7 @@
                                 android:textSize="@dimen/txt_small_medium" />
 
                             <TextView
+                                android:id="@+id/txt_cloudiness"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/nulls"
