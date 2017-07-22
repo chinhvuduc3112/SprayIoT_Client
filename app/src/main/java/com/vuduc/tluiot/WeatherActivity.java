@@ -2,6 +2,8 @@ package com.vuduc.tluiot;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,11 +15,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.vuduc.adapters.WeatherAdapter;
+import com.vuduc.models.NextDayWeatherResponse;
 import com.vuduc.models.WeatherResponse;
 import com.vuduc.network.ApiClient;
 import com.vuduc.network.ApiInterface;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +37,6 @@ public class WeatherActivity extends AppCompatActivity {
 
     private static final String TAG = WeatherActivity.class.getSimpleName();
     private final static String API_KEY = "0ac144176c255747798f398017a1da7d";
-
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.edit_city_name)
@@ -58,8 +63,8 @@ public class WeatherActivity extends AppCompatActivity {
     TextView txt_cloudiness;
     @BindView(R.id.rv_next_day)
     RecyclerView rv_next_day;
-
-    WeatherResponse weatherResponse;
+    private WeatherAdapter weatherAdapter;
+    private List<NextDayWeatherResponse.ListBean> listWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +75,53 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        //RV
+        listWeather = new ArrayList<>();
+        weatherAdapter = new WeatherAdapter(getApplicationContext(), listWeather);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        rv_next_day.setLayoutManager(layoutManager);
+        rv_next_day.setItemAnimator(new DefaultItemAnimator());
+        rv_next_day.setAdapter(weatherAdapter);
+
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String cityName = edit_city_name.getText().toString();
                 String cityName1 = "Hanoi";
                 if (cityName.equals("")) {
-                    cityName=cityName1;
+                    cityName = cityName1;
                 }
                 getWeatherApi(cityName);
+                getNextDayWeatherApi(cityName);
             }
         });
+
+    }
+
+    private void getNextDayWeatherApi(String cityName) {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<NextDayWeatherResponse> callNextDayWeather = apiService.getNextDayWeather(cityName, API_KEY);
+        callNextDayWeather.enqueue(new Callback<NextDayWeatherResponse>() {
+            @Override
+            public void onResponse(Call<NextDayWeatherResponse> call, Response<NextDayWeatherResponse> response) {
+                Log.d("message", response.toString());
+                initNextDayWeatherApi(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<NextDayWeatherResponse> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
+    }
+
+    private void initNextDayWeatherApi(NextDayWeatherResponse data) {
+        List<NextDayWeatherResponse.ListBean> listBean = data.getList();
+        listWeather.clear();
+        for(NextDayWeatherResponse.ListBean lb : listBean){
+            listWeather.add(lb);
+        }
+        weatherAdapter.notifyDataSetChanged();
     }
 
     private void getWeatherApi(String cityName) {
@@ -89,9 +130,9 @@ public class WeatherActivity extends AppCompatActivity {
         callWeather.enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                Log.d("message", response.toString());
-                if(response.isSuccessful()){
-                    init(response.body());
+                //Log.d("message", response.toString());
+                if (response.isSuccessful()) {
+                    initWeatherApi(response.body());
                 }
             }
 
@@ -102,21 +143,45 @@ public class WeatherActivity extends AppCompatActivity {
         });
     }
 
-    private void init(WeatherResponse data) {
+    private void initWeatherApi(WeatherResponse data) {
         txt_city.setText(data.getName());
 
         List<WeatherResponse.Weather> weathers = data.getWeather();
         String t = weathers.get(0).getDescription();
         txt_status.setText(t);
+        Log.d("trang thai", t);
 
         long longDay = Long.valueOf(data.getDt());
-        Date date = new Date(1*1000L);
+        Date date = new Date(longDay * 1000L);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE yyyy-MM-dd HH-mm-ss");
         String Day = simpleDateFormat.format(date);
         txt_day.setText(Day);
 
         String iconStatus = weathers.get(0).getIcon();
+        Picasso.with(WeatherActivity.this).load("http://openweathermap.org/img/w/" + iconStatus + ".png").into(img_icon_status);
 
+        WeatherResponse.Main main = data.getMain();
+        Double nhietDoAvg = main.getTemp();
+        nhietDoAvg = nhietDoAvg * 0.1;
+        String NhieuDoAvg = String.valueOf(nhietDoAvg.intValue());
+        Double nhietDoMax = main.getTempMax();
+        nhietDoMax = nhietDoMax * 0.1;
+        String NhieuDoMax = String.valueOf(nhietDoMax.intValue());
+        Double nhietDoMin = main.getTempMin();
+        nhietDoMin = nhietDoMin * 0.1;
+        String NhieuDoMin = String.valueOf(nhietDoMin.intValue());
+        int doAm = main.getHumidity();
+        String DoAm = String.valueOf(doAm);
+
+        txt_temp_avg.setText(NhieuDoAvg + "°C");
+        txt_temp_max.setText(NhieuDoMax + "°C");
+        txt_temp_min.setText(NhieuDoMin + "°C");
+        txt_humidity.setText(DoAm + "%");
+
+        WeatherResponse.Clouds clouds = data.getClouds();
+        int cloudinessTemp = clouds.getAll();
+        String cloudiness = String.valueOf(cloudinessTemp);
+        txt_cloudiness.setText(cloudiness + "%");
     }
 
 

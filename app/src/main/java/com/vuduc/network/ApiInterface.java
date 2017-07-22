@@ -1,6 +1,7 @@
 package com.vuduc.network;
 
 
+import com.vuduc.models.NextDayWeatherResponse;
 import com.vuduc.models.WeatherResponse;
 
 import retrofit2.Call;
@@ -15,4 +16,7 @@ import retrofit2.http.Query;
 public interface ApiInterface {
     @GET("weather?")
     Call<WeatherResponse> getWeatherPresent(@Query("q") String cityName, @Query("appid") String apiKey);
+
+    @GET("forecast/daily?")
+    Call<NextDayWeatherResponse> getNextDayWeather(@Query("q") String cityName, @Query("appid") String apiKey);
 }
