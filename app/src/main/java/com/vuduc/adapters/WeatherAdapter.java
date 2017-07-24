@@ -54,8 +54,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         holder.txt_thu.setText(Day);
         holder.txt_ngaythang.setText(Day2);
 
-        NextDayWeatherResponse.ListBean.WeatherBean weatherStatus = (NextDayWeatherResponse.ListBean.WeatherBean) listBean.getWeather();
-        Picasso.with(context).load("http://openweathermap.org/img/w/"+weatherStatus.getIcon()+".png").into(holder.img_icon_status);
+        List<NextDayWeatherResponse.ListBean.WeatherBean> weatherStatus = listBean.getWeather();
+        Picasso.with(context).load("http://openweathermap.org/img/w/"+weatherStatus.get(0).getIcon()+".png").into(holder.img_icon_status);
 
         Double nhietDoMax =listBean.getTemp().getMax();
         nhietDoMax=nhietDoMax*0.1;

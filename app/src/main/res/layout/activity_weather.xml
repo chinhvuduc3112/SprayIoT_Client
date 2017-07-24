@@ -229,10 +229,11 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
+                    android:layout_marginLeft="@dimen/floating_label_bottom_spacing"
                     android:id="@+id/rv_next_day"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_big">
+                    android:layout_marginTop="@dimen/margin_large">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>

@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:layout_marginRight="@dimen/floating_label_bottom_spacing">
 
     <TextView
         android:id="@+id/txt_thu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Thứ 5"
-        android:textSize="@dimen/txt_medium"
+        android:textSize="@dimen/txt_small"
         android:textColor="@color/navigationBar"/>
 
     <TextView
@@ -18,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="13/07"
-        android:textSize="@dimen/txt_medium"/>
+        android:textSize="@dimen/txt_small"/>
     
     <ImageView
         android:layout_marginTop="@dimen/margin_medium"
@@ -32,17 +33,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="32/28"
-        android:textSize="@dimen/txt_medium"/>
+        android:textSize="@dimen/txt_small"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         android:layout_marginTop="@dimen/margin_small">
 
         <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:src="@drawable/water"/>
 
         <TextView
@@ -50,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="60%"
+            android:textSize="@dimen/txt_small"
             android:textColor="@color/blue"/>
     </LinearLayout>
 </LinearLayout>
