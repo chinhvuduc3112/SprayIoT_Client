@@ -43,7 +43,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(WeatherAdapter.ViewHolder holder, int position) {
-        final NextDayWeatherResponse.ListBean listBean  = weathers.get(position);
+        NextDayWeatherResponse.ListBean listBean  = weathers.get(position);
 
         long longDay = Long.valueOf(listBean.getDt());
         Date date = new Date(longDay*1000L);
