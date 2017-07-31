@@ -37,6 +37,12 @@
     <string name="btn_login">Đăng nhập</string>
     <string name="btn_sreach">Tìm kiếm</string>
     <string name="btn_update">Cập nhật</string>
+    
+    <string name="info_name">Tên</string>
+    <string name="info_describe">Mô tả</string>
+    <string name="info_area">Khu vực</string>
+    <string name="info_node">Ghi chú</string>
+    <string name="type_device">Loại thiết bị</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
