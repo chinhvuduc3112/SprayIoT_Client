@@ -3,6 +3,7 @@
     <string name="action_notification">Notification</string>
     <string name="action_settings">Settings</string>
     <string name="action_actuator_set_time">Chỉnh thời gian</string>
+    <string name="action_update_info">Sửa thông tin</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
