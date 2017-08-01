@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.vuduc.adapters.ViewPagerAdapter;
 import com.vuduc.fragments.ActuatorRealtimeFragment;
 import com.vuduc.fragments.NodeInfoFragment;
@@ -21,6 +24,8 @@ import butterknife.ButterKnife;
 
 public class NodeActivity extends AppCompatActivity {
 
+    @BindView(R.id.fab_info_node)
+    FloatingActionMenu fab_info_node;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.viewpager)
@@ -74,5 +79,26 @@ public class NodeActivity extends AppCompatActivity {
         adapter.addFragment(new NodeStatisticsFragment(), "Thống kê");
         adapter.addFragment(new NodeInfoFragment(), "Thông tin");
         viewPager.setAdapter(adapter);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(tab.getPosition() == 1){
+                    fab_info_node.setVisibility(View.VISIBLE);
+                }else{
+                    fab_info_node.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 }

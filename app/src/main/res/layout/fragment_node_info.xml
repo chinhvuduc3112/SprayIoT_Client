@@ -1,14 +1,13 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
     tools:context="com.vuduc.fragments.NodeInfoFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.CardView
             android:id="@+id/cv_info_node"
@@ -33,25 +32,25 @@
                     android:layout_marginTop="@dimen/margin_medium"
                     android:text="Thông tin Node"
                     android:textColor="@color/navigationBar"
-                    android:textSize="@dimen/txt_medium" />
+                    android:textSize="@dimen/txt_medium"/>
 
                 <ImageView
                     android:id="@+id/img_options"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_medium"
-                    android:src="@drawable/ic_more_vert_grey_500_24dp"
-                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentTop="true"
+                    android:padding="@dimen/margin_medium"
+                    android:src="@drawable/ic_more_vert_grey_500_24dp"/>
 
                 <View
                     android:id="@+id/vLine1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin_medium"
                     android:layout_below="@+id/tvLabelNodeInfo"
-                    android:background="@color/primaryDark" />
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:background="@color/primaryDark"/>
 
                 <TextView
                     android:id="@+id/txt_node_name"
@@ -73,7 +72,7 @@
                     android:layout_marginRight="@dimen/margin_small"
                     android:hint="Node 1"
                     android:textColor="@color/primary"
-                    android:textSize="@dimen/txt_medium" />
+                    android:textSize="@dimen/txt_medium"/>
 
                 <TextView
                     android:id="@+id/txt_node_describe"
@@ -88,20 +87,20 @@
 
                 <EditText
                     android:id="@+id/edit_node_describe"
-                    android:inputType="textMultiLine"
-                    android:lines="5"
-                    android:minLines="3"
-                    android:maxLines="10"
-                    android:gravity="top|left"
-                    android:scrollbars="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txt_node_describe"
                     android:layout_marginLeft="@dimen/margin_small"
                     android:layout_marginTop="@dimen/margin_medium"
+                    android:gravity="top|left"
                     android:hint="Mô tả Node 1"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:maxLines="10"
+                    android:minLines="3"
+                    android:scrollbars="vertical"
                     android:textColor="@color/primary"
-                    android:textSize="@dimen/txt_medium" />
+                    android:textSize="@dimen/txt_medium"/>
 
                 <TextView
                     android:id="@+id/txt_node_area"
@@ -123,13 +122,13 @@
                     android:layout_marginRight="@dimen/margin_small"
                     android:hint="Khu vực 1"
                     android:textColor="@color/primary"
-                    android:textSize="@dimen/txt_medium" />
+                    android:textSize="@dimen/txt_medium"/>
 
                 <TextView
                     android:id="@+id/txt_node_note"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/edit_node_area"
+                    android:layout_below="@+id/txt_node_area"
                     android:layout_marginLeft="@dimen/margin_small"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:text="@string/info_node"
@@ -138,20 +137,20 @@
 
                 <EditText
                     android:id="@+id/edit_node_note"
-                    android:inputType="textMultiLine"
-                    android:lines="7"
-                    android:minLines="5"
-                    android:maxLines="20"
-                    android:gravity="top|left"
-                    android:scrollbars="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txt_node_note"
-                    android:layout_marginTop="@dimen/margin_medium"
                     android:layout_marginRight="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:gravity="top|left"
                     android:hint="Khu vực 1"
+                    android:inputType="textMultiLine"
+                    android:lines="7"
+                    android:maxLines="20"
+                    android:minLines="5"
+                    android:scrollbars="vertical"
                     android:textColor="@color/primary"
-                    android:textSize="@dimen/txt_medium" />
+                    android:textSize="@dimen/txt_medium"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
@@ -165,19 +164,7 @@
 
         </android.support.v7.widget.RecyclerView>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_info_node"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_white_24dp"
-            fab:fab_size="normal"
-            fab:fab_colorNormal="@color/accent"
-            fab:fab_colorPressed="@color/primaryDark"
-            fab:fab_colorRipple="@color/primary"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:layout_marginLeft="@dimen/margin_medium"/>
+
     </RelativeLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>
+
