@@ -125,7 +125,10 @@ public class ActuatorRealtimeAdapter extends RecyclerView.Adapter<ActuatorRealti
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_actuator_set_time:
-                    Toast.makeText(mContext, "dfhetjnrtn", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.action_actuator_set_time, Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.action_actuator_set_conditions:
+                    Toast.makeText(mContext, R.string.action_actuator_set_conditions, Toast.LENGTH_SHORT).show();
                     return true;
                 default:
             }

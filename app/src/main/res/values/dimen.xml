@@ -11,6 +11,7 @@
     <dimen name="margin_large">50dp</dimen>
     <dimen name="margin_medium">10dp</dimen>
     <dimen name="margin_big">20dp</dimen>
+    <dimen name="margin_bigger">30dp</dimen>
     <dimen name="margin_small">5dp</dimen>
     <dimen name="margin_edit_text">8dp</dimen>
     <!--Text size-->

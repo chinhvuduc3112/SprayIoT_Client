@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vuduc.tluiot">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +24,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".WeatherActivity" />
-        <activity android:name=".NodeActivity"></activity>
+        <activity android:name=".NodeActivity" />
+        <activity android:name=".ActuatorActivity" />
+        <activity android:name=".AreaActivity"></activity>
     </application>
 
 </manifest>

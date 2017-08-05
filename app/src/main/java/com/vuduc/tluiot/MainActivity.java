@@ -119,9 +119,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_item_account_management) {
 
         } else if (id == R.id.nav_item_actuator) {
-
+            startActivity(new Intent(MainActivity.this, ActuatorActivity.class));
         } else if (id == R.id.nav_item_area_management) {
-
+            startActivity(new Intent(MainActivity.this, AreaActivity.class));
         } else if (id == R.id.nav_item_node_sensor) {
             startActivity(new Intent(MainActivity.this, NodeActivity.class));
         } else if (id==R.id.nav_item_weather) {

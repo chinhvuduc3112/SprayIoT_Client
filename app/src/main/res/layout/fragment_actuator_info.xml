@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.vuduc.fragments.NodeInfoFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.vuduc.fragments.ActuatorInfoFragment">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -12,10 +13,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv_info_node"
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/spinner_list_actuator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:ms_multiline="false"
+                app:ms_hint="Danh sách node cảm biến" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_info_actuator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinner_list_area"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
@@ -27,13 +36,13 @@
                     android:padding="@dimen/margin_medium">
 
                     <TextView
-                        android:id="@+id/tvLabelNodeInfo"
+                        android:id="@+id/tvLabelActuatorInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_small"
                         android:layout_marginLeft="@dimen/margin_small"
                         android:layout_marginTop="@dimen/margin_medium"
-                        android:text="Thông tin Node"
+                        android:text="Thông tin Area"
                         android:textColor="@color/navigationBar"
                         android:textSize="@dimen/txt_medium" />
 
@@ -51,12 +60,12 @@
                         android:id="@+id/vLine1"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_below="@+id/tvLabelNodeInfo"
+                        android:layout_below="@+id/tvLabelActuatorInfo"
                         android:layout_marginTop="@dimen/margin_medium"
                         android:background="@color/primaryDark" />
 
                     <TextView
-                        android:id="@+id/txt_node_name"
+                        android:id="@+id/txt_actuator_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/vLine1"
@@ -67,21 +76,21 @@
                         android:textSize="@dimen/txt_medium" />
 
                     <EditText
-                        android:id="@+id/edit_node_name"
+                        android:id="@+id/edit_actuator_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/txt_node_name"
+                        android:layout_alignBaseline="@+id/txt_actuator_name"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/margin_small"
-                        android:hint="Node 1"
+                        android:hint="Area 1"
                         android:textColor="@color/primary"
                         android:textSize="@dimen/txt_medium" />
 
                     <TextView
-                        android:id="@+id/txt_node_describe"
+                        android:id="@+id/txt_actuator_describe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/txt_node_name"
+                        android:layout_below="@+id/txt_actuator_name"
                         android:layout_marginLeft="@dimen/margin_small"
                         android:layout_marginTop="@dimen/margin_medium"
                         android:text="@string/info_describe"
@@ -89,10 +98,10 @@
                         android:textSize="@dimen/txt_medium" />
 
                     <EditText
-                        android:id="@+id/edit_node_describe"
+                        android:id="@+id/edit_actuator_describe"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/txt_node_describe"
+                        android:layout_below="@id/txt_actuator_describe"
                         android:layout_marginLeft="@dimen/margin_small"
                         android:layout_marginTop="@dimen/margin_medium"
                         android:gravity="top|left"
@@ -104,69 +113,8 @@
                         android:scrollbars="vertical"
                         android:textColor="@color/primary"
                         android:textSize="@dimen/txt_medium" />
-
-                    <TextView
-                        android:id="@+id/txt_node_area"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/edit_node_describe"
-                        android:layout_marginLeft="@dimen/margin_small"
-                        android:layout_marginTop="@dimen/margin_medium"
-                        android:text="@string/info_area"
-                        android:textColor="@color/navigationBar"
-                        android:textSize="@dimen/txt_medium" />
-
-                    <EditText
-                        android:id="@+id/edit_node_area"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/txt_node_area"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/margin_small"
-                        android:hint="Khu vực 1"
-                        android:textColor="@color/primary"
-                        android:textSize="@dimen/txt_medium" />
-
-                    <TextView
-                        android:id="@+id/txt_node_note"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/txt_node_area"
-                        android:layout_marginLeft="@dimen/margin_small"
-                        android:layout_marginTop="@dimen/margin_medium"
-                        android:text="@string/info_node"
-                        android:textColor="@color/navigationBar"
-                        android:textSize="@dimen/txt_medium" />
-
-                    <EditText
-                        android:id="@+id/edit_node_note"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txt_node_note"
-                        android:layout_marginRight="@dimen/margin_small"
-                        android:layout_marginTop="@dimen/margin_medium"
-                        android:gravity="top|left"
-                        android:hint="Khu vực 1"
-                        android:inputType="textMultiLine"
-                        android:lines="7"
-                        android:maxLines="20"
-                        android:minLines="5"
-                        android:scrollbars="vertical"
-                        android:textColor="@color/primary"
-                        android:textSize="@dimen/txt_medium" />
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_sensor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/cv_info_node"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_marginTop="@dimen/margin_medium">
-
-            </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>
-

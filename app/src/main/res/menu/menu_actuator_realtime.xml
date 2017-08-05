@@ -5,5 +5,10 @@
         android:id="@+id/action_actuator_set_time"
         android:orderInCategory="100"
         android:title="@string/action_actuator_set_time"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_actuator_set_conditions"
+        android:orderInCategory="101"
+        android:title="@string/action_actuator_set_conditions"
+        app:showAsAction="never"/>
 </menu>
