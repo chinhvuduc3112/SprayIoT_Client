@@ -44,7 +44,6 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     @Override
     public void onBindViewHolder(WeatherAdapter.ViewHolder holder, int position) {
         NextDayWeatherResponse.ListBean listBean  = weathers.get(position);
-
         long longDay = Long.valueOf(listBean.getDt());
         Date date = new Date(longDay*1000L);
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("EEEE");
@@ -58,10 +57,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         Picasso.with(context).load("http://openweathermap.org/img/w/"+weatherStatus.get(0).getIcon()+".png").into(holder.img_icon_status);
 
         Double nhietDoMax =listBean.getTemp().getMax();
-        nhietDoMax=nhietDoMax*0.1;
         String tempMax = String.valueOf(nhietDoMax.intValue());
         Double nhietDoMin = listBean.getTemp().getMin();
-        nhietDoMin=nhietDoMin*0.1;
         String tempMin = String.valueOf(nhietDoMin.intValue());
         holder.txt_temp_maxmin.setText(tempMax+"°/"+tempMin+"°");
 

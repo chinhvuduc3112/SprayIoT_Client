@@ -7,15 +7,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by VuDuc on 7/17/2017.
  */
 
-public class ApiClient {
-    public static final String BASE_URL = "http://api.openweathermap.org/data/2.5/";
+public class RetrofitClient {
     private static Retrofit retrofit = null;
 
-
-    public static Retrofit getClient() {
+    public static Retrofit getClient(String baseUrl) {
         if (retrofit==null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

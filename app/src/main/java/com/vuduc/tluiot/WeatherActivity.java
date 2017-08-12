@@ -19,8 +19,9 @@ import com.squareup.picasso.Picasso;
 import com.vuduc.adapters.WeatherAdapter;
 import com.vuduc.models.NextDayWeatherResponse;
 import com.vuduc.models.WeatherResponse;
-import com.vuduc.network.ApiClient;
-import com.vuduc.network.ApiInterface;
+import com.vuduc.network.ApiUtils;
+import com.vuduc.network.RetrofitClient;
+import com.vuduc.network.WeatherApiInterface;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -99,8 +100,9 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void getNextDayWeatherApi(String cityName) {
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<NextDayWeatherResponse> callNextDayWeather = apiService.getNextDayWeather(cityName, API_KEY);
+//        WeatherApiInterface apiService = RetrofitClient.getClient().create(WeatherApiInterface.class);
+        WeatherApiInterface apiService = ApiUtils.getWeatherApiService();
+        Call<NextDayWeatherResponse> callNextDayWeather = apiService.getNextDayWeather(cityName,"metric", API_KEY);
         callNextDayWeather.enqueue(new Callback<NextDayWeatherResponse>() {
             @Override
             public void onResponse(Call<NextDayWeatherResponse> call, Response<NextDayWeatherResponse> response) {
@@ -125,8 +127,9 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void getWeatherApi(String cityName) {
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<WeatherResponse> callWeather = apiService.getWeatherPresent(cityName, API_KEY);
+//        WeatherApiInterface apiService = RetrofitClient.getClient().create(WeatherApiInterface.class);
+        WeatherApiInterface apiService = ApiUtils.getWeatherApiService();
+        Call<WeatherResponse> callWeather = apiService.getWeatherPresent(cityName,"metric", API_KEY);
         callWeather.enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
@@ -162,13 +165,10 @@ public class WeatherActivity extends AppCompatActivity {
 
         WeatherResponse.Main main = data.getMain();
         Double nhietDoAvg = main.getTemp();
-        nhietDoAvg = nhietDoAvg * 0.1;
         String NhieuDoAvg = String.valueOf(nhietDoAvg.intValue());
         Double nhietDoMax = main.getTempMax();
-        nhietDoMax = nhietDoMax * 0.1;
         String NhieuDoMax = String.valueOf(nhietDoMax.intValue());
         Double nhietDoMin = main.getTempMin();
-        nhietDoMin = nhietDoMin * 0.1;
         String NhieuDoMin = String.valueOf(nhietDoMin.intValue());
         int doAm = main.getHumidity();
         String DoAm = String.valueOf(doAm);
