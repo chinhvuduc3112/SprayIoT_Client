@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -17,14 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.vuduc.adapters.ViewPagerAdapter;
 import com.vuduc.fragments.ActuatorRealtimeFragment;
 import com.vuduc.fragments.SensorRealtimeFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -124,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, AreaActivity.class));
         } else if (id == R.id.nav_item_node_sensor) {
             startActivity(new Intent(MainActivity.this, NodeActivity.class));
-        } else if (id==R.id.nav_item_weather) {
+        } else if (id == R.id.nav_item_weather) {
             startActivity(new Intent(MainActivity.this, WeatherActivity.class));
         }
 
