@@ -1,14 +1,18 @@
 package com.vuduc.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.Node;
@@ -27,12 +31,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class SensorRealtimeFragment extends Fragment {
+public class SensorRealtimeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.spinner)
     MaterialSpinner spinner;
+    @BindView(R.id.txt_value_temp)
+    TextView txt_value_temp;
+    @BindView(R.id.txt_value_light)
+    TextView txt_value_light;
+    @BindView(R.id.txt_value_humi)
+    TextView txt_value_humi;
+    @BindView(R.id.txt_value_humiAir)
+    TextView txt_value_humiAir;
+    @BindView(R.id.srlLayout)
+    SwipeRefreshLayout srlLayout;
 
     List<Node.ResultBean> listNode;
+    List<DeviceNodeResponse.Result> listDeviceNode;
     List<String> arrNodeName;
 
     public SensorRealtimeFragment() {
@@ -64,6 +79,7 @@ public class SensorRealtimeFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("tag: ", Integer.toString(i));
+                resetTextView();
                 if (i != -1) {
                     String idNode = listNode.get(i).getId();
                     getDeviceNodeByNode(idNode);
@@ -72,10 +88,18 @@ public class SensorRealtimeFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                resetTextView();
             }
         });
     }
+
+    private void resetTextView() {
+        txt_value_light.setText("N/A");
+        txt_value_temp.setText("N/A");
+        txt_value_humi.setText("N/A");
+        txt_value_humiAir.setText("N/A");
+    }
+
 
     private void getDeviceNodeByNode(String idNode) {
         SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
@@ -84,7 +108,6 @@ public class SensorRealtimeFragment extends Fragment {
             public void onResponse(Call<DeviceNodeResponse> call, Response<DeviceNodeResponse> response) {
                 if (response.isSuccessful()) {
                     initDeviceNode(response.body());
-                    Log.d("listDeviceNode", response.toString());
                 }
             }
 
@@ -95,8 +118,25 @@ public class SensorRealtimeFragment extends Fragment {
         });
     }
 
-    private void initDeviceNode(DeviceNodeResponse date) {
-
+    private void initDeviceNode(DeviceNodeResponse data) {
+        listDeviceNode = new ArrayList<>();
+        listDeviceNode = data.getResult();
+        for(DeviceNodeResponse.Result a : listDeviceNode){
+            switch (a.getDeviceType().getName()){
+                case "lightSensor":
+                    txt_value_light.setText(a.getData()+"");
+                    break;
+                case "tempSensor":
+                    txt_value_temp.setText(a.getData()+"");
+                    break;
+                case "humiSensor":
+                    txt_value_humi.setText(a.getData()+"");
+                    break;
+                case "airHumiSensor":
+                    txt_value_humiAir.setText(a.getData()+"");
+                    break;
+            }
+        }
     }
 
     private void getListNode() {
@@ -121,6 +161,7 @@ public class SensorRealtimeFragment extends Fragment {
     private void initListNode(Node data) {
         listNode = new ArrayList<>();
         listNode = data.getResult();
+        arrNodeName.clear();
         for (Node.ResultBean a : listNode) {
             arrNodeName.add(a.getName());
         }
@@ -131,6 +172,18 @@ public class SensorRealtimeFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, arrNodeName);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        srlLayout.setOnRefreshListener(this);
     }
 
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getListNode();
+                srlLayout.setRefreshing(false);
+            }
+        }, 2500);
+    }
 }

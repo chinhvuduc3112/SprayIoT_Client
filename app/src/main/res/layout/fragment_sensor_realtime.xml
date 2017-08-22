@@ -1,182 +1,191 @@
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/srlLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.vuduc.fragments.SensorRealtimeFragment">
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/margin_small">
-
-        <fr.ganfra.materialspinner.MaterialSpinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:ms_multiline="false"
-            app:ms_hint="Danh sách node cảm biến" />
-
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_small"
+            android:orientation="vertical">
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:ms_hint="Danh sách node cảm biến"
+                app:ms_multiline="false" />
+
 
             <LinearLayout
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/temperature"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:layout_gravity="top">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/temperature"
-                        android:textSize="@dimen/txt_small_medium"
-                        android:textColor="#000"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/nulls"
-                        android:textSize="@dimen/txt_small_medium"
-                        android:textColor="#000"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/sun"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:orientation="vertical"
-                    android:layout_gravity="top">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/sun"
-                        android:textSize="@dimen/txt_small_medium"
-                        android:textColor="#000"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/nulls"
-                        android:textSize="@dimen/txt_small_medium"
-                        android:textColor="#000"/>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:orientation="horizontal"
-                android:layout_marginLeft="@dimen/margin_medium">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/air_humidity"
-                    />
+                android:weightSum="2">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:layout_gravity="top">
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/humidity"
-                        android:textSize="@dimen/txt_small_medium"
-                        android:textColor="#000"/>
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/temperature" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/nulls"
-                        android:textSize="@dimen/txt_small_medium"
-                        android:textColor="#000"/>
+                        android:layout_gravity="top"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/temperature"
+                            android:textColor="#000"
+                            android:textSize="@dimen/txt_small_medium" />
+
+                        <TextView
+                            android:id="@+id/txt_value_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nulls"
+                            android:textColor="#000"
+                            android:textSize="@dimen/txt_small_medium" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/sun" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sun"
+                            android:textColor="#000"
+                            android:textSize="@dimen/txt_small_medium" />
+
+                        <TextView
+                            android:id="@+id/txt_value_light"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nulls"
+                            android:textColor="#000"
+                            android:textSize="@dimen/txt_small_medium" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/land_humidity"/>
+                android:layout_marginTop="@dimen/margin_medium"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:orientation="vertical"
-                    android:layout_gravity="top">
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/land_humidity"
-                        android:textSize="@dimen/txt_small_medium"
-                        android:textColor="#000"/>
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/air_humidity" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/nulls"
-                        android:textSize="@dimen/txt_small_medium"
-                        android:textColor="#000"/>
+                        android:layout_gravity="top"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/humidity"
+                            android:textColor="#000"
+                            android:textSize="@dimen/txt_small_medium" />
+
+                        <TextView
+                            android:id="@+id/txt_value_humiAir"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nulls"
+                            android:textColor="#000"
+                            android:textSize="@dimen/txt_small_medium" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/land_humidity" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/land_humidity"
+                            android:textColor="#000"
+                            android:textSize="@dimen/txt_small_medium" />
+
+                        <TextView
+                            android:id="@+id/txt_value_humi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nulls"
+                            android:textColor="#000"
+                            android:textSize="@dimen/txt_small_medium" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>
+

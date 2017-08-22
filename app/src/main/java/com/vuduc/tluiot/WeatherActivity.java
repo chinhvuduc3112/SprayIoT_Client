@@ -127,7 +127,6 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void getWeatherApi(String cityName) {
-//        WeatherApiInterface apiService = RetrofitClient.getClient().create(WeatherApiInterface.class);
         WeatherApiInterface apiService = ApiUtils.getWeatherApiService();
         Call<WeatherResponse> callWeather = apiService.getWeatherPresent(cityName,"metric", API_KEY);
         callWeather.enqueue(new Callback<WeatherResponse>() {
