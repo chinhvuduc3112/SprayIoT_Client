@@ -82,9 +82,9 @@ public class NodeActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if(tab.getPosition() == 1){
+                if (tab.getPosition() == 1) {
                     fab_info_node.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     fab_info_node.setVisibility(View.GONE);
                 }
             }
