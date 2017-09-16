@@ -1,8 +1,10 @@
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/srlLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.vuduc.fragments.AreaInfoFragment">
 
     <android.support.v4.widget.NestedScrollView
@@ -17,8 +19,8 @@
                 android:id="@+id/spinner_list_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:ms_multiline="false"
-                app:ms_hint="Danh sách node cảm biến" />
+                app:ms_hint="Danh sách node cảm biến"
+                app:ms_multiline="false"/>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cv_info_area"
@@ -44,7 +46,7 @@
                         android:layout_marginTop="@dimen/margin_medium"
                         android:text="Thông tin Area"
                         android:textColor="@color/navigationBar"
-                        android:textSize="@dimen/txt_medium" />
+                        android:textSize="@dimen/txt_medium"/>
 
                     <ImageView
                         android:id="@+id/img_options"
@@ -54,7 +56,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:padding="@dimen/margin_medium"
-                        android:src="@drawable/ic_more_vert_grey_500_24dp" />
+                        android:src="@drawable/ic_more_vert_grey_500_24dp"/>
 
                     <View
                         android:id="@+id/vLine1"
@@ -62,7 +64,7 @@
                         android:layout_height="1dp"
                         android:layout_below="@+id/tvLabelAreaInfo"
                         android:layout_marginTop="@dimen/margin_medium"
-                        android:background="@color/primaryDark" />
+                        android:background="@color/primaryDark"/>
 
                     <TextView
                         android:id="@+id/txt_area_name"
@@ -73,7 +75,7 @@
                         android:layout_marginTop="@dimen/margin_medium"
                         android:text="@string/info_name"
                         android:textColor="@color/navigationBar"
-                        android:textSize="@dimen/txt_medium" />
+                        android:textSize="@dimen/txt_medium"/>
 
                     <EditText
                         android:id="@+id/edit_area_name"
@@ -84,7 +86,7 @@
                         android:layout_marginRight="@dimen/margin_small"
                         android:hint="Area 1"
                         android:textColor="@color/primary"
-                        android:textSize="@dimen/txt_medium" />
+                        android:textSize="@dimen/txt_medium"/>
 
                     <TextView
                         android:id="@+id/txt_area_describe"
@@ -95,7 +97,7 @@
                         android:layout_marginTop="@dimen/margin_medium"
                         android:text="@string/info_describe"
                         android:textColor="@color/navigationBar"
-                        android:textSize="@dimen/txt_medium" />
+                        android:textSize="@dimen/txt_medium"/>
 
                     <EditText
                         android:id="@+id/edit_area_describe"
@@ -112,7 +114,7 @@
                         android:minLines="3"
                         android:scrollbars="vertical"
                         android:textColor="@color/primary"
-                        android:textSize="@dimen/txt_medium" />
+                        android:textSize="@dimen/txt_medium"/>
 
                     <TextView
                         android:id="@+id/txt_area_x"
@@ -123,7 +125,7 @@
                         android:layout_marginTop="@dimen/margin_medium"
                         android:text="@string/info_x"
                         android:textColor="@color/navigationBar"
-                        android:textSize="@dimen/txt_medium" />
+                        android:textSize="@dimen/txt_medium"/>
 
                     <EditText
                         android:id="@+id/edit_area_x"
@@ -134,7 +136,7 @@
                         android:layout_marginRight="@dimen/margin_small"
                         android:hint="405"
                         android:textColor="@color/primary"
-                        android:textSize="@dimen/txt_medium" />
+                        android:textSize="@dimen/txt_medium"/>
 
                     <TextView
                         android:id="@+id/txt_area_y"
@@ -145,7 +147,7 @@
                         android:layout_marginTop="@dimen/margin_medium"
                         android:text="@string/info_y"
                         android:textColor="@color/navigationBar"
-                        android:textSize="@dimen/txt_medium" />
+                        android:textSize="@dimen/txt_medium"/>
 
                     <EditText
                         android:id="@+id/edit_area_y"
@@ -156,7 +158,7 @@
                         android:layout_marginRight="@dimen/margin_small"
                         android:hint="560"
                         android:textColor="@color/primary"
-                        android:textSize="@dimen/txt_medium" />
+                        android:textSize="@dimen/txt_medium"/>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
         </RelativeLayout>

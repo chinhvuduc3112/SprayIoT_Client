@@ -25,6 +25,13 @@
             app:ms_multiline="false"
             app:ms_hint="Danh sách node cảm biến" />
 
+        <fr.ganfra.materialspinner.MaterialSpinner
+            android:id="@+id/spin_time_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:ms_multiline="false"
+            app:ms_hint="Danh sách node cảm biến" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,6 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:inputType="date"
                 android:editable="false"/>
 
             <EditText
@@ -43,6 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:inputType="date"
                 android:editable="false"/>
         </LinearLayout>
 

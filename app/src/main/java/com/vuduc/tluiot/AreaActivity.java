@@ -1,20 +1,17 @@
 package com.vuduc.tluiot;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.vuduc.adapters.ViewPagerAdapter;
 import com.vuduc.fragments.AreaDeviceFragment;
 import com.vuduc.fragments.AreaInfoFragment;
-import com.vuduc.fragments.NodeInfoFragment;
-import com.vuduc.fragments.NodeStatisticsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,7 +65,7 @@ public class AreaActivity extends AppCompatActivity {
                 finish(); // close this activity and return to preview activity (if there is any)
                 break;
             case R.id.action_notification:
-                Toast.makeText(getApplicationContext(),"thong bao",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "thong bao", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -79,5 +76,16 @@ public class AreaActivity extends AppCompatActivity {
         adapter.addFragment(new AreaInfoFragment(), "Thông tin");
         adapter.addFragment(new AreaDeviceFragment(), "Ds Thiết bị");
         viewPager.setAdapter(adapter);
+    }
+
+    public void transferData(String id) {
+        //mAreaDeviceFragment.setAreaID(id);
+        AreaDeviceFragment areaDeviceFragment = (AreaDeviceFragment) getSupportFragmentManager().
+                findFragmentByTag(makeFragmentName(R.id.viewpager, 1));
+        areaDeviceFragment.setAreaID(id);
+    }
+
+    public String makeFragmentName(int viewPagerId, int index) {
+        return "android:switcher:" + viewPagerId + ":" + index;
     }
 }

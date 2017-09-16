@@ -1,6 +1,5 @@
 package com.vuduc.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -69,7 +68,14 @@ public class SensorRealtimeFragment extends Fragment implements SwipeRefreshLayo
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getListNode();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getListNode();
+            }
+        }).start();
+
         addControls();
         addEvents();
     }
@@ -121,19 +127,19 @@ public class SensorRealtimeFragment extends Fragment implements SwipeRefreshLayo
     private void initDeviceNode(DeviceNodeResponse data) {
         listDeviceNode = new ArrayList<>();
         listDeviceNode = data.getResult();
-        for(DeviceNodeResponse.Result a : listDeviceNode){
-            switch (a.getDeviceType().getName()){
+        for (DeviceNodeResponse.Result a : listDeviceNode) {
+            switch (a.getDeviceType().getName()) {
                 case "lightSensor":
-                    txt_value_light.setText(a.getData()+"");
+                    txt_value_light.setText(a.getData() + "");
                     break;
                 case "tempSensor":
-                    txt_value_temp.setText(a.getData()+"");
+                    txt_value_temp.setText(a.getData() + "");
                     break;
                 case "humiSensor":
-                    txt_value_humi.setText(a.getData()+"");
+                    txt_value_humi.setText(a.getData() + "");
                     break;
                 case "airHumiSensor":
-                    txt_value_humiAir.setText(a.getData()+"");
+                    txt_value_humiAir.setText(a.getData() + "");
                     break;
             }
         }
@@ -172,7 +178,6 @@ public class SensorRealtimeFragment extends Fragment implements SwipeRefreshLayo
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, arrNodeName);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
         srlLayout.setOnRefreshListener(this);
     }
 

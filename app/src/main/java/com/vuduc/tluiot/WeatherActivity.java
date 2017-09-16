@@ -38,6 +38,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     private static final String TAG = WeatherActivity.class.getSimpleName();
     private final static String API_KEY = "0ac144176c255747798f398017a1da7d";
+    public static final String MYWEATHER_URL = "http://api.openweathermap.org/data/2.5/";
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.edit_city_name)
@@ -87,6 +88,7 @@ public class WeatherActivity extends AppCompatActivity {
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "btn_search.....");
                 String cityName = edit_city_name.getText().toString();
                 String cityName1 = "Hanoi";
                 if (cityName.equals("")) {
@@ -100,9 +102,9 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void getNextDayWeatherApi(String cityName) {
-//        WeatherApiInterface apiService = RetrofitClient.getClient().create(WeatherApiInterface.class);
+        //WeatherApiInterface apiService = RetrofitClient.getClient(MYWEATHER_URL).create(WeatherApiInterface.class);
         WeatherApiInterface apiService = ApiUtils.getWeatherApiService();
-        Call<NextDayWeatherResponse> callNextDayWeather = apiService.getNextDayWeather(cityName,"metric", API_KEY);
+        Call<NextDayWeatherResponse> callNextDayWeather = apiService.getNextDayWeather(cityName, "metric", API_KEY);
         callNextDayWeather.enqueue(new Callback<NextDayWeatherResponse>() {
             @Override
             public void onResponse(Call<NextDayWeatherResponse> call, Response<NextDayWeatherResponse> response) {
@@ -118,21 +120,23 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void initNextDayWeatherApi(NextDayWeatherResponse data) {
-        List<NextDayWeatherResponse.ListBean> listBean = data.getList();
-        listWeather.clear();
-        for(NextDayWeatherResponse.ListBean lb : listBean){
-            listWeather.add(lb);
+        if (data != null) {
+            List<NextDayWeatherResponse.ListBean> listBean = data.getList();
+            listWeather.clear();
+            for (NextDayWeatherResponse.ListBean lb : listBean) {
+                listWeather.add(lb);
+            }
+            weatherAdapter.notifyDataSetChanged();
         }
-        weatherAdapter.notifyDataSetChanged();
     }
 
     private void getWeatherApi(String cityName) {
         WeatherApiInterface apiService = ApiUtils.getWeatherApiService();
-        Call<WeatherResponse> callWeather = apiService.getWeatherPresent(cityName,"metric", API_KEY);
+        Call<WeatherResponse> callWeather = apiService.getWeatherPresent(cityName, "metric", API_KEY);
         callWeather.enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                //Log.d("message", response.toString());
+                Log.d("message", response.toString());
                 if (response.isSuccessful()) {
                     initWeatherApi(response.body());
                 }
