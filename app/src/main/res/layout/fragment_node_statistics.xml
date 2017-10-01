@@ -1,66 +1,100 @@
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/srlLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.vuduc.fragments.NodeStatisticsFragment">
 
-    <LinearLayout
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/margin_medium">
-
-        <fr.ganfra.materialspinner.MaterialSpinner
-            android:id="@+id/spin_list_node"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:ms_multiline="false"
-            app:ms_hint="Danh sách node cảm biến" />
-
-        <fr.ganfra.materialspinner.MaterialSpinner
-            android:id="@+id/spin_type_statistics"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:ms_multiline="false"
-            app:ms_hint="Danh sách node cảm biến" />
-
-        <fr.ganfra.materialspinner.MaterialSpinner
-            android:id="@+id/spin_time_statistics"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:ms_multiline="false"
-            app:ms_hint="Danh sách node cảm biến" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edit_date_form"
-                android:layout_width="0dp"
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/spin_list_node"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="date"
-                android:editable="false"/>
+                app:ms_hint="Danh sách node cảm biến"
+                app:ms_multiline="false"/>
 
-            <EditText
-                android:id="@+id/edit_date_to"
-                android:layout_width="0dp"
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/spin_type_statistics"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="date"
-                android:editable="false"/>
+                app:ms_hint="Kiểu dữ liệu"
+                app:ms_multiline="false"/>
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/spin_time_statistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:ms_hint="Chọn khoảng thời gian cần tra"
+                app:ms_multiline="false"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/txt_date_form"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#90000000"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/margin_medium"
+                    android:paddingBottom="@dimen/margin_medium"
+                    android:text="startDay"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/txt_medium"/>
+
+                <TextView
+                    android:id="@+id/txt_date_to"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#90000000"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/margin_medium"
+                    android:paddingBottom="@dimen/margin_medium"
+                    android:text="stopDay"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/txt_medium"/>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:padding="12dp"
+                style="@style/ButtonStyle"
+                android:text="@string/btn_submit"/>
+
+            <!--<FrameLayout-->
+                <!--android:id="@+id/frame_node_statistics"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
+
+            <!--</FrameLayout>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:text="N/A"
+                android:textSize="16sp"/>
         </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/frame_node_statistics"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
-    </LinearLayout>
-
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

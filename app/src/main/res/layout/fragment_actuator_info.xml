@@ -25,7 +25,7 @@
                 android:id="@+id/cv_info_actuator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/spinner_list_area"
+                android:layout_below="@+id/spinner_list_actuator"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"

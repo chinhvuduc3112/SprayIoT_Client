@@ -64,7 +64,6 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Logger.d(TAG, "onCreateView=======");
         View v = inflater.inflate(R.layout.fragment_area_info, container, false);
         ButterKnife.bind(this, v);
         arrAreaName = new ArrayList<>();
@@ -75,7 +74,6 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Logger.d(TAG, "onViewCreated=======");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -164,6 +162,7 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, arrAreaName);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_list_area.setAdapter(adapter);
+
         srlLayout.setOnRefreshListener(this);
     }
 

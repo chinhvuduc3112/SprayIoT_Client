@@ -1,8 +1,11 @@
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/srlLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.vuduc.fragments.NodeInfoFragment">
+    tools:context="com.vuduc.fragments.NodeInfoFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -12,10 +15,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/spinner_list_node"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:ms_hint="Danh sách node cảm biến"
+                app:ms_multiline="false"/>
+
             <android.support.v7.widget.CardView
                 android:id="@+id/cv_info_node"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/spinner_list_node"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"

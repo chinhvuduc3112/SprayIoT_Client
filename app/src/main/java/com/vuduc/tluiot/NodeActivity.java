@@ -79,26 +79,27 @@ public class NodeActivity extends AppCompatActivity {
         adapter.addFragment(new NodeStatisticsFragment(), "Thống kê");
         adapter.addFragment(new NodeInfoFragment(), "Thông tin");
         viewPager.setAdapter(adapter);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if(tab.getPosition() == 1){
-                    fab_info_node.setVisibility(View.VISIBLE);
-                }else{
-                    fab_info_node.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                if(tab.getPosition() == 1){
+//                    fab_info_node.setVisibility(View.VISIBLE);
+//                }else{
+//                    fab_info_node.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
     }
+
+
 }
