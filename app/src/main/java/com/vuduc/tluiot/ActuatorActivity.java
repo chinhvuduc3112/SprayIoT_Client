@@ -1,20 +1,17 @@
 package com.vuduc.tluiot;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.vuduc.adapters.ViewPagerAdapter;
 import com.vuduc.fragments.ActuatorInfoFragment;
 import com.vuduc.fragments.ActuatorRealtimeFragment;
-import com.vuduc.fragments.AreaDeviceFragment;
-import com.vuduc.fragments.AreaInfoFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
