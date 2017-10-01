@@ -23,7 +23,8 @@ import butterknife.ButterKnife;
 
 
 public class ActuatorRealtimeFragment extends Fragment {
-    @BindView(R.id.recyclerview) RecyclerView recyclerView;
+    @BindView(R.id.recyclerview)
+    RecyclerView recyclerView;
     private ActuatorRealtimeAdapter adapter;
     private List<ActuatorRealtime> actuatorList;
 
@@ -35,7 +36,7 @@ public class ActuatorRealtimeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_actuator_realtime, container, false);
+        View v = inflater.inflate(R.layout.fragment_actuator_realtime, container, false);
         ButterKnife.bind(this, v);
         addEvents();
         return v;
@@ -53,33 +54,33 @@ public class ActuatorRealtimeFragment extends Fragment {
     }
 
     private void prepareActuator() {
-        ActuatorRealtime a = new ActuatorRealtime("Thiết bị 1", 3600000L,true);
+        ActuatorRealtime a = new ActuatorRealtime("Thiết bị 1", 3600000L, true);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 2", 3600000L,true);
+        a = new ActuatorRealtime("Thiết bị 2", 3600000L, true);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 3", 3600000L,false);
+        a = new ActuatorRealtime("Thiết bị 3", 3600000L, false);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 4", 3600000L,true);
+        a = new ActuatorRealtime("Thiết bị 4", 3600000L, true);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 5", 3600000L,false);
+        a = new ActuatorRealtime("Thiết bị 5", 3600000L, false);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 6", 3600000L,true);
+        a = new ActuatorRealtime("Thiết bị 6", 3600000L, true);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 7", 3600000L,false);
+        a = new ActuatorRealtime("Thiết bị 7", 3600000L, false);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 8", 3600000L,true);
+        a = new ActuatorRealtime("Thiết bị 8", 3600000L, true);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 9", 3600000L,false);
+        a = new ActuatorRealtime("Thiết bị 9", 3600000L, false);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 10", 3600000L,true);
+        a = new ActuatorRealtime("Thiết bị 10", 3600000L, true);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 11", 3600000L,false);
+        a = new ActuatorRealtime("Thiết bị 11", 3600000L, false);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 12", 3600000L,true);
+        a = new ActuatorRealtime("Thiết bị 12", 3600000L, true);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 13", 3600000L,false);
+        a = new ActuatorRealtime("Thiết bị 13", 3600000L, false);
         actuatorList.add(a);
-        a = new ActuatorRealtime("Thiết bị 14", 3600000L,true);
+        a = new ActuatorRealtime("Thiết bị 14", 3600000L, true);
         actuatorList.add(a);
         adapter.notifyDataSetChanged();
     }

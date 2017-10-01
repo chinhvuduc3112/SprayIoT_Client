@@ -166,10 +166,12 @@ public class SensorRealtimeFragment extends Fragment implements SwipeRefreshLayo
 
     private void initListNode(Node data) {
         listNode = new ArrayList<>();
-        listNode = data.getResult();
-        arrNodeName.clear();
-        for (Node.ResultBean a : listNode) {
-            arrNodeName.add(a.getName());
+        if (data.getResult() != null) {
+            listNode = data.getResult();
+            arrNodeName.clear();
+            for (Node.ResultBean a : listNode) {
+                arrNodeName.add(a.getName());
+            }
         }
     }
 
