@@ -8,7 +8,7 @@ import java.util.List;
  */
 
 public class FixData {
-    public static List<String> addTypeData() {
+    public static List<String>  addTypeData() {
         List<String> typeData = new ArrayList<>();
 
         String m1 = new String("Nhiệt độ");

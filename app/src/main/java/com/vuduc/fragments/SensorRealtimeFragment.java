@@ -18,6 +18,7 @@ import com.vuduc.models.Node;
 import com.vuduc.network.ApiUtils;
 import com.vuduc.network.SprayIoTApiInterface;
 import com.vuduc.tluiot.R;
+import com.vuduc.until.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +85,7 @@ public class SensorRealtimeFragment extends Fragment implements SwipeRefreshLayo
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("tag: ", Integer.toString(i));
+                Logger.d("tag: ", Integer.toString(i));
                 resetTextView();
                 if (i != -1) {
                     String idNode = listNode.get(i).getId();

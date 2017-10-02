@@ -17,14 +17,16 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.Dark">
+
+        </activity>
+        <activity android:name=".WeatherActivity" />
+        <activity android:name=".NodeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WeatherActivity" />
-        <activity android:name=".NodeActivity" />
         <activity android:name=".ActuatorActivity" />
         <activity android:name=".AreaActivity"></activity>
     </application>
