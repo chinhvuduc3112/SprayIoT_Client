@@ -15,6 +15,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.Node;
 import com.vuduc.network.ApiUtils;
@@ -29,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -52,6 +58,8 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
     TextView txt_date_to;
     @BindView(R.id.srlLayout)
     SwipeRefreshLayout srlLayout;
+    @BindView(R.id.chart)
+    LineChart mChart;
 
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -61,6 +69,8 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
     List<String> arrNodeName;
     List<String> arrTypeData;
     List<String> arrTypeDate;
+    List<Entry> entriesData;
+    List<String> mChartLables;
 
     public NodeStatisticsFragment() {
         // Required empty public constructor
@@ -114,6 +124,13 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
         adapterTypeDate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin_time_statistics.setAdapter(adapterTypeDate);
 
+//        //LineChart
+//        LineDataSet dataSet = new LineDataSet(entriesData, "Times");
+//        mChartLables = FixData.labelsLineChartDay();
+//        LineData chartData = new LineData(dataSet);
+//        chartData.setValueTextColor(ColorTemplate.COLORFUL_COLORS);
+
+        //Refresh
         srlLayout.setOnRefreshListener(this);
     }
 
@@ -150,7 +167,7 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String idDeviceNode = getIdDeviceNode(i);
-                Logger.d(TAG, idDeviceNode + "....");
+
             }
 
             @Override

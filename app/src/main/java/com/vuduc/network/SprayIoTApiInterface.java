@@ -40,4 +40,6 @@ public interface SprayIoTApiInterface {
     Call<AreaResponse> updateArea(@Field("name") String areaName, @Field("note") String areaNode,
                                   @Field("x") int x, @Field("y") int y,
                                   @Field("trash") Boolean isTrash, @Field("_id") String id);
+
+
 }

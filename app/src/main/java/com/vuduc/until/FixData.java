@@ -33,4 +33,13 @@ public class FixData {
 
         return typeDate;
     }
+
+    public static List<String> labelsLineChartDay() {
+        ArrayList<String> labels = new ArrayList<String>();
+        for(int i=0;i<24;i++){
+            String hour = i+"h";
+            labels.add(hour);
+        }
+        return labels;
+    }
 }
