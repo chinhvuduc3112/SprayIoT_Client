@@ -54,9 +54,9 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     SwipeRefreshLayout srlLayout;
     @BindView(R.id.img_options)
     ImageView img_options;
+
     List<AreaResponse.Result> listArea;
     List<String> arrAreaName;
-    private AreaDeviceFragment mAreaDeviceFragment;
     private Context mContext;
     private String mAreaId;
 
