@@ -24,8 +24,8 @@ import butterknife.ButterKnife;
 
 public class NodeActivity extends AppCompatActivity {
 
-    @BindView(R.id.fab_info_node)
-    FloatingActionMenu fab_info_node;
+//    @BindView(R.id.fab_info_node)
+//    FloatingActionMenu fab_info_node;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.viewpager)

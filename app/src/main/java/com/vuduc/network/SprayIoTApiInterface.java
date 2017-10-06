@@ -1,5 +1,6 @@
 package com.vuduc.network;
 
+import com.vuduc.models.AreaByIdResponse;
 import com.vuduc.models.AreaResponse;
 import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.Node;
@@ -28,12 +29,16 @@ public interface SprayIoTApiInterface {
     @GET("/getAreas")
     Call<AreaResponse> getAreas();
 
+    @GET("/getArea/{id}")
+    Call<AreaByIdResponse> getAreaById(@Path("id") String idArea);
+
     @GET("/getNodeByIdArea/{id}")
     Call<Node> getNodeByIdArea(@Path("id") String areaId);
 
     @FormUrlEncoded
     @POST("/addArea")
-    Call<AreaResponse> addArea(@Field("name") String areaName, @Field("note") String areaNode, @Field("x") int x, @Field("y") int y);
+    Call<AreaResponse> addArea(@Field("name") String areaName, @Field("note") String areaNode,
+                               @Field("x") int x, @Field("y") int y);
 
     @FormUrlEncoded
     @PUT("/updateArea")

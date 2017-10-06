@@ -6,6 +6,7 @@
     <string name="action_actuator_set_conditions">Điều kiện hoạt động</string>
     <string name="action_update_info">Sửa thông tin</string>
     <string name="action_create_area">Thêm mới khu vực</string>
+    <string name="action_add_node">Thêm mới Node</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
@@ -49,7 +50,7 @@
     <string name="info_x">Tung độ</string>
     <string name="info_y">Vị độ</string>
     <string name="type_device">Loại thiết bị</string>
-    
+
     <string name="toast_add_area_successful">Thêm khu vực thành công</string>
     <string name="toast_add_area_fail">Thêm khu vực thất bại</string>
     <string name="toast_update_area_successful">Sửa thông tin thành công</string>

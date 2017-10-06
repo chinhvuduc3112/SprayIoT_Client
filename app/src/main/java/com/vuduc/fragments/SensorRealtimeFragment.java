@@ -101,10 +101,10 @@ public class SensorRealtimeFragment extends Fragment implements SwipeRefreshLayo
     }
 
     private void resetTextView() {
-        txt_value_light.setText("N/A");
-        txt_value_temp.setText("N/A");
-        txt_value_humi.setText("N/A");
-        txt_value_humiAir.setText("N/A");
+        txt_value_light.setText(R.string.nulls);
+        txt_value_temp.setText(R.string.nulls);
+        txt_value_humi.setText(R.string.nulls);
+        txt_value_humiAir.setText(R.string.nulls);
     }
 
 
