@@ -12,29 +12,25 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.Node;
 import com.vuduc.network.ApiUtils;
 import com.vuduc.network.SprayIoTApiInterface;
-import com.vuduc.tluiot.MainActivity;
 import com.vuduc.tluiot.R;
 import com.vuduc.until.FixData;
 import com.vuduc.until.Logger;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -63,6 +59,7 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
 
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    String mDeviceNodeId;
 
     List<Node.ResultBean> listNode;
     List<DeviceNodeResponse.Result> listDeviceNode;
@@ -224,14 +221,18 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
         return mIdDeviceNode;
     }
 
-    private void setDatePicker(final TextView edit_date_picker) {
+    private void setDatePicker(final TextView txt_date_picker) {
         DatePickerDialog.OnDateSetListener callBack = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 calendar.set(Calendar.YEAR, i);
                 calendar.set(Calendar.MONTH, i1);
                 calendar.set(Calendar.DAY_OF_MONTH, i2);
-                edit_date_picker.setText(sdf.format(calendar.getTime()));
+                txt_date_picker.setText(sdf.format(calendar.getTime()));
+
+                Date date = (Date) calendar.getTime();
+                long output = date.getTime();
+                Logger.d(TAG, output + ".....2");
             }
         };
         DatePickerDialog dialog = new DatePickerDialog(

@@ -2,6 +2,7 @@ package com.vuduc.network;
 
 import com.vuduc.models.AreaByIdResponse;
 import com.vuduc.models.AreaResponse;
+import com.vuduc.models.DataByHoursResponse;
 import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.Node;
 import com.vuduc.models.WeatherResponse;
@@ -34,6 +35,9 @@ public interface SprayIoTApiInterface {
 
     @GET("/getNodeByIdArea/{id}")
     Call<Node> getNodeByIdArea(@Path("id") String areaId);
+
+    @GET("/getChartByHours/{timestamp}?")
+    Call<DataByHoursResponse> getChartByHours(@Path("timestamp") Long currentDay, @Query("deviceNodeId") String deviceNodeId);
 
     @FormUrlEncoded
     @POST("/addArea")
