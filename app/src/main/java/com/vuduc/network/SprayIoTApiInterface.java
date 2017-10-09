@@ -51,5 +51,9 @@ public interface SprayIoTApiInterface {
                                   @Field("trash") Boolean isTrash, @Field("_id") String id);
 
 
-
+    @FormUrlEncoded
+    @PUT("/updateNode")
+    Call<Node> updateNode(@Field("_id") String id, @Field("name") String name,
+                          @Field("description") String description, @Field("idArea") String idArea,
+                          @Field("note") String note, @Field("trash") Boolean isTrash);
 }

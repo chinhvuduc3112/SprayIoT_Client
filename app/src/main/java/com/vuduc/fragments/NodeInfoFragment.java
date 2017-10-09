@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -232,16 +233,22 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
-                case R.id.action_add_node:
-                    FragmentManager fm = getFragmentManager();
-                    FragmentTransaction ft_add = fm.beginTransaction();
-                    ft_add.addToBackStack(null);
-                    ft_add.add(R.id.frame_node_info,new AddNodeFragment());
-                    ft_add.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft_add.commit();
-                    return true;
+//                case R.id.action_add_node:
+//                    FragmentManager fm = getFragmentManager();
+//                    FragmentTransaction ft_add = fm.beginTransaction();
+//                    ft_add.addToBackStack(null);
+//                    ft_add.add(R.id.frame_node_info,new AddNodeFragment());
+//                    ft_add.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                    ft_add.commit();
+//                    return true;
                 case R.id.action_update_info:
-                    Toast.makeText(getContext(), "dfhetjnrtn", Toast.LENGTH_SHORT).show();
+                    if (!TextUtils.isEmpty(mAreaId))
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //requestUpdateNode(name, note, areaX, areaY, mAreaId);
+                            }
+                        }).start();
                     return true;
                 default:
             }
