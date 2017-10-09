@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 
 
 public class AddNodeFragment extends Fragment {
-    @BindView(R.id.btn_chinh)
+    @BindView(R.id.btn_cancel)
     Button btn_chinh;
 
     public AddNodeFragment() {

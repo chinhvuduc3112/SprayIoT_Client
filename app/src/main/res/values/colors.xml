@@ -10,6 +10,6 @@
     <color name="navigationBar">#000000</color>
     <color name="divider">#BDBDBD</color>
     <color name="accent">#FF5252</color>
-
+    <color name="accentDark">#D50000</color>
     <color name="blue">#2196F3</color>
 </resources>

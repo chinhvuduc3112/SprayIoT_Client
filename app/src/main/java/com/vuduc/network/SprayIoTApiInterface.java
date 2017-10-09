@@ -7,6 +7,7 @@ import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.Node;
 import com.vuduc.models.WeatherResponse;
 
+import butterknife.internal.ListenerClass;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -43,6 +44,11 @@ public interface SprayIoTApiInterface {
     @POST("/addArea")
     Call<AreaResponse> addArea(@Field("name") String areaName, @Field("note") String areaNode,
                                @Field("x") int x, @Field("y") int y);
+
+    @FormUrlEncoded
+    @POST("/addNode")
+    Call<Node> addNode(@Field("name") String nodeName, @Field("description") String description,
+                       @Field("idArea") String idArea, @Field("note") String note);
 
     @FormUrlEncoded
     @PUT("/updateArea")
