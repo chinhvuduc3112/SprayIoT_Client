@@ -1,21 +1,28 @@
 package com.vuduc.fragments;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.vuduc.models.DataByHoursResponse;
 import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.Node;
 import com.vuduc.network.ApiUtils;
@@ -24,7 +31,6 @@ import com.vuduc.tluiot.R;
 import com.vuduc.until.FixData;
 import com.vuduc.until.Logger;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +48,7 @@ import retrofit2.Response;
 public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = NodeStatisticsFragment.class.getSimpleName();
+
     @BindView(R.id.spin_list_node)
     MaterialSpinner spin_list_node;
     @BindView(R.id.spin_type_statistics)
@@ -54,20 +61,27 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
     TextView txt_date_to;
     @BindView(R.id.srlLayout)
     SwipeRefreshLayout srlLayout;
+    @BindView(R.id.btn_submit)
+    Button btnSubmit;
     @BindView(R.id.chart)
     LineChart mChart;
 
-    Calendar calendar = Calendar.getInstance();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    String mDeviceNodeId;
+    private Calendar calendar = Calendar.getInstance();
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private String mDeviceNodeId;
+    private Long mStartDay, mStopDay;
 
     List<Node.ResultBean> listNode;
     List<DeviceNodeResponse.Result> listDeviceNode;
     List<String> arrNodeName;
     List<String> arrTypeData;
     List<String> arrTypeDate;
-    List<Entry> entriesData;
+    List<Entry> mEntriesData;
     List<String> mChartLables;
+    LineDataSet mDataSet;
+    LineData mChartData;
+
+    private Context mContext;
 
     public NodeStatisticsFragment() {
         // Required empty public constructor
@@ -85,6 +99,11 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
         View v = inflater.inflate(R.layout.fragment_node_statistics, container, false);
         ButterKnife.bind(this, v);
         arrNodeName = new ArrayList<>();
+
+        mEntriesData = new ArrayList<>();
+        mChartLables = new ArrayList<>();
+
+        mContext = getActivity().getApplicationContext();
         return v;
     }
 
@@ -121,12 +140,15 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
         adapterTypeDate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin_time_statistics.setAdapter(adapterTypeDate);
 
-//        //LineChart
-//        LineDataSet dataSet = new LineDataSet(entriesData, "Times");
-//        mChartLables = FixData.labelsLineChartDay();
-//        LineData chartData = new LineData(dataSet);
-//        chartData.setValueTextColor(ColorTemplate.COLORFUL_COLORS);
-
+        //LineChart
+        mEntriesData.add(new Entry(0, 0));
+        mDataSet = new LineDataSet(mEntriesData, "Times");
+        mChartData = new LineData(mDataSet);
+        mDataSet.setColor(R.color.primary);
+        mDataSet.setDrawFilled(true);
+        mChart.setData(mChartData);
+        mChart.animateY(2500);
+        mChart.notifyDataSetChanged();
         //Refresh
         srlLayout.setOnRefreshListener(this);
     }
@@ -163,8 +185,10 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
         spin_type_statistics.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String idDeviceNode = getIdDeviceNode(i);
-
+                mDeviceNodeId = getIdDeviceNode(i);
+                if (mDeviceNodeId == null && i != -1) {
+                    Toast.makeText(mContext, R.string.toast_warning_null_deviceNodeId, Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -190,6 +214,69 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
                 txt_date_to.setVisibility(View.VISIBLE);
             }
         });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mStartDay != null && mDeviceNodeId != null)
+                    getDataStatistics();
+                else if (mStartDay == null) {
+                    Toast.makeText(mContext, R.string.toast_warning_miss_day, Toast.LENGTH_SHORT).show();
+                } else if (mDeviceNodeId == null) {
+                    Toast.makeText(mContext, R.string.toast_warning_miss_deviceNodeId, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void getDataStatistics() {
+        getChartByHours();
+    }
+
+    private void getChartByHours() {
+        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
+        Call<DataByHoursResponse> callListNode = apiService.getChartByHours(mStartDay, mDeviceNodeId);
+        callListNode.enqueue(new Callback<DataByHoursResponse>() {
+            @Override
+            public void onResponse(Call<DataByHoursResponse> call, Response<DataByHoursResponse> response) {
+                if (response.isSuccessful()) {
+                    initDataByHours(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataByHoursResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void initDataByHours(DataByHoursResponse data) {
+        int i = 0;
+        resetChart();
+        for (DataByHoursResponse.ResultBean a : data.getResult()) {
+            if (a.getAvgData() != -1) {
+                mDataSet.addEntry(new Entry(i, a.getAvgData()));
+                mChartData.notifyDataChanged();
+                mChart.notifyDataSetChanged();
+                mChart.invalidate();
+            } else {
+                mDataSet.addEntry(new Entry(i, 0));
+                mChartData.notifyDataChanged();
+                mChart.notifyDataSetChanged();
+                mChart.invalidate();
+            }
+            i++;
+        }
+    }
+
+    private void resetChart(){
+        while(mDataSet.removeFirst()){
+            mDataSet.removeFirst();
+        }
+        mChartData.notifyDataChanged();
+        mChart.notifyDataSetChanged();
+        mChart.invalidate();
     }
 
     private String getIdDeviceNode(int i) {
@@ -213,9 +300,11 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
 
     private String getDeviceNodeByType(String type) {
         String mIdDeviceNode = null;
-        for (DeviceNodeResponse.Result a : listDeviceNode) {
-            if (a.getDeviceType().getName().equals(type)) {
-                mIdDeviceNode = a.getId();
+        if (listDeviceNode != null) {
+            for (DeviceNodeResponse.Result a : listDeviceNode) {
+                if (a.getDeviceType().getName().equals(type)) {
+                    mIdDeviceNode = a.getId();
+                }
             }
         }
         return mIdDeviceNode;
@@ -231,8 +320,8 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
                 txt_date_picker.setText(sdf.format(calendar.getTime()));
 
                 Date date = (Date) calendar.getTime();
-                long output = date.getTime();
-                Logger.d(TAG, output + ".....2");
+                mStartDay = date.getTime();
+                Logger.d(TAG, mStartDay + " ..... " + mDeviceNodeId);
             }
         };
         DatePickerDialog dialog = new DatePickerDialog(

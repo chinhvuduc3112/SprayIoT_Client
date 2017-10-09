@@ -51,4 +51,5 @@ public interface SprayIoTApiInterface {
                                   @Field("trash") Boolean isTrash, @Field("_id") String id);
 
 
+
 }

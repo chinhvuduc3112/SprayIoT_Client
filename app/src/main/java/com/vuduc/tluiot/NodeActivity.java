@@ -1,7 +1,10 @@
 package com.vuduc.tluiot;
 
+import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.vuduc.adapters.ViewPagerAdapter;
 import com.vuduc.fragments.ActuatorRealtimeFragment;
+import com.vuduc.fragments.AddNodeFragment;
 import com.vuduc.fragments.NodeInfoFragment;
 import com.vuduc.fragments.NodeStatisticsFragment;
 import com.vuduc.fragments.SensorRealtimeFragment;
@@ -24,8 +29,10 @@ import butterknife.ButterKnife;
 
 public class NodeActivity extends AppCompatActivity {
 
-//    @BindView(R.id.fab_info_node)
-//    FloatingActionMenu fab_info_node;
+    @BindView(R.id.fab_info_node)
+    FloatingActionMenu fab_info_node;
+    @BindView(R.id.fab_create_node)
+    FloatingActionButton fabCreateNode;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.viewpager)
@@ -33,10 +40,13 @@ public class NodeActivity extends AppCompatActivity {
     @BindView(R.id.tabs)
     TabLayout tabLayout;
 
+    private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_node);
+        mContext = this;
         addControls();
         addEvents();
     }
@@ -56,7 +66,16 @@ public class NodeActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
-
+        fabCreateNode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddNodeFragment addNodeFragment = new AddNodeFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.frame_node_info, addNodeFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 
     @Override
@@ -79,26 +98,26 @@ public class NodeActivity extends AppCompatActivity {
         adapter.addFragment(new NodeStatisticsFragment(), "Thống kê");
         adapter.addFragment(new NodeInfoFragment(), "Thông tin");
         viewPager.setAdapter(adapter);
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                if(tab.getPosition() == 1){
-//                    fab_info_node.setVisibility(View.VISIBLE);
-//                }else{
-//                    fab_info_node.setVisibility(View.GONE);
-//                }
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 1) {
+                    fab_info_node.setVisibility(View.VISIBLE);
+                } else {
+                    fab_info_node.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
 

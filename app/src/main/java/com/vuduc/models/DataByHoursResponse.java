@@ -13,7 +13,7 @@ public class DataByHoursResponse {
 
     /**
      * status : 1
-     * result : [{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":null,"avgData":null},{"_id":"59999aa1df986f212c94f275","avgData":21.75},{"_id":null,"avgData":null},{"_id":null,"avgData":null}]
+     * result : [{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1},{"_id":"59999aa1df986f212c94f275","avgData":21.75},{"_id":null,"avgData":-1},{"_id":null,"avgData":-1}]
      */
 
     @SerializedName("status")
@@ -45,32 +45,32 @@ public class DataByHoursResponse {
     public static class ResultBean {
         /**
          * _id : null
-         * avgData : null
+         * avgData : -1
          */
 
         @SerializedName("_id")
-        private Object id;
+        private String id;
         @SerializedName("avgData")
-        private Object avgData;
+        private float avgData;
 
         public static ResultBean objectFromData(String str) {
 
             return new Gson().fromJson(str, ResultBean.class);
         }
 
-        public Object getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(Object id) {
+        public void setId(String id) {
             this.id = id;
         }
 
-        public Object getAvgData() {
+        public float getAvgData() {
             return avgData;
         }
 
-        public void setAvgData(Object avgData) {
+        public void setAvgData(float avgData) {
             this.avgData = avgData;
         }
     }

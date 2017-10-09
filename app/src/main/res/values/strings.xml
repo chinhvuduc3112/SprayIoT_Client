@@ -51,11 +51,13 @@
     <string name="info_y">Vị độ</string>
     <string name="type_device">Loại thiết bị</string>
 
-    <string name="toast_add_area_successful">Thêm khu vực thành công</string>
-    <string name="toast_add_area_fail">Thêm khu vực thất bại</string>
-    <string name="toast_update_area_successful">Sửa thông tin thành công</string>
-    <string name="toast_update_area_fail">Sửa khu vực thất bại</string>
-
+    <string name="toast_add_area_successful">Thêm khu vực thành công.</string>
+    <string name="toast_add_area_fail">Thêm khu vực thất bại.</string>
+    <string name="toast_update_area_successful">Sửa thông tin thành công.</string>
+    <string name="toast_update_area_fail">Sửa khu vực thất bại.</string>
+    <string name="toast_warning_miss_day">Xin lỗi! Bạn chưa chọn ngày.</string>
+    <string name="toast_warning_miss_deviceNodeId">Xin lỗi! Bạn chưa chọn loại dữ liệu.</string>
+    <string name="toast_warning_null_deviceNodeId">         Xin lỗi!\n Node bạn chọn không có loại cảm biến này.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
