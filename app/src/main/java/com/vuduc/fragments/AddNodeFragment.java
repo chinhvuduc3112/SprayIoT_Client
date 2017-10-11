@@ -60,7 +60,7 @@ public class AddNodeFragment extends Fragment {
     }
 
     private void addControls() {
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, countriesList);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, countriesList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerListArea.setAdapter(dataAdapter);
     }

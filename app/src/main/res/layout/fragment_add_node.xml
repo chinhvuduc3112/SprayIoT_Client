@@ -57,30 +57,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/txt_node_name"
             android:layout_marginRight="@dimen/error_label_spacing"
-            android:layout_toLeftOf="@+id/btn_edit_area"
+            android:layout_alignParentRight="true"
             android:hint="Node 1"
             android:textColor="@color/primary"
             android:textSize="@dimen/txt_medium"/>
-
-        <ImageView
-            android:id="@+id/btn_edit_area"
-            android:layout_width="@dimen/tab_padding_bottom"
-            android:layout_height="@dimen/tab_padding_bottom"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/vLine1"
-            android:layout_marginRight="@dimen/margin_small"
-            android:layout_marginTop="14dp"
-            android:src="@drawable/pencil_edit_button"/>
-
-        <fr.ganfra.materialspinner.MaterialSpinner
-            android:id="@+id/spinner_list_area"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="center_vertical"
-            android:layout_below="@id/vLine1"
-            android:layout_marginLeft="10dp"
-            android:spinnerMode="dropdown"
-            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/txt_node_describe"
@@ -126,11 +106,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/txt_node_area"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/margin_small"
+            android:layout_toLeftOf="@+id/btn_edit_area"
+            android:layout_marginRight="@dimen/error_label_spacing"
             android:hint="Khu vực 1"
             android:textColor="@color/primary"
             android:textSize="@dimen/txt_medium"/>
+
+        <ImageView
+            android:id="@+id/btn_edit_area"
+            android:layout_width="@dimen/tab_padding_bottom"
+            android:layout_height="@dimen/tab_padding_bottom"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edit_node_describe"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/pencil_edit_button"/>
+
+        <fr.ganfra.materialspinner.MaterialSpinner
+            android:id="@+id/spinner_list_area"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:layout_below="@id/edit_node_describe"
+            android:layout_marginLeft="10dp"
+            android:spinnerMode="dropdown"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/txt_node_note"

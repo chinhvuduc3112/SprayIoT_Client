@@ -196,7 +196,7 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void requestUpdateArea(String name, String note, int areaX, int areaY, String areaId) {
-        ProgressDialogLoader.progressdialog_creation(mContext, "Updating");
+        ProgressDialogLoader.progressdialog_creation(mContext, "Updating...");
 
         SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
         Call<AreaResponse> callAreas = apiService.updateArea(name, note, areaX, areaY, false, mAreaId);

@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vuduc.models.AreaByIdResponse;
@@ -55,7 +56,7 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     @BindView(R.id.edit_node_describe)
     EditText editNodeDescribe;
     @BindView(R.id.edit_node_area)
-    EditText editNodeArea;
+    TextView editNodeArea;
     @BindView(R.id.edit_node_note)
     EditText editNodeNote;
     @BindView(R.id.btn_edit_area)
@@ -66,7 +67,7 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     RecyclerView rvSensor;
 
     List<Node.ResultBean> listNodes;
-    List<AreaResponse.Result> listAreas;
+    List<AreaResponse.Result> listAreas = null;
     List<String> arrNodeName;
     List<String> arrAreaName;
 
@@ -125,13 +126,13 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private void addControls() {
         //Spinner List Node name
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, arrNodeName);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrNodeName);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinListNode.setAdapter(adapter);
 
         //GONE Spinner List Area name
-        ArrayAdapter<String> adapterAreas = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, arrAreaName);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapterAreas = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrAreaName);
+        adapterAreas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinListArea.setAdapter(adapterAreas);
 
         srlLayout.setOnRefreshListener(this);
@@ -174,8 +175,9 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 spinListArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        Logger.d(TAG, arrAreaName.get(i)+" .. areaname");
-                        editNodeArea.setText(arrAreaName.get(i));
+                        if (i != -1) {
+                            editNodeArea.setText(arrAreaName.get(i));
+                        }
 
                         spinListArea.setVisibility(View.GONE);
                     }
@@ -218,6 +220,22 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 arrAreaName.add(a.getName());
             }
         }
+    }
+
+    private String getAreaIdByName() {
+        String areaId = null;
+        String areaName = editNodeArea.getText().toString();
+        if (!areaName.equals("")) {
+            if (listAreas != null) {
+                for (AreaResponse.Result a : listAreas) {
+                    if (a.getName().equals(areaName)) {
+                        areaId = a.getId();
+                        return areaId;
+                    }
+                }
+            }
+        }
+        return areaId;
     }
 
     private void getAreaById(String mAreaId) {
@@ -300,12 +318,14 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+        String name, description, note;
 
         public MyMenuItemClickListener() {
         }
 
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
+
             switch (menuItem.getItemId()) {
 //                case R.id.action_add_node:
 //                    FragmentManager fm = getFragmentManager();
@@ -316,11 +336,12 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 //                    ft_add.commit();
 //                    return true;
                 case R.id.action_update_info:
+                    getTextBox();
                     if (!TextUtils.isEmpty(mAreaId))
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                //requestUpdateNode(name, note, areaX, areaY, mAreaId);
+                                requestUpdateNode(mNodeId, name, description, note);
                             }
                         }).start();
                     return true;
@@ -328,5 +349,17 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             }
             return false;
         }
+
+        private void getTextBox() {
+            name = String.valueOf(editNodeName.getText());
+            description = String.valueOf(editNodeDescribe.getText());
+            note = String.valueOf(editNodeNote.getText());
+        }
+
+    }
+
+    private void requestUpdateNode(String mNodeId, String name, String description, String note) {
+        String areaId = getAreaIdByName();
+        Logger.d(TAG, areaId+" ....1");
     }
 }
