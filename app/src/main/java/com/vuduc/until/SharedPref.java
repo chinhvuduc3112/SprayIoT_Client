@@ -2,31 +2,64 @@ package com.vuduc.until;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * Created by VuDuc on 9/7/2017.
  */
 
 public class SharedPref {
-    private static final String AREA_ID = "AREA_ID";
     private static final String SHARED_PREF_KEY = "SHARED_PREF_KEY";
-    SharedPreferences mSharedPreferences;
-    private Context mContext;
+    private static SharedPref instance;
+    private SharedPreferences preferences;
 
-    public SharedPref(Context context) {
-        this.mContext = context;
-        init();
+    public static void clearAllData(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear().apply();
     }
 
-    private void init() {
-        mSharedPreferences = mContext.getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE);
+    private SharedPref(Context context) {
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public String getAreaId() {
-        return mSharedPreferences.getString(AREA_ID, null);
+    public static SharedPref getInstance(Context context) {
+        if (instance == null) {
+            instance = new SharedPref(context);
+        }
+
+        return instance;
     }
 
-    public void setAreaId(String id) {
-        mSharedPreferences.edit().putString(AREA_ID, id).commit();
+    public SharedPref putInt(String key, int value) {
+        preferences.edit().putInt(key, value).apply();
+        return instance;
+    }
+
+    public int getInt(String key, int defaultValue) {
+        return preferences.getInt(key, defaultValue);
+    }
+
+    public SharedPref putString(String key, String value) {
+        preferences.edit().putString(key, value).apply();
+        return instance;
+    }
+
+    public SharedPref putBoolean(String key, boolean value) {
+        preferences.edit().putBoolean(key, value).apply();
+        return instance;
+    }
+
+    public boolean getBoolean(String key){
+        return preferences.getBoolean(key,false);
+    }
+
+
+    public String getString(String key, String defaultValue) {
+        return preferences.getString(key, defaultValue);
+    }
+
+    public void clear() {
+        preferences.edit().clear().apply();
     }
 }

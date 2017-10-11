@@ -17,10 +17,9 @@ public class ProgressDialogLoader {
         this.activity = (Activity) context;
     }
 
-    public static void progressdialog_creation(Activity activity, String title) {
+    public static void progressdialog_creation(Context context, String title) {
         try {
-            if (progressDialog == null)
-                progressDialog = ProgressDialog.show(activity, "", title, true);
+            progressDialog = ProgressDialog.show(context, "", title);
         } catch (Exception e) {
 
         }

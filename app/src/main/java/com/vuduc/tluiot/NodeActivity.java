@@ -71,7 +71,7 @@ public class NodeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AddNodeFragment addNodeFragment = new AddNodeFragment();
                 getSupportFragmentManager().beginTransaction()
-                        .add(R.id.frame_node_info, addNodeFragment)
+                        .replace(R.id.frame_node_info, addNodeFragment)
                         .addToBackStack(null)
                         .commit();
             }

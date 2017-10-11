@@ -105,6 +105,16 @@
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="@dimen/margin_small"/>
 
+                        <fr.ganfra.materialspinner.MaterialSpinner
+                            android:id="@+id/spinner_list_area"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_below="@id/vLine1"
+                            android:layout_marginLeft="10dp"
+                            android:spinnerMode="dropdown"
+                            android:visibility="gone"/>
+
                         <TextView
                             android:id="@+id/txt_node_describe"
                             android:layout_width="wrap_content"

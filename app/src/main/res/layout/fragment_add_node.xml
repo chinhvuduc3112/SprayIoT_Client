@@ -1,10 +1,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/frame_node_add"
-    tools:context="com.vuduc.fragments.AddNodeFragment"
-    android:background="@color/windowBackground">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:id="@+id/frame_node_add"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/windowBackground"
+             tools:context="com.vuduc.fragments.AddNodeFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -64,13 +64,23 @@
 
         <ImageView
             android:id="@+id/btn_edit_area"
-            android:src="@drawable/pencil_edit_button"
             android:layout_width="@dimen/tab_padding_bottom"
             android:layout_height="@dimen/tab_padding_bottom"
-            android:layout_below="@id/vLine1"
-            android:layout_marginTop="14dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/margin_small"/>
+            android:layout_below="@id/vLine1"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/pencil_edit_button"/>
+
+        <fr.ganfra.materialspinner.MaterialSpinner
+            android:id="@+id/spinner_list_area"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:layout_below="@id/vLine1"
+            android:layout_marginLeft="10dp"
+            android:spinnerMode="dropdown"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/txt_node_describe"
@@ -154,24 +164,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_node_note"
-            android:layout_marginTop="@dimen/margin_big"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_big">
 
             <Button
                 android:id="@+id/btn_cancel"
+                style="@style/ButtonCancelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/ButtonCancelStyle"
                 android:text="Hủy"/>
 
             <Button
                 android:id="@+id/btn_submit"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/btn_cancel"
-                android:layout_toRightOf="@id/btn_cancel"
                 android:layout_marginLeft="@dimen/margin_big"
-                style="@style/ButtonStyle"
+                android:layout_toRightOf="@id/btn_cancel"
                 android:text="Xác nhận"/>
         </RelativeLayout>
     </RelativeLayout>

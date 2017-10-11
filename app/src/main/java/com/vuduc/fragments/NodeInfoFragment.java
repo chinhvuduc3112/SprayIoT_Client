@@ -1,5 +1,6 @@
 package com.vuduc.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ import com.vuduc.network.ApiUtils;
 import com.vuduc.network.SprayIoTApiInterface;
 import com.vuduc.tluiot.R;
 import com.vuduc.until.Logger;
+import com.vuduc.until.ProgressDialogLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,14 +58,21 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     EditText editNodeArea;
     @BindView(R.id.edit_node_note)
     EditText editNodeNote;
+    @BindView(R.id.btn_edit_area)
+    ImageView btnEditArea;
+    @BindView(R.id.spinner_list_area)
+    MaterialSpinner spinListArea;
     @BindView(R.id.rv_sensor)
     RecyclerView rvSensor;
 
     List<Node.ResultBean> listNodes;
+    List<AreaResponse.Result> listAreas;
     List<String> arrNodeName;
+    List<String> arrAreaName;
 
     private String mAreaName;
     private String mAreaId, mNodeId;
+    private Context mContext;
 
     public NodeInfoFragment() {
         // Required empty public constructor
@@ -75,7 +84,11 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_node_info, container, false);
         ButterKnife.bind(this, v);
+
+        mContext = getActivity().getApplicationContext();
+
         arrNodeName = new ArrayList<>();
+        arrAreaName = new ArrayList<>();
         return v;
     }
 
@@ -116,6 +129,11 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinListNode.setAdapter(adapter);
 
+        //GONE Spinner List Area name
+        ArrayAdapter<String> adapterAreas = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, arrAreaName);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinListArea.setAdapter(adapterAreas);
+
         srlLayout.setOnRefreshListener(this);
     }
 
@@ -135,7 +153,7 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                     mAreaId = listNodes.get(i).getIdArea();
                     if (mAreaId == null)
                         getNodeInfos(mNodeId, getResources().getString(R.string.nulls));
-                    getAreas(mAreaId);
+                    getAreaById(mAreaId);
                 }
             }
 
@@ -144,16 +162,72 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 resetTextView();
             }
         });
+
+        btnEditArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getAreas();
+                spinListArea.setVisibility(View.VISIBLE);
+                spinListArea.performClick();
+
+                Logger.d(TAG, " .. areaname");
+                spinListArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Logger.d(TAG, arrAreaName.get(i)+" .. areaname");
+                        editNodeArea.setText(arrAreaName.get(i));
+
+                        spinListArea.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });
+            }
+        });
     }
 
-    private void getAreas(String mAreaId) {
+    private void getAreas() {
+        ProgressDialogLoader.progressdialog_creation(mContext, "Loading...");
+
+        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
+        Call<AreaResponse> callAreas = apiService.getAreas();
+        callAreas.enqueue(new Callback<AreaResponse>() {
+            @Override
+            public void onResponse(Call<AreaResponse> call, Response<AreaResponse> response) {
+                if (response.isSuccessful()) {
+                    initAreas(response.body());
+                }
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<AreaResponse> call, Throwable t) {
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+        });
+    }
+
+    private void initAreas(AreaResponse data) {
+        listAreas = new ArrayList<>();
+        if (data != null) {
+            listAreas = data.getResult();
+            arrAreaName.clear();
+            for (AreaResponse.Result a : listAreas) {
+                arrAreaName.add(a.getName());
+            }
+        }
+    }
+
+    private void getAreaById(String mAreaId) {
         SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
         Call<AreaByIdResponse> callAreas = apiService.getAreaById(mAreaId);
         callAreas.enqueue(new Callback<AreaByIdResponse>() {
             @Override
             public void onResponse(Call<AreaByIdResponse> call, Response<AreaByIdResponse> response) {
                 if (response.isSuccessful()) {
-                    initArea(response.body());
+                    initAreaById(response.body());
                 }
             }
 
@@ -176,7 +250,7 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     }
 
-    private void initArea(AreaByIdResponse data) {
+    private void initAreaById(AreaByIdResponse data) {
         if (data.getResult() != null) {
             mAreaName = data.getResult().getName();
         } else {
