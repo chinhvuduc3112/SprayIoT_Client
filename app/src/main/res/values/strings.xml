@@ -54,7 +54,8 @@
     <string name="toast_add_area_successful">Thêm khu vực thành công.</string>
     <string name="toast_add_area_fail">Thêm khu vực thất bại.</string>
     <string name="toast_update_area_successful">Sửa thông tin thành công.</string>
-    <string name="toast_update_area_fail">Sửa khu vực thất bại.</string>
+    <string name="toast_update_area_fail">Sửa thông tin thất bại.</string>
+    <string name="action_update_info_succesful">Sửa thông tin thành công</string>
     <string name="toast_warning_miss_day">Xin lỗi! Bạn chưa chọn ngày.</string>
     <string name="toast_warning_miss_deviceNodeId">Xin lỗi! Bạn chưa chọn loại dữ liệu.</string>
     <string name="toast_warning_wrong_type">Xin lỗi! Bạn chưa chọn loại biểu đồ cần xem.</string>

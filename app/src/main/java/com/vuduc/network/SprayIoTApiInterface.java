@@ -6,6 +6,7 @@ import com.vuduc.models.DataByDaysResponse;
 import com.vuduc.models.DataByHoursResponse;
 import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.Node;
+import com.vuduc.models.NodeByIdResponse;
 import com.vuduc.models.WeatherResponse;
 
 import butterknife.internal.ListenerClass;
@@ -65,7 +66,7 @@ public interface SprayIoTApiInterface {
 
     @FormUrlEncoded
     @PUT("/updateNode")
-    Call<Node> updateNode(@Field("_id") String id, @Field("name") String name,
-                          @Field("description") String description, @Field("idArea") String idArea,
-                          @Field("note") String note, @Field("trash") Boolean isTrash);
+    Call<NodeByIdResponse> updateNode(@Field("_id") String id, @Field("name") String name,
+                                      @Field("description") String description, @Field("idArea") String idArea,
+                                      @Field("note") String note, @Field("trash") Boolean isTrash);
 }

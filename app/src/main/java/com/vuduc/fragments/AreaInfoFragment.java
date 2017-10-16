@@ -195,7 +195,7 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         }
     }
 
-    private void requestUpdateArea(String name, String note, int areaX, int areaY, String areaId) {
+    private void requestUpdateArea(String name, String note, int areaX, int areaY) {
         ProgressDialogLoader.progressdialog_creation(mContext, "Updating...");
 
         SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
@@ -204,7 +204,7 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onResponse(Call<AreaResponse> call, Response<AreaResponse> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(mContext, R.string.action_update_info, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.action_update_info_succesful, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(mContext, R.string.toast_update_area_fail, Toast.LENGTH_SHORT).show();
                 }
@@ -247,12 +247,11 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             switch (menuItem.getItemId()) {
                 case R.id.action_update_info:
                     getTextBox();
-
                     if (!TextUtils.isEmpty(mAreaId))
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                requestUpdateArea(name, note, areaX, areaY, mAreaId);
+                                requestUpdateArea(name, note, areaX, areaY);
                             }
                         }).start();
                     return true;

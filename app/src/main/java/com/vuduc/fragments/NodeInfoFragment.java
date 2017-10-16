@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.vuduc.models.AreaByIdResponse;
 import com.vuduc.models.AreaResponse;
 import com.vuduc.models.Node;
+import com.vuduc.models.NodeByIdResponse;
 import com.vuduc.network.ApiUtils;
 import com.vuduc.network.SprayIoTApiInterface;
 import com.vuduc.tluiot.R;
@@ -178,7 +179,6 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                         if (i != -1) {
                             editNodeArea.setText(arrAreaName.get(i));
                         }
-
                         spinListArea.setVisibility(View.GONE);
                     }
 
@@ -337,11 +337,12 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 //                    return true;
                 case R.id.action_update_info:
                     getTextBox();
-                    if (!TextUtils.isEmpty(mAreaId))
+                    if (!TextUtils.isEmpty(mNodeId))
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                requestUpdateNode(mNodeId, name, description, note);
+                                Logger.d(TAG, "step 1: ");
+                                requestUpdateNode(name, description, note);
                             }
                         }).start();
                     return true;
@@ -355,11 +356,32 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             description = String.valueOf(editNodeDescribe.getText());
             note = String.valueOf(editNodeNote.getText());
         }
-
     }
 
-    private void requestUpdateNode(String mNodeId, String name, String description, String note) {
+    private void requestUpdateNode(String name, String description, String note) {
         String areaId = getAreaIdByName();
-        Logger.d(TAG, areaId+" ....1");
+
+        Logger.d(TAG, "step 2: " + areaId);
+        ProgressDialogLoader.progressdialog_creation(mContext, "Updating...");
+
+        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
+        Call<NodeByIdResponse> callNode = apiService.updateNode(mNodeId, name, description, areaId, note, false);
+        callNode.enqueue(new Callback<NodeByIdResponse>() {
+            @Override
+            public void onResponse(Call<NodeByIdResponse> call, Response<NodeByIdResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(mContext, R.string.action_update_info_succesful, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, R.string.toast_update_area_fail, Toast.LENGTH_SHORT).show();
+                }
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<NodeByIdResponse> call, Throwable t) {
+                Logger.d(TAG, "Bug: " + t.toString());
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+        });
     }
 }
