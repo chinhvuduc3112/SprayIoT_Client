@@ -1,6 +1,7 @@
 package com.vuduc.tluiot;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -69,11 +70,13 @@ public class NodeActivity extends AppCompatActivity {
         fabCreateNode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddNodeFragment addNodeFragment = new AddNodeFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_node_info, addNodeFragment)
-                        .addToBackStack(null)
-                        .commit();
+//                AddNodeFragment addNodeFragment = new AddNodeFragment();
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.frame_node_info, addNodeFragment)
+//                        .addToBackStack(null)
+//                        .commit();
+                startActivity(new Intent(NodeActivity.this, NodeAddActivity.class));
+                fab_info_node.setVisibility(View.GONE);
             }
         });
     }
