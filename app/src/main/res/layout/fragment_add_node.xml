@@ -9,7 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_medium">
+        android:padding="@dimen/margin_medium"
+        android:background="@color/windowBackground">
 
         <TextView
             android:id="@+id/tvLabelNodeInfo"
@@ -125,7 +126,7 @@
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/spinner_list_area"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/edit_node_note"
             android:layout_marginLeft="10dp"

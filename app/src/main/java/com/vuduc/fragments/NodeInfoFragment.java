@@ -127,12 +127,12 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private void addControls() {
         //Spinner List Node name
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrNodeName);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, arrNodeName);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinListNode.setAdapter(adapter);
 
         //GONE Spinner List Area name
-        ArrayAdapter<String> adapterAreas = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrAreaName);
+        ArrayAdapter<String> adapterAreas = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, arrAreaName);
         adapterAreas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinListArea.setAdapter(adapterAreas);
 
@@ -191,7 +191,7 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void getAreas() {
-        ProgressDialogLoader.progressdialog_creation(mContext, "Loading...");
+        ProgressDialogLoader.progressdialog_creation(getContext(), "Loading...");
 
         SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
         Call<AreaResponse> callAreas = apiService.getAreas();

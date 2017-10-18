@@ -83,7 +83,7 @@ public class AddNodeFragment extends Fragment {
 
     private void addControls() {
         //GONE Spinner List Area name
-        adapterAreas = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrAreaName);
+        adapterAreas = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, arrAreaName);
         adapterAreas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinListArea.setAdapter(adapterAreas);
     }
