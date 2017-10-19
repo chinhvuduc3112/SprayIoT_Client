@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -23,8 +25,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vuduc.adapters.DeviceNodeAdapter;
 import com.vuduc.models.AreaByIdResponse;
 import com.vuduc.models.AreaResponse;
+import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.Node;
 import com.vuduc.models.NodeByIdResponse;
 import com.vuduc.network.ApiUtils;
@@ -68,10 +72,12 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     RecyclerView rvSensor;
 
     List<Node.ResultBean> listNodes;
+    List<DeviceNodeResponse.Result> mListDeviceNode;
     List<AreaResponse.Result> listAreas = null;
     List<String> arrNodeName;
     List<String> arrAreaName;
 
+    private DeviceNodeAdapter mDeviceNodeAdapter;
     private String mAreaName;
     private String mAreaId, mNodeId;
     private Context mContext;
@@ -136,6 +142,15 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         adapterAreas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinListArea.setAdapter(adapterAreas);
 
+        //RV device node
+        mListDeviceNode = new ArrayList<>();
+        mDeviceNodeAdapter = new DeviceNodeAdapter(mContext, mListDeviceNode);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        rvSensor.setLayoutManager(layoutManager);
+        rvSensor.setItemAnimator(new DefaultItemAnimator());
+        rvSensor.setNestedScrollingEnabled(false);
+        rvSensor.setAdapter(mDeviceNodeAdapter);
+
         srlLayout.setOnRefreshListener(this);
     }
 
@@ -156,6 +171,7 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                     if (mAreaId == null)
                         getNodeInfos(mNodeId, getResources().getString(R.string.nulls));
                     getAreaById(mAreaId);
+                    getDeviceNodeByNode(mNodeId);
                 }
             }
 
@@ -188,6 +204,35 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 });
             }
         });
+    }
+
+    private void getDeviceNodeByNode(String nodeId) {
+        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
+        apiService.getDeviceNodeByNode(nodeId).enqueue(new Callback<DeviceNodeResponse>() {
+            @Override
+            public void onResponse(Call<DeviceNodeResponse> call, Response<DeviceNodeResponse> response) {
+                if (response.isSuccessful()) {
+                    initDeviceNode(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeviceNodeResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void initDeviceNode(DeviceNodeResponse data) {
+        if (data != null) {
+            List<DeviceNodeResponse.Result> deviceNodeData = data.getResult();
+            mListDeviceNode.clear();
+            for (DeviceNodeResponse.Result a : deviceNodeData) {
+                Logger.d(TAG, a.getName() + "");
+                mListDeviceNode.add(a);
+            }
+            mDeviceNodeAdapter.notifyDataSetChanged();
+        }
     }
 
     private void getAreas() {

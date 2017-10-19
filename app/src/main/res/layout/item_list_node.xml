@@ -11,10 +11,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_medium">
 
         <ImageView
-            android:id="@+id/ivProjectImage"
+            android:id="@+id/iv_device_image"
             android:layout_width="@dimen/icon_width_height"
             android:layout_height="@dimen/icon_width_height"
             android:adjustViewBounds="true"
@@ -22,22 +23,22 @@
             android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/tvProjectName"
+            android:id="@+id/tv_device_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_toRightOf="@+id/ivProjectImage"
+            android:layout_toRightOf="@+id/iv_device_image"
             android:text="Node 1"
             android:textSize="@dimen/txt_medium"
             android:textColor="@color/navigationBar"
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/txtProjectDescription"
+            android:id="@+id/tv_device_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvProjectName"
-            android:layout_below="@+id/tvProjectName"
+            android:layout_alignLeft="@+id/tv_device_name"
+            android:layout_below="@+id/tv_device_name"
             android:layout_marginTop="@dimen/margin_medium"
             android:text="Thông tin cơ bản về node"
             android:textSize="@dimen/txt_small_medium"/>

@@ -42,6 +42,7 @@
     <string name="btn_sreach">Tìm kiếm</string>
     <string name="btn_update">Cập nhật</string>
     <string name="btn_submit">Xem</string>
+    <string name="text_deviceNode_list">Danh sách cảm biến</string>
 
     <string name="info_name">Tên</string>
     <string name="info_describe">Mô tả</string>

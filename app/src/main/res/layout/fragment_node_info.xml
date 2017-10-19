@@ -11,199 +11,216 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nsv_node_info"
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsv_node_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relative_node_info"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/relative_node_info"
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/spinner_list_node"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:ms_hint="Danh sách node cảm biến"
+                app:ms_multiline="false"/>
 
-                <fr.ganfra.materialspinner.MaterialSpinner
-                    android:id="@+id/spinner_list_node"
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_info_node"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinner_list_node"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:elevation="@dimen/margin_medium">
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:ms_hint="Danh sách node cảm biến"
-                    app:ms_multiline="false"/>
+                    android:padding="@dimen/margin_medium">
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cv_info_node"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/spinner_list_node"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:layout_marginRight="@dimen/margin_small"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:elevation="@dimen/margin_medium">
+                    <TextView
+                        android:id="@+id/tvLabelNodeInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:text="Thông tin Node"
+                        android:textColor="@color/navigationBar"
+                        android:textSize="@dimen/txt_medium"/>
 
-                    <RelativeLayout
+                    <ImageView
+                        android:id="@+id/img_options"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:padding="@dimen/margin_medium"
+                        android:src="@drawable/ic_more_vert_grey_500_24dp"/>
+
+                    <View
+                        android:id="@+id/vLine1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/tvLabelNodeInfo"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:background="@color/primaryDark"/>
+
+                    <TextView
+                        android:id="@+id/txt_node_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/vLine1"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:text="@string/info_name"
+                        android:textColor="@color/navigationBar"
+                        android:textSize="@dimen/txt_medium"/>
+
+                    <EditText
+                        android:id="@+id/edit_node_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/txt_node_name"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/error_label_spacing"
+                        android:hint="Node 1"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/txt_medium"/>
+
+                    <TextView
+                        android:id="@+id/txt_node_describe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_node_name"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:text="@string/info_describe"
+                        android:textColor="@color/navigationBar"
+                        android:textSize="@dimen/txt_medium"/>
+
+                    <EditText
+                        android:id="@+id/edit_node_describe"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_medium">
+                        android:layout_below="@id/txt_node_describe"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:gravity="top|left"
+                        android:hint="Mô tả Node 1"
+                        android:inputType="textMultiLine"
+                        android:lines="5"
+                        android:maxLines="10"
+                        android:minLines="3"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/txt_medium"/>
 
-                        <TextView
-                            android:id="@+id/tvLabelNodeInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/margin_small"
-                            android:layout_marginLeft="@dimen/margin_small"
-                            android:layout_marginTop="@dimen/margin_medium"
-                            android:text="Thông tin Node"
-                            android:textColor="@color/navigationBar"
-                            android:textSize="@dimen/txt_medium"/>
+                    <TextView
+                        android:id="@+id/txt_node_area"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edit_node_describe"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:text="@string/info_area"
+                        android:textColor="@color/navigationBar"
+                        android:textSize="@dimen/txt_medium"/>
 
-                        <ImageView
-                            android:id="@+id/img_options"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            android:padding="@dimen/margin_medium"
-                            android:src="@drawable/ic_more_vert_grey_500_24dp"/>
+                    <TextView
+                        android:id="@+id/edit_node_area"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/txt_node_area"
+                        android:layout_marginRight="@dimen/error_label_spacing"
+                        android:layout_toLeftOf="@+id/btn_edit_area"
+                        android:hint="@string/nulls"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/txt_medium"/>
 
-                        <View
-                            android:id="@+id/vLine1"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@+id/tvLabelNodeInfo"
-                            android:layout_marginTop="@dimen/margin_medium"
-                            android:background="@color/primaryDark"/>
+                    <ImageView
+                        android:id="@+id/btn_edit_area"
+                        android:layout_width="@dimen/tab_padding_bottom"
+                        android:layout_height="@dimen/tab_padding_bottom"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/edit_node_describe"
+                        android:layout_marginRight="@dimen/margin_small"
+                        android:layout_marginTop="14dp"
+                        android:src="@drawable/pencil_edit_button"/>
 
-                        <TextView
-                            android:id="@+id/txt_node_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/vLine1"
-                            android:layout_marginLeft="@dimen/margin_small"
-                            android:layout_marginTop="@dimen/margin_medium"
-                            android:text="@string/info_name"
-                            android:textColor="@color/navigationBar"
-                            android:textSize="@dimen/txt_medium"/>
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/spinner_list_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignBaseline="@+id/txt_node_name"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="10dp"
+                        android:visibility="gone"
+                        app:ms_hint="Danh sách khu vực"/>
 
-                        <EditText
-                            android:id="@+id/edit_node_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/txt_node_name"
-                            android:layout_marginRight="@dimen/error_label_spacing"
-                            android:layout_alignParentRight="true"
-                            android:hint="Node 1"
-                            android:textColor="@color/primary"
-                            android:textSize="@dimen/txt_medium"/>
+                    <TextView
+                        android:id="@+id/txt_node_note"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_node_area"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:text="@string/info_node"
+                        android:textColor="@color/navigationBar"
+                        android:textSize="@dimen/txt_medium"/>
 
-                        <TextView
-                            android:id="@+id/txt_node_describe"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/txt_node_name"
-                            android:layout_marginLeft="@dimen/margin_small"
-                            android:layout_marginTop="@dimen/margin_medium"
-                            android:text="@string/info_describe"
-                            android:textColor="@color/navigationBar"
-                            android:textSize="@dimen/txt_medium"/>
+                    <EditText
+                        android:id="@+id/edit_node_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txt_node_note"
+                        android:layout_marginRight="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:gravity="top|left"
+                        android:hint="Khu vực 1"
+                        android:inputType="textMultiLine"
+                        android:lines="7"
+                        android:maxLines="20"
+                        android:minLines="5"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/txt_medium"/>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-                        <EditText
-                            android:id="@+id/edit_node_describe"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/txt_node_describe"
-                            android:layout_marginLeft="@dimen/margin_small"
-                            android:layout_marginTop="@dimen/margin_medium"
-                            android:gravity="top|left"
-                            android:hint="Mô tả Node 1"
-                            android:inputType="textMultiLine"
-                            android:lines="5"
-                            android:maxLines="10"
-                            android:minLines="3"
-                            android:scrollbars="vertical"
-                            android:textColor="@color/primary"
-                            android:textSize="@dimen/txt_medium"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_info_node">
 
-                        <TextView
-                            android:id="@+id/txt_node_area"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/edit_node_describe"
-                            android:layout_marginLeft="@dimen/margin_small"
-                            android:layout_marginTop="@dimen/margin_medium"
-                            android:text="@string/info_area"
-                            android:textColor="@color/navigationBar"
-                            android:textSize="@dimen/txt_medium"/>
-
-                        <TextView
-                            android:id="@+id/edit_node_area"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/txt_node_area"
-                            android:layout_marginRight="@dimen/error_label_spacing"
-                            android:layout_toLeftOf="@+id/btn_edit_area"
-                            android:hint="@string/nulls"
-                            android:textColor="@color/primary"
-                            android:textSize="@dimen/txt_medium"/>
-
-                        <ImageView
-                            android:id="@+id/btn_edit_area"
-                            android:src="@drawable/pencil_edit_button"
-                            android:layout_width="@dimen/tab_padding_bottom"
-                            android:layout_height="@dimen/tab_padding_bottom"
-                            android:layout_below="@+id/edit_node_describe"
-                            android:layout_marginTop="14dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="@dimen/margin_small"/>
-
-                        <fr.ganfra.materialspinner.MaterialSpinner
-                            android:id="@+id/spinner_list_area"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignBaseline="@+id/txt_node_name"
-                            android:layout_marginLeft="10dp"
-                            app:ms_hint="Danh sách khu vực"
-                            android:visibility="gone"/>
-
-                        <TextView
-                            android:id="@+id/txt_node_note"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/txt_node_area"
-                            android:layout_marginLeft="@dimen/margin_small"
-                            android:layout_marginTop="@dimen/margin_medium"
-                            android:text="@string/info_node"
-                            android:textColor="@color/navigationBar"
-                            android:textSize="@dimen/txt_medium"/>
-
-                        <EditText
-                            android:id="@+id/edit_node_note"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/txt_node_note"
-                            android:layout_marginRight="@dimen/margin_small"
-                            android:layout_marginTop="@dimen/margin_medium"
-                            android:gravity="top|left"
-                            android:hint="Khu vực 1"
-                            android:inputType="textMultiLine"
-                            android:lines="7"
-                            android:maxLines="20"
-                            android:minLines="5"
-                            android:scrollbars="vertical"
-                            android:textColor="@color/primary"
-                            android:textSize="@dimen/txt_medium"/>
-                    </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/tv_sensor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="@string/text_deviceNode_list"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/txt_large"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_sensor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/cv_info_node"
+                    android:layout_below="@id/tv_sensor"
                     android:layout_marginLeft="@dimen/margin_small"
                     android:layout_marginTop="@dimen/margin_medium">
-
                 </android.support.v7.widget.RecyclerView>
             </RelativeLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
 </FrameLayout>
