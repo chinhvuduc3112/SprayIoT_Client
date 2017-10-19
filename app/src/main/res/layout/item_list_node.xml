@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/tvProjectName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_toRightOf="@+id/ivProjectImage"
@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/txtProjectDescription"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tvProjectName"
             android:layout_below="@+id/tvProjectName"
