@@ -34,6 +34,10 @@ public class NodeActivity extends AppCompatActivity {
     FloatingActionMenu fab_info_node;
     @BindView(R.id.fab_create_node)
     FloatingActionButton fabCreateNode;
+    @BindView(R.id.fab_create_sensor)
+    FloatingActionButton fabCreateSensor;
+    @BindView(R.id.fab_gone_fab)
+    FloatingActionButton fab_gone_fab;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.viewpager)
@@ -76,6 +80,17 @@ public class NodeActivity extends AppCompatActivity {
 //                        .addToBackStack(null)
 //                        .commit();
                 startActivity(new Intent(NodeActivity.this, NodeAddActivity.class));
+            }
+        });
+        fabCreateSensor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NodeActivity.this, DeviceNodeAddActivity.class));
+            }
+        });
+        fab_gone_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 fab_info_node.setVisibility(View.GONE);
             }
         });

@@ -51,11 +51,14 @@
     <string name="info_x">Tung độ</string>
     <string name="info_y">Vị độ</string>
     <string name="type_device">Loại thiết bị</string>
+    <string name="type_sensor">Loại cảm biến</string>
 
     <string name="toast_add_area_successful">Thêm khu vực thành công.</string>
     <string name="toast_add_area_fail">Thêm khu vực thất bại.</string>
     <string name="toast_add_node_successful">Thêm node cảm biến thành công.</string>
     <string name="toast_add_node_fail">Thêm node cảm biến thất bại.</string>
+    <string name="toast_add_device_node_successful">Thêm cảm biến thành công.</string>
+    <string name="toast_add_device_node_fail">Thêm cảm biến thất bại.</string>
     <string name="toast_update_area_successful">Sửa thông tin thành công.</string>
     <string name="toast_update_area_fail">Sửa thông tin thất bại.</string>
     <string name="action_update_info_succesful">Sửa thông tin thành công</string>

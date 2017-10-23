@@ -5,11 +5,10 @@ import com.vuduc.models.AreaResponse;
 import com.vuduc.models.DataByDaysResponse;
 import com.vuduc.models.DataByHoursResponse;
 import com.vuduc.models.DeviceNodeResponse;
+import com.vuduc.models.DeviceTypeResponse;
 import com.vuduc.models.Node;
 import com.vuduc.models.NodeByIdResponse;
-import com.vuduc.models.WeatherResponse;
 
-import butterknife.internal.ListenerClass;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -39,6 +38,9 @@ public interface SprayIoTApiInterface {
     @GET("/getNodeByIdArea/{id}")
     Call<Node> getNodeByIdArea(@Path("id") String areaId);
 
+    @GET("/getAllDeviceTypes")
+    Call<DeviceTypeResponse> getAllDeviceTypes();
+
     @GET("/getChartByHours/{timestamp}?")
     Call<DataByHoursResponse> getChartByHours(@Path("timestamp") Long currentDay,
                                               @Query("deviceNodeId") String deviceNodeId);
@@ -56,6 +58,12 @@ public interface SprayIoTApiInterface {
     @POST("/addNode")
     Call<Node> addNode(@Field("name") String nodeName, @Field("description") String description,
                        @Field("idArea") String idArea, @Field("note") String note);
+
+    @FormUrlEncoded
+    @POST("/addDeviceNode")
+    Call<DeviceNodeResponse> addDeviceNode(@Field("name") String nodeName, @Field("description") String description,
+                                           @Field("note") String note, @Field("deviceTypeId") String deviceTypeId,
+                                           @Field("nodeId") String nodeId);
 
     @FormUrlEncoded
     @PUT("/updateArea")

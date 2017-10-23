@@ -31,6 +31,10 @@
         <activity android:name=".AreaActivity"/>
         <activity android:name=".NodeAddActivity">
         </activity>
+        <activity android:name=".DeviceNodeAddActivity">
+        </activity>
+        <activity android:name=".DeviceNodeUpdateActivity">
+        </activity>
     </application>
 
 </manifest>

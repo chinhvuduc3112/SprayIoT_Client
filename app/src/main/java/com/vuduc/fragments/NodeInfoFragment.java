@@ -144,7 +144,7 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         //RV device node
         mListDeviceNode = new ArrayList<>();
-        mDeviceNodeAdapter = new DeviceNodeAdapter(mContext, mListDeviceNode);
+        mDeviceNodeAdapter = new DeviceNodeAdapter(getActivity(), mListDeviceNode); //AlertDialog can getActivity()
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         rvSensor.setLayoutManager(layoutManager);
         rvSensor.setItemAnimator(new DefaultItemAnimator());

@@ -156,9 +156,9 @@ public class NodeAddActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Node> call, Response<Node> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(mContext, R.string.toast_add_area_successful, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.toast_add_node_successful, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(mContext, R.string.toast_add_area_fail, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.toast_add_node_fail, Toast.LENGTH_SHORT).show();
                 }
                 ProgressDialogLoader.progressdialog_dismiss();
             }

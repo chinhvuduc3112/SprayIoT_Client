@@ -1,9 +1,7 @@
 package com.vuduc.adapters;
 
 import android.content.Context;
-import android.hardware.Camera;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +31,7 @@ public class AreaNodeAdapter extends RecyclerView.Adapter<AreaNodeAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv_area_device, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv_device_area, parent, false);
         AreaNodeAdapter.ViewHolder holder = new AreaNodeAdapter.ViewHolder(view);
         return holder;
     }

@@ -99,16 +99,27 @@
             fab:fab_size="mini"
             fab:fab_label="Tạo mới Node cảm biến"/>
 
-        <!--<com.github.clans.fab.FloatingActionButton-->
-            <!--android:id="@+id/fabCreateTrip"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/fab_add"-->
-            <!--fab:fab_colorNormal="@color/accent"-->
-            <!--fab:fab_colorPressed="@color/primary"-->
-            <!--fab:fab_colorRipple="#99FFFFFF"-->
-            <!--fab:fab_size="mini"-->
-            <!--fab:fab_label="Tạo mới thiết bị" />-->
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_create_sensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fab_add"
+            fab:fab_colorNormal="@color/accent"
+            fab:fab_colorPressed="@color/primary"
+            fab:fab_colorRipple="#99FFFFFF"
+            fab:fab_size="mini"
+            fab:fab_label="Tạo mới cảm biến" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_gone_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fab_add"
+            fab:fab_colorNormal="@color/accent"
+            fab:fab_colorPressed="@color/primary"
+            fab:fab_colorRipple="#99FFFFFF"
+            fab:fab_size="mini"
+            fab:fab_label="Ẩn floating button" />
 
     </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>
