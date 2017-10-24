@@ -59,6 +59,8 @@
     <string name="toast_add_node_fail">Thêm node cảm biến thất bại.</string>
     <string name="toast_add_device_node_successful">Thêm cảm biến thành công.</string>
     <string name="toast_add_device_node_fail">Thêm cảm biến thất bại.</string>
+    <string name="toast_update_device_node_successful">Sửa cảm biến thành công.</string>
+    <string name="toast_update_device_node_fail">Sửa cảm biến thất bại.</string>
     <string name="toast_update_area_successful">Sửa thông tin thành công.</string>
     <string name="toast_update_area_fail">Sửa thông tin thất bại.</string>
     <string name="action_update_info_succesful">Sửa thông tin thành công</string>

@@ -3,6 +3,8 @@ package com.vuduc.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.tluiot.DeviceNodeAddActivity;
+import com.vuduc.tluiot.DeviceNodeUpdateActivity;
 import com.vuduc.tluiot.R;
 
 import java.util.List;
@@ -30,10 +33,32 @@ public class DeviceNodeAdapter extends RecyclerView.Adapter<DeviceNodeAdapter.My
 
     private List<DeviceNodeResponse.Result> mDeviceNodes;
     private Context mContext;
+    private String mNodeId;
+    public static final String TAG = DeviceNodeAdapter.class.getSimpleName();
+    public static final String DEVICENODE_ID = "DEVICENODE_ID";
+    public static final String DEVICENODE_NAME = "DEVICENODE_NAME";
+    public static final String DEVICENODE_DESCRIPTION = "DEVICENODE_DESCRIPTION";
+    public static final String NODE_ID = "NODE_ID";
+    public static final String DEVICE_TYPE_ID = "DEVICE_TYPE_ID";
+    public static final String DEVICENODE_NOTE = "DEVICENODE_NOTE";
 
     public DeviceNodeAdapter(Context mContext, List<DeviceNodeResponse.Result> mDeviceNodes) {
         this.mDeviceNodes = mDeviceNodes;
         this.mContext = mContext;
+    }
+
+    public DeviceNodeAdapter(Context mContext, List<DeviceNodeResponse.Result> mDeviceNodes, String nodeId) {
+        this.mDeviceNodes = mDeviceNodes;
+        this.mContext = mContext;
+        this.mNodeId = nodeId;
+    }
+
+    public String getNodeId() {
+        return mNodeId;
+    }
+
+    public void setNodeId(String nodeId) {
+        mNodeId = nodeId;
     }
 
     @Override
@@ -54,7 +79,16 @@ public class DeviceNodeAdapter extends RecyclerView.Adapter<DeviceNodeAdapter.My
         holder.imgOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.getContext().startActivity(new Intent(view.getContext(), DeviceNodeAddActivity.class));
+                Intent myIntent  = new Intent(view.getContext(), DeviceNodeUpdateActivity.class);
+                Bundle myBundle = new Bundle();
+                myBundle.putString(DEVICENODE_ID, deviceNode.getId());
+                myBundle.putString(DEVICENODE_NAME, deviceNode.getName());
+                myBundle.putString(DEVICENODE_DESCRIPTION, deviceNode.getDescription());
+                myBundle.putString(NODE_ID, getNodeId());
+                myBundle.putString(DEVICE_TYPE_ID, deviceNode.getDeviceType().getId());
+                myBundle.putString(DEVICENODE_NOTE, deviceNode.getNote());
+                myIntent.putExtra(TAG, myBundle);
+                view.getContext().startActivity(myIntent);
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {

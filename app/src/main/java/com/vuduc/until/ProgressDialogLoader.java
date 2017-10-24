@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import com.vuduc.tluiot.DeviceNodeUpdateActivity;
+
 /**
  * Created by Jaison
  */
@@ -27,8 +29,8 @@ public class ProgressDialogLoader {
 
     public static void progressdialog_dismiss() {
         if ((progressDialog != null) && progressDialog.isShowing())
+            //Logger.d(DeviceNodeUpdateActivity.TAG, "progressdialog_dismiss");
             progressDialog.dismiss();
-
         progressDialog = null;
     }
 }

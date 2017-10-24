@@ -172,6 +172,7 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                         getNodeInfos(mNodeId, getResources().getString(R.string.nulls));
                     getAreaById(mAreaId);
                     getDeviceNodeByNode(mNodeId);
+                    mDeviceNodeAdapter.setNodeId(mNodeId);
                 }
             }
 
