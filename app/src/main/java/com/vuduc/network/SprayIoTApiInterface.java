@@ -9,7 +9,10 @@ import com.vuduc.models.DeviceTypeResponse;
 import com.vuduc.models.Node;
 import com.vuduc.models.NodeByIdResponse;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -84,4 +87,7 @@ public interface SprayIoTApiInterface {
                                               @Field("description") String description, @Field("note") String note,
                                               @Field("deviceTypeId") String deviceTypeId,
                                               @Field("nodeId") String nodeId, @Field("trash") Boolean isTrash);
+
+    @DELETE("/deleteDeviceNode/{id}")
+    Call<ResponseBody> deleteDeviceNode(@Path("id") String deviceNodeId);
 }

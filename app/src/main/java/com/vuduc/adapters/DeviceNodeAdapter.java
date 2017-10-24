@@ -4,19 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.textservice.TextInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vuduc.models.DeviceNodeResponse;
-import com.vuduc.tluiot.DeviceNodeAddActivity;
 import com.vuduc.tluiot.DeviceNodeUpdateActivity;
 import com.vuduc.tluiot.R;
 
@@ -31,9 +27,6 @@ import butterknife.ButterKnife;
 
 public class DeviceNodeAdapter extends RecyclerView.Adapter<DeviceNodeAdapter.MyViewHolder> {
 
-    private List<DeviceNodeResponse.Result> mDeviceNodes;
-    private Context mContext;
-    private String mNodeId;
     public static final String TAG = DeviceNodeAdapter.class.getSimpleName();
     public static final String DEVICENODE_ID = "DEVICENODE_ID";
     public static final String DEVICENODE_NAME = "DEVICENODE_NAME";
@@ -41,6 +34,9 @@ public class DeviceNodeAdapter extends RecyclerView.Adapter<DeviceNodeAdapter.My
     public static final String NODE_ID = "NODE_ID";
     public static final String DEVICE_TYPE_ID = "DEVICE_TYPE_ID";
     public static final String DEVICENODE_NOTE = "DEVICENODE_NOTE";
+    private List<DeviceNodeResponse.Result> mDeviceNodes;
+    private Context mContext;
+    private String mNodeId;
 
     public DeviceNodeAdapter(Context mContext, List<DeviceNodeResponse.Result> mDeviceNodes) {
         this.mDeviceNodes = mDeviceNodes;
@@ -79,9 +75,8 @@ public class DeviceNodeAdapter extends RecyclerView.Adapter<DeviceNodeAdapter.My
         holder.imgOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent  = new Intent(view.getContext(), DeviceNodeUpdateActivity.class);
+                Intent myIntent = new Intent(view.getContext(), DeviceNodeUpdateActivity.class);
                 Bundle myBundle = new Bundle();
-                myBundle.putString(DEVICENODE_ID, deviceNode.getId());
                 myBundle.putString(DEVICENODE_NAME, deviceNode.getName());
                 myBundle.putString(DEVICENODE_DESCRIPTION, deviceNode.getDescription());
                 myBundle.putString(NODE_ID, getNodeId());

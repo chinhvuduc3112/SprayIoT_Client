@@ -129,7 +129,7 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         PopupMenu popup = new PopupMenu(getActivity(), view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_area_info, popup.getMenu());
-        popup.setOnMenuItemClickListener(new AreaInfoFragment.MyMenuItemClickListener());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
         popup.show();
     }
 
@@ -257,7 +257,6 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                     return true;
                 case R.id.action_create_area:
                     getTextBox();
-
                     if (!TextUtils.isEmpty(name))
                         new Thread(new Runnable() {
                             @Override

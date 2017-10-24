@@ -7,6 +7,7 @@
     <string name="action_update_info">Sửa thông tin</string>
     <string name="action_create_area">Thêm mới khu vực</string>
     <string name="action_add_node">Thêm mới Node</string>
+    <string name="action_delete_info">Xóa thông tin</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
@@ -61,6 +62,8 @@
     <string name="toast_add_device_node_fail">Thêm cảm biến thất bại.</string>
     <string name="toast_update_device_node_successful">Sửa cảm biến thành công.</string>
     <string name="toast_update_device_node_fail">Sửa cảm biến thất bại.</string>
+    <string name="toast_delete_device_node_successful">Xóa cảm biến thành công.</string>
+    <string name="toast_delete_device_node_fail">Xóa cảm biến thất bại.</string>
     <string name="toast_update_area_successful">Sửa thông tin thành công.</string>
     <string name="toast_update_area_fail">Sửa thông tin thất bại.</string>
     <string name="action_update_info_succesful">Sửa thông tin thành công</string>

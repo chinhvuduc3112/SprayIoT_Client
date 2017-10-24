@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vuduc.adapters.DeviceNodeAdapter;
+import com.vuduc.fragments.NodeInfoFragment;
 import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.DeviceTypeResponse;
 import com.vuduc.models.Node;
@@ -31,6 +35,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.ganfra.materialspinner.MaterialSpinner;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +64,8 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
     MaterialSpinner spinListDeviceType;
     @BindView(R.id.edit_node_note)
     EditText editNodeNote;
+    @BindView(R.id.img_options)
+    ImageView imgOptions;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
@@ -270,6 +277,63 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
                 String deviceTypeId = getDeviceTypeIdByName();
 
                 requestUpdateDeviceNode(mDeviceNode_ID, name, description, note, nodeId, deviceTypeId);
+            }
+        });
+        imgOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupMenu(imgOptions);
+            }
+        });
+    }
+
+    private void showPopupMenu(View view) {
+        // inflate menu
+        PopupMenu popup = new PopupMenu(mContext, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_delete_info, popup.getMenu());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popup.show();
+    }
+
+    class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+        public MyMenuItemClickListener() {
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+
+            switch (menuItem.getItemId()) {
+                case R.id.action_delete_info:
+                    requestDeleteDeviceNode(mDeviceNode_ID);
+                    Toast.makeText(mContext, "ágvbiasvb", Toast.LENGTH_SHORT).show();
+                    return true;
+                default:
+            }
+            return false;
+        }
+    }
+
+    private void requestDeleteDeviceNode(String deviceNode_id) {
+        ProgressDialogLoader.progressdialog_creation(mContext, "Delete...");
+
+        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
+        Call<ResponseBody> callDeviceNode = apiService.deleteDeviceNode(deviceNode_id);
+        callDeviceNode.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(mContext, R.string.toast_delete_device_node_successful, Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(mContext, R.string.toast_delete_device_node_fail, Toast.LENGTH_SHORT).show();
+                }
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                ProgressDialogLoader.progressdialog_dismiss();
             }
         });
     }
