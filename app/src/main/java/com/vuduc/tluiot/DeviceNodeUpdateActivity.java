@@ -1,8 +1,10 @@
 package com.vuduc.tluiot;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
@@ -304,12 +306,33 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
 
             switch (menuItem.getItemId()) {
                 case R.id.action_delete_info:
-                    requestDeleteDeviceNode(mDeviceNode_ID);
+                    showSubmidDialog();
                     return true;
                 default:
             }
             return false;
         }
+    }
+
+    private void showSubmidDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("SprayIoT");
+        builder.setMessage("Xin bạn xác nhận để xóa?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestDeleteDeviceNode(mDeviceNode_ID);
+            }
+        });
+        builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void requestDeleteDeviceNode(String deviceNode_id) {
