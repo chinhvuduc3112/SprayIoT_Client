@@ -82,6 +82,7 @@ public class DeviceNodeAdapter extends RecyclerView.Adapter<DeviceNodeAdapter.My
                 myBundle.putString(NODE_ID, getNodeId());
                 myBundle.putString(DEVICE_TYPE_ID, deviceNode.getDeviceType().getId());
                 myBundle.putString(DEVICENODE_NOTE, deviceNode.getNote());
+                myBundle.putString(DEVICENODE_ID, deviceNode.getId());
                 myIntent.putExtra(TAG, myBundle);
                 view.getContext().startActivity(myIntent);
             }

@@ -120,6 +120,7 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
         String deviceTypeID = packageFromCaller.getString(DeviceNodeAdapter.DEVICE_TYPE_ID);
         String deviceNode = packageFromCaller.getString(DeviceNodeAdapter.DEVICENODE_NOTE);
 
+        Logger.d(TAG, mDeviceNode_ID + "....nodeID");
         Logger.d(TAG, nodeID + "....nodeID");
         Logger.d(TAG, deviceTypeID + "....deviceTypeID");
 
@@ -162,7 +163,7 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
     }
 
     private void setTextNodeName(final String nodeID) {
-        ProgressDialogLoader.progressdialog_creation(mContext, "setTextNodeName...");
+        ProgressDialogLoader.progressdialog_creation(mContext, "Loading...");
 
         SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
         Call<Node> callListNode = apiService.getAllNode();
@@ -170,10 +171,8 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Node> call, Response<Node> response) {
                 if (response.isSuccessful()) {
-                    Logger.d(TAG, "....onResponse 1");
                     initNodeName(response.body(), nodeID);
                 }
-                Logger.d(TAG, "....onResponse 2");
                 ProgressDialogLoader.progressdialog_dismiss();
             }
 
@@ -305,13 +304,7 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
 
             switch (menuItem.getItemId()) {
                 case R.id.action_delete_info:
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            requestDeleteDeviceNode(mDeviceNode_ID);
-                        }
-                    }).start();
-                    Toast.makeText(mContext, "ágvbiasvb", Toast.LENGTH_SHORT).show();
+                    requestDeleteDeviceNode(mDeviceNode_ID);
                     return true;
                 default:
             }
@@ -322,6 +315,7 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
     private void requestDeleteDeviceNode(String deviceNode_id) {
         ProgressDialogLoader.progressdialog_creation(mContext, "Delete...");
 
+        Logger.d(TAG, deviceNode_id + " ....");
         SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
         Call<ResponseBody> callDeviceNode = apiService.deleteDeviceNode(deviceNode_id);
         callDeviceNode.enqueue(new Callback<ResponseBody>() {
@@ -332,12 +326,14 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
                     finish();
                 } else {
                     Toast.makeText(mContext, R.string.toast_delete_device_node_fail, Toast.LENGTH_SHORT).show();
+                    finish();
                 }
                 ProgressDialogLoader.progressdialog_dismiss();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Logger.d(TAG, t.toString());
                 ProgressDialogLoader.progressdialog_dismiss();
             }
         });
@@ -347,7 +343,7 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
         ProgressDialogLoader.progressdialog_creation(mContext, "Updating...");
         SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
         Call<DeviceNodeResponse> callDeviceNode = apiService.updateDeviceNode(deviceNode_id, name, description, note,
-                                                                                deviceTypeId, nodeId, false);
+                deviceTypeId, nodeId, false);
         callDeviceNode.enqueue(new Callback<DeviceNodeResponse>() {
             @Override
             public void onResponse(Call<DeviceNodeResponse> call, Response<DeviceNodeResponse> response) {
