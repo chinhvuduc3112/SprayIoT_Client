@@ -305,7 +305,12 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
 
             switch (menuItem.getItemId()) {
                 case R.id.action_delete_info:
-                    requestDeleteDeviceNode(mDeviceNode_ID);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            requestDeleteDeviceNode(mDeviceNode_ID);
+                        }
+                    }).start();
                     Toast.makeText(mContext, "ágvbiasvb", Toast.LENGTH_SHORT).show();
                     return true;
                 default:
