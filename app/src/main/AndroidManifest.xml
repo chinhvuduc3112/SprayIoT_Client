@@ -35,6 +35,10 @@
         </activity>
         <activity android:name=".DeviceNodeUpdateActivity">
         </activity>
+        <activity android:name=".DeviceTypeActivity">
+        </activity>
+        <activity android:name=".DeviceTypeUpdateActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -14,10 +14,12 @@
         <item
             android:id="@+id/nav_item_node_sensor"
             android:title="@string/nav_item_node_sensor" />
-
         <item
             android:id="@+id/nav_item_weather"
             android:title="@string/nav_item_weather"/>
+        <item
+            android:id="@+id/nav_item_device_type"
+            android:title="@string/nav_item_device_type"/>
     </group>
 
     <group

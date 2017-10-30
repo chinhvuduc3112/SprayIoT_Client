@@ -58,9 +58,9 @@ public class DeviceNodeAddActivity extends AppCompatActivity {
     @BindView(R.id.edit_node_note)
     EditText editNodeNote;
 
-    List<Node.ResultBean> listNodes = null;
+    List<Node.ResultBean> listNodes;
     List<String> arrNodeName;
-    List<DeviceTypeResponse.ResultBean> listDeviceType = null;
+    List<DeviceTypeResponse.ResultBean> listDeviceType;
     List<String> arrDeviceTypeName;
 
     @BindView(R.id.toolbar)
@@ -227,7 +227,7 @@ public class DeviceNodeAddActivity extends AppCompatActivity {
 
     private void initDeviceTypes(DeviceTypeResponse data) {
         listDeviceType = new ArrayList<>();
-        if (data != null) {
+        if (data.getResult() != null) {
             listDeviceType = data.getResult();
             arrDeviceTypeName.clear();
             for (DeviceTypeResponse.ResultBean a : listDeviceType) {

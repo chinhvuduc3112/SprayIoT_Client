@@ -18,6 +18,7 @@ import android.view.View;
 import com.vuduc.adapters.ViewPagerAdapter;
 import com.vuduc.fragments.ActuatorRealtimeFragment;
 import com.vuduc.fragments.SensorRealtimeFragment;
+import com.vuduc.models.DeviceNodeResponse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -119,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, NodeActivity.class));
         } else if (id == R.id.nav_item_weather) {
             startActivity(new Intent(MainActivity.this, WeatherActivity.class));
+        } else if (id==R.id.nav_item_device_type){
+            startActivity(new Intent(MainActivity.this, DeviceTypeActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

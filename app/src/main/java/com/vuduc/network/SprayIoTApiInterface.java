@@ -88,6 +88,11 @@ public interface SprayIoTApiInterface {
                                               @Field("deviceTypeId") String deviceTypeId,
                                               @Field("nodeId") String nodeId, @Field("trash") Boolean isTrash);
 
+    @FormUrlEncoded
+    @PUT("/updateDeviceType")
+    Call<DeviceTypeResponse> updateDevicetype(@Field("_id") String id, @Field("name") String name,
+                                              @Field("note") String note, @Field("trash") Boolean isTrash);
+
     @DELETE("/deleteDeviceNode/{id}")
     Call<ResponseBody> deleteDeviceNode(@Path("id") String deviceNodeId);
 }
