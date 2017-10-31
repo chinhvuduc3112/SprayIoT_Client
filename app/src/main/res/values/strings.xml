@@ -16,6 +16,7 @@
     <string name="statistics">Thống kê</string>
     <string name="info">Thông tin</string>
     <string name="device_type">Loại thiết bị</string>
+    <string name="device_type_add">Thêm mới loại thiết bị</string>
 
     <string name="humidity">Độ ẩm</string>
     <string name="land_humidity">Độ ẩm đất</string>
@@ -62,12 +63,16 @@
     <string name="toast_add_node_fail">Thêm node cảm biến thất bại.</string>
     <string name="toast_add_device_node_successful">Thêm cảm biến thành công.</string>
     <string name="toast_add_device_node_fail">Thêm cảm biến thất bại.</string>
+    <string name="toast_add_device_type_successful">Thêm loại thiết bị thành công.</string>
+    <string name="toast_add_device_type_fail">Thêm loại thiết bị thất bại.</string>
     <string name="toast_update_device_node_successful">Sửa cảm biến thành công.</string>
     <string name="toast_update_device_node_fail">Sửa cảm biến thất bại.</string>
     <string name="toast_update_device_type_successful">Sửa loại thiết bị thành công.</string>
     <string name="toast_update_device_type_fail">Sửa loại thiết bị thất bại.</string>
     <string name="toast_delete_device_node_successful">Xóa cảm biến thành công.</string>
     <string name="toast_delete_device_node_fail">Xóa cảm biến thất bại.</string>
+    <string name="toast_delete_device_type_successful">Xóa loại thiết bị thành công.</string>
+    <string name="toast_delete_device_type_fail">Xóa loại thiết bị thất bại.</string>
     <string name="toast_update_area_successful">Sửa thông tin thành công.</string>
     <string name="toast_update_area_fail">Sửa thông tin thất bại.</string>
     <string name="action_update_info_succesful">Sửa thông tin thành công</string>

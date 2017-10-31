@@ -338,7 +338,6 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
     private void requestDeleteDeviceNode(String deviceNode_id) {
         ProgressDialogLoader.progressdialog_creation(mContext, "Delete...");
 
-        Logger.d(TAG, deviceNode_id + " ....");
         SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
         Call<ResponseBody> callDeviceNode = apiService.deleteDeviceNode(deviceNode_id);
         callDeviceNode.enqueue(new Callback<ResponseBody>() {

@@ -11,7 +11,6 @@ import com.vuduc.models.NodeByIdResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -69,6 +68,10 @@ public interface SprayIoTApiInterface {
                                            @Field("nodeId") String nodeId);
 
     @FormUrlEncoded
+    @POST("/addDeviceType")
+    Call<DeviceTypeResponse> addDeviceType(@Field("name") String name, @Field("note") String note);
+
+    @FormUrlEncoded
     @PUT("/updateArea")
     Call<AreaResponse> updateArea(@Field("name") String areaName, @Field("note") String areaNode,
                                   @Field("x") int x, @Field("y") int y,
@@ -90,9 +93,12 @@ public interface SprayIoTApiInterface {
 
     @FormUrlEncoded
     @PUT("/updateDeviceType")
-    Call<DeviceTypeResponse> updateDevicetype(@Field("_id") String id, @Field("name") String name,
+    Call<DeviceTypeResponse> updateDeviceType(@Field("_id") String id, @Field("name") String name,
                                               @Field("note") String note, @Field("trash") Boolean isTrash);
 
     @DELETE("/deleteDeviceNode/{id}")
     Call<ResponseBody> deleteDeviceNode(@Path("id") String deviceNodeId);
+
+    @DELETE("/deleteDeviceType/{id}")
+    Call<ResponseBody> deleteDeviceType(@Path("id") String deviceTypeId);
 }

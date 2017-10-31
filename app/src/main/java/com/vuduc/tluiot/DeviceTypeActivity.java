@@ -1,6 +1,7 @@
 package com.vuduc.tluiot;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,8 +12,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.vuduc.adapters.DeviceTypeAdapter;
 import com.vuduc.models.DeviceTypeResponse;
 import com.vuduc.network.ApiUtils;
@@ -36,6 +40,12 @@ public class DeviceTypeActivity extends AppCompatActivity implements SwipeRefres
     RecyclerView mRvDeviceType;
     @BindView(R.id.srlLayout)
     SwipeRefreshLayout srlLayout;
+    @BindView(R.id.fab_info_node)
+    FloatingActionMenu fab_info_device_type;
+    @BindView(R.id.fab_create_node)
+    FloatingActionButton fabCreateDeviceType;
+    @BindView(R.id.fab_gone_fab)
+    FloatingActionButton fabGoneFab;
 
     List<DeviceTypeResponse.ResultBean> mListDeviceType = new ArrayList<>();
 
@@ -53,6 +63,9 @@ public class DeviceTypeActivity extends AppCompatActivity implements SwipeRefres
 
     private void addControls() {
         ButterKnife.bind(this);
+
+        //FAB
+        fab_info_device_type.setVisibility(View.VISIBLE);
 
         new Thread(new Runnable() {
             @Override
@@ -112,6 +125,18 @@ public class DeviceTypeActivity extends AppCompatActivity implements SwipeRefres
     }
 
     private void addEvents() {
+        fabCreateDeviceType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DeviceTypeActivity.this, DeviceTypeAddActivity.class));
+            }
+        });
+        fabGoneFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fab_info_device_type.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -140,6 +165,7 @@ public class DeviceTypeActivity extends AppCompatActivity implements SwipeRefres
             @Override
             public void run() {
                 getDeviceType();
+                fab_info_device_type.setVisibility(View.VISIBLE);
                 srlLayout.setRefreshing(false);
             }
         }, 1500);
