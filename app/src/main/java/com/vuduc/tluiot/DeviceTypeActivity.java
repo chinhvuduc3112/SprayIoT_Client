@@ -147,12 +147,12 @@ public class DeviceTypeActivity extends AppCompatActivity implements SwipeRefres
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
-        switch (item.getItemId()) {
+        int id = item.getItemId();
+        switch (id) {
             case R.id.action_notification:
                 Toast.makeText(mContext, "Notification", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.home:
+            case android.R.id.home:
                 finish(); // close this activity and return to preview activity (if there is any)
                 break;
         }

@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vuduc.models.DeviceTypeResponse;
-import com.vuduc.tluiot.DeviceTypeActivity;
 import com.vuduc.tluiot.DeviceTypeUpdateActivity;
 import com.vuduc.tluiot.R;
 
@@ -79,6 +78,8 @@ public class DeviceTypeAdapter extends RecyclerView.Adapter<DeviceTypeAdapter.My
                 showAlertDialog(deviceType);
             }
         });
+
+        holder.ivDeviceImage.setImageResource(R.drawable.icon_rapberypi);
     }
 
     private void showAlertDialog(DeviceTypeResponse.ResultBean deviceType) {
