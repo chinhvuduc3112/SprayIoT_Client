@@ -237,7 +237,7 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void getAreas() {
-        ProgressDialogLoader.progressdialog_creation(getContext(), "Loading...");
+        ProgressDialogLoader.progressdialog_creation(getActivity(), "Loading...");
 
         SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
         Call<AreaResponse> callAreas = apiService.getAreas();

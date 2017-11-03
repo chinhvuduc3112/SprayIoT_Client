@@ -1,5 +1,6 @@
 package com.vuduc.network;
 
+import com.vuduc.models.ActuatorsResponse;
 import com.vuduc.models.AreaByIdResponse;
 import com.vuduc.models.AreaResponse;
 import com.vuduc.models.DataByDaysResponse;
@@ -50,6 +51,9 @@ public interface SprayIoTApiInterface {
     @GET("/getChartByDays?")
     Call<DataByDaysResponse> getChartByDay(@Query("from") Long fromDay, @Query("to") Long toDay,
                                            @Query("deviceNodeId") String deviceNodeId);
+
+    @GET("/getActuators")
+    Call<ActuatorsResponse> getActuators();
 
     @FormUrlEncoded
     @POST("/addArea")
