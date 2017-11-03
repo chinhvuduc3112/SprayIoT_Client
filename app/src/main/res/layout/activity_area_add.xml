@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.vuduc.tluiot.AreaAddActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.v7.widget.Toolbar
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:local="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_info_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/app_bar_top"
+            android:padding="@dimen/margin_medium">
+
+            <TextView
+                android:id="@+id/tvLabelAreaInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="Thông tin Area"
+                android:textColor="@color/navigationBar"
+                android:textSize="@dimen/txt_medium"/>
+
+            <ImageView
+                android:id="@+id/img_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:padding="@dimen/margin_medium"
+                android:src="@drawable/ic_more_vert_grey_500_24dp"/>
+
+            <View
+                android:id="@+id/vLine1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tvLabelAreaInfo"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:background="@color/primaryDark"/>
+
+            <TextView
+                android:id="@+id/txt_area_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/vLine1"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/info_name"
+                android:textColor="@color/navigationBar"
+                android:textSize="@dimen/txt_medium"/>
+
+            <EditText
+                android:id="@+id/edit_area_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/txt_area_name"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_small"
+                android:hint="Area 1"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/txt_medium"/>
+
+            <TextView
+                android:id="@+id/txt_area_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_area_name"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/info_describe"
+                android:textColor="@color/navigationBar"
+                android:textSize="@dimen/txt_medium"/>
+
+            <EditText
+                android:id="@+id/edit_area_describe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_area_describe"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:gravity="top|left"
+                android:hint="Mô tả Node 1"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:maxLines="10"
+                android:minLines="3"
+                android:scrollbars="vertical"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/txt_medium"/>
+
+            <TextView
+                android:id="@+id/txt_area_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_area_describe"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/info_x"
+                android:textColor="@color/navigationBar"
+                android:textSize="@dimen/txt_medium"/>
+
+            <EditText
+                android:id="@+id/edit_area_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/txt_area_x"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_small"
+                android:hint="405"
+                android:inputType="number"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/txt_medium"/>
+
+            <TextView
+                android:id="@+id/txt_area_y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_area_x"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/info_y"
+                android:textColor="@color/navigationBar"
+                android:textSize="@dimen/txt_medium"/>
+
+            <EditText
+                android:id="@+id/edit_area_y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/txt_area_y"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_small"
+                android:hint="560"
+                android:inputType="number"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/txt_medium"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_info_area"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_big">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/ButtonCancelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hủy"/>
+
+            <Button
+                android:id="@+id/btn_submit"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/btn_cancel"
+                android:layout_marginLeft="@dimen/margin_big"
+                android:layout_toRightOf="@id/btn_cancel"
+                android:text="Xác nhận"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

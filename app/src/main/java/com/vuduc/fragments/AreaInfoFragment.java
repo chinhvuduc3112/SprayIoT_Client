@@ -1,6 +1,7 @@
 package com.vuduc.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.vuduc.models.AreaResponse;
 import com.vuduc.network.ApiUtils;
 import com.vuduc.network.SprayIoTApiInterface;
 import com.vuduc.tluiot.AreaActivity;
+import com.vuduc.tluiot.AreaAddActivity;
 import com.vuduc.tluiot.R;
 import com.vuduc.until.Logger;
 import com.vuduc.until.ProgressDialogLoader;
@@ -133,30 +135,6 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         popup.show();
     }
 
-    private void requestAddArea(String name, String note, int x, int y) {
-        ProgressDialogLoader.progressdialog_creation(mContext, "Adding");
-
-        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
-        Call<AreaResponse> callAreas = apiService.addArea(name, note, x, y);
-        callAreas.enqueue(new Callback<AreaResponse>() {
-            @Override
-            public void onResponse(Call<AreaResponse> call, Response<AreaResponse> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(mContext, R.string.toast_add_area_successful, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(mContext, R.string.toast_add_area_fail, Toast.LENGTH_SHORT).show();
-                }
-                ProgressDialogLoader.progressdialog_dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<AreaResponse> call, Throwable t) {
-                Logger.d(TAG, t.toString());
-                ProgressDialogLoader.progressdialog_dismiss();
-            }
-        });
-    }
-
     private void addControls() {
         //Spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, arrAreaName);
@@ -256,14 +234,7 @@ public class AreaInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                         }).start();
                     return true;
                 case R.id.action_create_area:
-                    getTextBox();
-                    if (!TextUtils.isEmpty(name))
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                requestAddArea(name, note, areaX, areaY);
-                            }
-                        }).start();
+                    startActivity(new Intent(getActivity(), AreaAddActivity.class));
                     return true;
                 default:
             }

@@ -41,6 +41,8 @@
         </activity>
         <activity android:name=".DeviceTypeAddActivity">
         </activity>
+        <activity android:name=".AreaAddActivity">
+        </activity>
     </application>
 
 </manifest>
