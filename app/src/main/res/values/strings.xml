@@ -5,6 +5,7 @@
     <string name="action_actuator_set_time">Chỉnh thời gian</string>
     <string name="action_actuator_set_conditions">Điều kiện hoạt động</string>
     <string name="action_update_info">Sửa thông tin</string>
+    <string name="action_detail_info">Chi tiết</string>
     <string name="action_create_area">Thêm mới khu vực</string>
     <string name="action_add_node">Thêm mới Node</string>
     <string name="action_delete_info">Xóa thông tin</string>
@@ -63,12 +64,16 @@
     <string name="toast_add_node_fail">Thêm node cảm biến thất bại.</string>
     <string name="toast_add_device_node_successful">Thêm cảm biến thành công.</string>
     <string name="toast_add_device_node_fail">Thêm cảm biến thất bại.</string>
+    <string name="toast_add_device_successful">Thêm thiết bị thành công.</string>
+    <string name="toast_add_device_fail">Thêm thiết bị thất bại.</string>
     <string name="toast_add_device_type_successful">Thêm loại thiết bị thành công.</string>
     <string name="toast_add_device_type_fail">Thêm loại thiết bị thất bại.</string>
     <string name="toast_update_device_node_successful">Sửa cảm biến thành công.</string>
     <string name="toast_update_device_node_fail">Sửa cảm biến thất bại.</string>
     <string name="toast_update_device_type_successful">Sửa loại thiết bị thành công.</string>
     <string name="toast_update_device_type_fail">Sửa loại thiết bị thất bại.</string>
+    <string name="toast_update_device_successful">Sửa thiết bị thành công.</string>
+    <string name="toast_update_device_fail">Sửa thiết bị thất bại.</string>
     <string name="toast_delete_device_node_successful">Xóa cảm biến thành công.</string>
     <string name="toast_delete_device_node_fail">Xóa cảm biến thất bại.</string>
     <string name="toast_delete_device_type_successful">Xóa loại thiết bị thành công.</string>

@@ -43,6 +43,10 @@
         </activity>
         <activity android:name=".AreaAddActivity">
         </activity>
+        <activity android:name=".ActuatorAddActivity">
+        </activity>
+        <activity android:name=".ActuatorUpdateActivity">
+        </activity>
     </application>
 
 </manifest>

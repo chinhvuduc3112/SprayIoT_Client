@@ -2,18 +2,27 @@ package com.vuduc.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vuduc.fragments.NodeInfoFragment;
+import com.vuduc.models.ActuatorInfosResponse;
 import com.vuduc.models.ActuatorsResponse;
+import com.vuduc.tluiot.ActuatorUpdateActivity;
 import com.vuduc.tluiot.R;
 
+import java.security.PublicKey;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,10 +36,20 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
 
     public static final String TAG = ListActuatorAdapter.class.getSimpleName();
 
-    private List<ActuatorsResponse.ResultBean> mActuators;
+    public static final String ACTUATOR_ID = "ACTUATOR_ID";
+    public static final String ACTUATOR_NAME = "ACTUATOR_NAME";
+    public static final String ACTUATOR_DESCRIPTION = "ACTUATOR_DESCRIPTION";
+    public static final String ACTUATOR_AREA_ID = "ACTUATOR_NODE_ID";
+    public static final String ACTUATOR_DEVICETYPE_ID = "ACTUATOR_DEVICETYPE_ID";
+    public static final String ACTUATOR_AREA_NAME = "ACTUATOR_AREA_NAME";
+    public static final String ACTUATOR_DEVICETYPE_NAME = "ACTUATOR_DEVICETYPE_NAME";
+
+    private String mId, mName, mDescription, mAreaId, mDeviceTypeID, mAreaName, mDeviceTypeName;
+
+    private List<ActuatorInfosResponse.Result> mActuators;
     private Context mContext;
 
-    public ListActuatorAdapter(Context mContext, List<ActuatorsResponse.ResultBean> mActuators) {
+    public ListActuatorAdapter(Context mContext, List<ActuatorInfosResponse.Result> mActuators) {
         this.mActuators = mActuators;
         this.mContext = mContext;
     }
@@ -44,7 +63,7 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final ActuatorsResponse.ResultBean actuator = mActuators.get(position);
+        final ActuatorInfosResponse.Result actuator = mActuators.get(position);
 
         holder.txt_actuator_name.setText(actuator.getName());
 
@@ -63,9 +82,37 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
                 showAlertDialog(actuator);
             }
         });
+
+        holder.img_options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActuatorInfo(actuator);
+
+                showPopupMenu(view);
+            }
+        });
     }
 
-    private void showAlertDialog(ActuatorsResponse.ResultBean actuator) {
+    private void getActuatorInfo(ActuatorInfosResponse.Result actuator) {
+        mId = actuator.getId();
+        mName = actuator.getName();
+        mDescription = actuator.getDescription();
+        mAreaId = actuator.getArea().getId();
+        mAreaName =actuator.getArea().getName();
+        mDeviceTypeID = actuator.getDeviceType().getId();
+        mDeviceTypeName = actuator.getDeviceType().getName();
+    }
+
+    private void showPopupMenu(View view) {
+        // inflate menu
+        PopupMenu popup = new PopupMenu(mContext, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_actuator_detail, popup.getMenu());
+        popup.setOnMenuItemClickListener(new ListActuatorAdapter.MyMenuItemClickListener());
+        popup.show();
+    }
+
+    private void showAlertDialog(ActuatorInfosResponse.Result actuator) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("Thông tin cảm biến");
         builder.setCancelable(false); //click outSide to dismiss dialog
@@ -82,6 +129,8 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
         //addEvents
         editDeviceName.setText(actuator.getName());
         editDeviceDescribe.setText(actuator.getDescription());
+        editTypeDevice.setText(actuator.getDeviceType().getName());
+        editAreaName.setText(actuator.getArea().getName());
 
         builder.setPositiveButton("Thoát", new DialogInterface.OnClickListener() {
             @Override
@@ -116,6 +165,28 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
             super(itemView);
             this.itemView = itemView;
             ButterKnife.bind(this, itemView);
+        }
+    }
+
+    public class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.action_actuator_info:
+                    Intent intent = new Intent(mContext, ActuatorUpdateActivity.class);
+                    Bundle actuatorBundle = new Bundle();
+                    actuatorBundle.putString(ACTUATOR_ID, mId);
+                    actuatorBundle.putString(ACTUATOR_NAME, mName);
+                    actuatorBundle.putString(ACTUATOR_DESCRIPTION, mDescription);
+                    actuatorBundle.putString(ACTUATOR_AREA_ID, mAreaId);
+                    actuatorBundle.putString(ACTUATOR_AREA_NAME, mAreaName);
+                    actuatorBundle.putString(ACTUATOR_DEVICETYPE_ID, mDeviceTypeID);
+                    actuatorBundle.putString(ACTUATOR_DEVICETYPE_NAME, mDeviceTypeName);
+                    intent.putExtra(TAG, actuatorBundle);
+                    mContext.startActivity(intent);
+                    return true;
+            }
+            return false;
         }
     }
 }

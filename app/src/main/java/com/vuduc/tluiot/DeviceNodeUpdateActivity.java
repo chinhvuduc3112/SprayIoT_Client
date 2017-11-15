@@ -122,10 +122,6 @@ public class DeviceNodeUpdateActivity extends AppCompatActivity {
         String deviceTypeID = packageFromCaller.getString(DeviceNodeAdapter.DEVICE_TYPE_ID);
         String deviceNode = packageFromCaller.getString(DeviceNodeAdapter.DEVICENODE_NOTE);
 
-        Logger.d(TAG, mDeviceNode_ID + "....nodeID");
-        Logger.d(TAG, nodeID + "....nodeID");
-        Logger.d(TAG, deviceTypeID + "....deviceTypeID");
-
         setTextNodeName(nodeID);
         setTextDeviceTypeName(deviceTypeID);
         editDeviceName.setText(deviceName);

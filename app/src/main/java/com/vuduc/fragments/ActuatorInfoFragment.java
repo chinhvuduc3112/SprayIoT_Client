@@ -1,6 +1,7 @@
 package com.vuduc.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,9 +19,11 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.vuduc.adapters.DeviceTypeAdapter;
 import com.vuduc.adapters.ListActuatorAdapter;
+import com.vuduc.models.ActuatorInfosResponse;
 import com.vuduc.models.ActuatorsResponse;
 import com.vuduc.network.ApiUtils;
 import com.vuduc.network.SprayIoTApiInterface;
+import com.vuduc.tluiot.ActuatorAddActivity;
 import com.vuduc.tluiot.R;
 import com.vuduc.until.ProgressDialogLoader;
 
@@ -48,7 +51,7 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
     @BindView(R.id.fab_gone_fab)
     FloatingActionButton fabGoneFab;
 
-    List<ActuatorsResponse.ResultBean> mListActuator = new ArrayList<>();
+    List<ActuatorInfosResponse.Result> mListActuator = new ArrayList<>();
 
     private ListActuatorAdapter mListActuatorAdapter;
     private Context mContext;
@@ -93,7 +96,7 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
         fabCreateActuator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), ActuatorAddActivity.class));
             }
         });
         fabGoneFab.setOnClickListener(new View.OnClickListener() {
@@ -108,10 +111,10 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
         ProgressDialogLoader.progressdialog_creation(getActivity(), "Loading...");
 
         SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
-        Call<ActuatorsResponse> callService = apiService.getActuators();
-        callService.enqueue(new Callback<ActuatorsResponse>() {
+        Call<ActuatorInfosResponse> callService = apiService.getActuatorInfos();
+        callService.enqueue(new Callback<ActuatorInfosResponse>() {
             @Override
-            public void onResponse(Call<ActuatorsResponse> call, Response<ActuatorsResponse> response) {
+            public void onResponse(Call<ActuatorInfosResponse> call, Response<ActuatorInfosResponse> response) {
                 if (response.isSuccessful())
                     initActuators(response.body());
                 ProgressDialogLoader.progressdialog_dismiss();
@@ -119,17 +122,17 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
             }
 
             @Override
-            public void onFailure(Call<ActuatorsResponse> call, Throwable t) {
+            public void onFailure(Call<ActuatorInfosResponse> call, Throwable t) {
                 ProgressDialogLoader.progressdialog_dismiss();
             }
         });
     }
 
-    private void initActuators(ActuatorsResponse body) {
+    private void initActuators(ActuatorInfosResponse body) {
         if (body.getResult() != null) {
-            List<ActuatorsResponse.ResultBean> actuatorData = body.getResult();
+            List<ActuatorInfosResponse.Result> actuatorData = body.getResult();
             mListActuator.clear();
-            for (ActuatorsResponse.ResultBean a : actuatorData) {
+            for (ActuatorInfosResponse.Result a : actuatorData) {
                 mListActuator.add(a);
             }
             mListActuatorAdapter.notifyDataSetChanged();

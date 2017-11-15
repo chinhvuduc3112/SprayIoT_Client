@@ -371,7 +371,6 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-
             switch (menuItem.getItemId()) {
 //                case R.id.action_add_node:
 //                    FragmentManager fm = getFragmentManager();

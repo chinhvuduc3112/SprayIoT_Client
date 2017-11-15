@@ -1,5 +1,6 @@
 package com.vuduc.network;
 
+import com.vuduc.models.ActuatorInfosResponse;
 import com.vuduc.models.ActuatorsResponse;
 import com.vuduc.models.AreaByIdResponse;
 import com.vuduc.models.AreaResponse;
@@ -55,6 +56,9 @@ public interface SprayIoTApiInterface {
     @GET("/getActuators")
     Call<ActuatorsResponse> getActuators();
 
+    @GET("/getInfoActuators")
+    Call<ActuatorInfosResponse> getActuatorInfos();
+
     @FormUrlEncoded
     @POST("/addArea")
     Call<AreaResponse> addArea(@Field("name") String areaName, @Field("note") String areaNode,
@@ -74,6 +78,11 @@ public interface SprayIoTApiInterface {
     @FormUrlEncoded
     @POST("/addDeviceType")
     Call<DeviceTypeResponse> addDeviceType(@Field("name") String name, @Field("note") String note);
+
+    @FormUrlEncoded
+    @POST("/addActuator")
+    Call<ActuatorsResponse> addActuator(@Field("name") String nodeName, @Field("description") String description,
+                                        @Field("deviceTypeId") String deviceTypeId, @Field("idArea") String idArea);
 
     @FormUrlEncoded
     @PUT("/updateArea")
@@ -99,6 +108,11 @@ public interface SprayIoTApiInterface {
     @PUT("/updateDeviceType")
     Call<DeviceTypeResponse> updateDeviceType(@Field("_id") String id, @Field("name") String name,
                                               @Field("note") String note, @Field("trash") Boolean isTrash);
+
+    @FormUrlEncoded
+    @PUT("/updateInfoActuator")
+    Call<ActuatorsResponse> updateInfoActuator(@Field("_id") String id, @Field("name") String name, @Field("description") String description,
+                                           @Field("idArea") String idArea, @Field("deviceTypeId") String deviceTypeId);
 
     @DELETE("/deleteDeviceNode/{id}")
     Call<ResponseBody> deleteDeviceNode(@Path("id") String deviceNodeId);

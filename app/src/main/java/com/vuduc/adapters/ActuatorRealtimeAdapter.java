@@ -32,6 +32,8 @@ public class ActuatorRealtimeAdapter extends RecyclerView.Adapter<ActuatorRealti
     private Context mContext;
     private List<ActuatorRealtime> mData;
 
+    OnItemClickListener mItemClickListener;
+
     public ActuatorRealtimeAdapter(Context mContext, List<ActuatorRealtime> mData) {
         this.mContext = mContext;
         this.mData = mData;
@@ -134,5 +136,13 @@ public class ActuatorRealtimeAdapter extends RecyclerView.Adapter<ActuatorRealti
             }
             return false;
         }
+    }
+
+    public interface OnItemClickListener {
+        public void onItemClick(View view, int position, String id);
+    }
+
+    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
     }
 }
