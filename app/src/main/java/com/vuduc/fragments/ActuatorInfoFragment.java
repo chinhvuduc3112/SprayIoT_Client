@@ -2,7 +2,6 @@ package com.vuduc.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -17,10 +16,8 @@ import android.view.ViewGroup;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.vuduc.adapters.DeviceTypeAdapter;
 import com.vuduc.adapters.ListActuatorAdapter;
 import com.vuduc.models.ActuatorInfosResponse;
-import com.vuduc.models.ActuatorsResponse;
 import com.vuduc.network.ApiUtils;
 import com.vuduc.network.SprayIoTApiInterface;
 import com.vuduc.tluiot.ActuatorAddActivity;
@@ -30,7 +27,6 @@ import com.vuduc.until.ProgressDialogLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -146,8 +142,15 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
             public void run() {
                 getActuators();
                 fabInfoActuator.setVisibility(View.VISIBLE);
+                mListActuatorAdapter.onPauseFragment();
                 srlLayout.setRefreshing(false);
             }
         }, 1500);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mListActuatorAdapter.onPauseFragment();
     }
 }

@@ -61,7 +61,7 @@ public class ActuatorInfosResponse {
         @SerializedName("description")
         private String description;
         @SerializedName("time")
-        private int time;
+        private Long time;
         @SerializedName("status")
         private boolean status;
         @SerializedName("trash")
@@ -100,11 +100,12 @@ public class ActuatorInfosResponse {
             this.description = description;
         }
 
-        public int getTime() {
+        //TODO: Cast INT to LONG
+        public long getTime() {
             return time;
         }
-
-        public void setTime(int time) {
+        //TODO: Cast INT to LONG
+        public void setTime(long time) {
             this.time = time;
         }
 

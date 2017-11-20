@@ -4,25 +4,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.vuduc.fragments.NodeInfoFragment;
 import com.vuduc.models.ActuatorInfosResponse;
-import com.vuduc.models.ActuatorsResponse;
 import com.vuduc.tluiot.ActuatorUpdateActivity;
 import com.vuduc.tluiot.R;
-
-import java.security.PublicKey;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,7 +46,9 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
     private String mId, mName, mDescription, mAreaId, mDeviceTypeID, mAreaName, mDeviceTypeName;
 
     private List<ActuatorInfosResponse.Result> mActuators;
+    private CountDownTimer mCountDownTimer;
     private Context mContext;
+    private long mStartTime = 0, mStopTime = 0, mActiveTime = 0;
 
     public ListActuatorAdapter(Context mContext, List<ActuatorInfosResponse.Result> mActuators) {
         this.mActuators = mActuators;
@@ -62,19 +63,31 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
         final ActuatorInfosResponse.Result actuator = mActuators.get(position);
 
         holder.txt_actuator_name.setText(actuator.getName());
-
+        holder.txt_actuator_time.setText(actuator.getTime() + "");
         //setCheckedSwitch
         if (actuator.isStatus()) {
             holder.switch_actuator_realtime.setChecked(true);
+            startCountDownTimer(holder.txt_actuator_time);
         } else {
             holder.switch_actuator_realtime.setChecked(false);
         }
 
-        holder.txt_actuator_time.setText(actuator.getTime()+"");
+        holder.switch_actuator_realtime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (holder.switch_actuator_realtime.isChecked()) {
+                    pauseCountDownTimer(holder.txt_actuator_time);
+                    holder.switch_actuator_realtime.setChecked(false);
+                } else {
+                    holder.switch_actuator_realtime.setChecked(true);
+
+                }
+            }
+        });
 
         holder.txt_actuator_name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,10 +100,35 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
             @Override
             public void onClick(View view) {
                 getActuatorInfo(actuator);
-
                 showPopupMenu(view);
             }
         });
+    }
+
+    private void pauseCountDownTimer(TextView txt_actuator_time) {
+        mCountDownTimer.cancel();
+    }
+
+    public void onPauseFragment() {
+        Log.d(TAG, "pauseCountDownTimer: ");
+        mCountDownTimer.cancel();
+    }
+
+    private void startCountDownTimer(final TextView txt_actuator_time) {
+        mStartTime = Long.parseLong(txt_actuator_time.getText().toString()) * 1000;
+        mCountDownTimer = new CountDownTimer(mStartTime, 1000) {
+            @Override
+            public void onTick(long l) {
+                Log.d(TAG, "onTick: " + l);
+                txt_actuator_time.setText(l / 1000 + " min");
+                mStopTime = (int) (l / 1000);
+            }
+
+            @Override
+            public void onFinish() {
+                txt_actuator_time.setText("Dừng");
+            }
+        }.start();
     }
 
     private void getActuatorInfo(ActuatorInfosResponse.Result actuator) {
@@ -98,7 +136,7 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
         mName = actuator.getName();
         mDescription = actuator.getDescription();
         mAreaId = actuator.getArea().getId();
-        mAreaName =actuator.getArea().getName();
+        mAreaName = actuator.getArea().getName();
         mDeviceTypeID = actuator.getDeviceType().getId();
         mDeviceTypeName = actuator.getDeviceType().getName();
     }
@@ -171,7 +209,7 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
     public class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.action_actuator_info:
                     Intent intent = new Intent(mContext, ActuatorUpdateActivity.class);
                     Bundle actuatorBundle = new Bundle();

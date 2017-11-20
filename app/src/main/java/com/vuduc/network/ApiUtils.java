@@ -5,10 +5,14 @@ package com.vuduc.network;
  */
 
 public class ApiUtils {
-    private ApiUtils() {}
-
     public static final String WEATHER_URL = "http://api.openweathermap.org/data/2.5/";
-    public static final String SPRAY_IOT = "http://172.16.6.66:8090/";
+    public static final String SPRAY_IOT = "http://192.168.1.9:8090/";
+    //public static final String SPRAY_IOT = "http://172.16.6.44:8090/";
+//    public static final String SPRAY_IOT = "http://192.168.2.35:8090/";
+
+
+    public ApiUtils() {
+    }
 
     public static WeatherApiInterface getWeatherApiService() {
         return RetrofitClient.getClient(WEATHER_URL).create(WeatherApiInterface.class);
