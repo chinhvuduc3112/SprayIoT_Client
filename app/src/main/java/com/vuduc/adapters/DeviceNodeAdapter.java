@@ -71,6 +71,7 @@ public class DeviceNodeAdapter extends RecyclerView.Adapter<DeviceNodeAdapter.My
         holder.tvDeviceName.setText(deviceNode.getName());
         String deviceNodeType = deviceNode.getDeviceType().getNote();
         holder.tvDeviceType.setText(deviceNodeType);
+        holder.ivDeviceImage.setImageResource(R.drawable.icon_rapberypi);
 
         holder.imgOptions.setOnClickListener(new View.OnClickListener() {
             @Override

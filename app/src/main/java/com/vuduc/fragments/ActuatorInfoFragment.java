@@ -76,7 +76,7 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
     }
 
     private void addControls() {
-        //RV device node
+        //RV actuator
         mListActuatorAdapter = new ListActuatorAdapter(getActivity(), mListActuator); //AlertDialog can getActivity()
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext,
                 LinearLayoutManager.VERTICAL, false);

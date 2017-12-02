@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,10 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vuduc.adapters.ListActuatorAdapter;
+import com.vuduc.adapters.ListFunctionAdapter;
 import com.vuduc.models.ActuatorsResponse;
 import com.vuduc.models.AreaResponse;
-import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.DeviceTypeResponse;
+import com.vuduc.models.FunctionByAcResponse;
 import com.vuduc.network.ApiUtils;
 import com.vuduc.network.SprayIoTApiInterface;
 import com.vuduc.until.Logger;
@@ -35,6 +38,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.ganfra.materialspinner.MaterialSpinner;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,7 +64,7 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
     @BindView(R.id.btn_edit_device_type)
     ImageView btnEditDeviceType;
     @BindView(R.id.rv_functions)
-    RecyclerView rvFunction;
+    RecyclerView mRVFunction;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
@@ -68,8 +72,10 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
     List<String> arrAreaName;
     List<DeviceTypeResponse.ResultBean> mListDeviceType;
     List<String> arrDeviceTypeName;
+    List<FunctionByAcResponse.Result> mListFunction;
 
     private Context mContext;
+    private ListFunctionAdapter mListFunctionAdapter;
     private String mId, mAreaId, mDeviceTypeId;
 
     @Override
@@ -97,6 +103,18 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
         editAreaName.setText(areaName);
         editDeviceType.setText(deviceTypeName);
         editDescription.setText(actuatorDescrip);
+
+        //TODO: get list of function
+        if (mId != null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    getFunctions();
+                }
+            }).start();
+        } else {
+            Toast.makeText(mContext, "Có gì đó sai sai ở đây! " + mId, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void addControls() {
@@ -104,7 +122,7 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
 
         //Toolbar
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(R.string.sensor);
+        getSupportActionBar().setTitle("Thực thi");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -120,6 +138,46 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
         ArrayAdapter<String> adapterDeviceType = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrDeviceTypeName);
         adapterDeviceType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinListDeviceType.setAdapter(adapterDeviceType);
+
+        //RV list function
+        mListFunction = new ArrayList<>();
+        mListFunctionAdapter = new ListFunctionAdapter(mContext, mListFunction);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        mRVFunction.setLayoutManager(layoutManager);
+        mRVFunction.setItemAnimator(new DefaultItemAnimator());
+        mRVFunction.setNestedScrollingEnabled(false);
+        mRVFunction.setAdapter(mListFunctionAdapter);
+    }
+
+    private void getFunctions() {
+        ProgressDialogLoader.progressdialog_creation(mContext, "Loading...");
+
+        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
+        Call<FunctionByAcResponse> callService = apiService.getFunctionByActuatorId(mId);
+        callService.enqueue(new Callback<FunctionByAcResponse>() {
+            @Override
+            public void onResponse(Call<FunctionByAcResponse> call, Response<FunctionByAcResponse> response) {
+                if (response.isSuccessful())
+                    initFunctions(response.body());
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<FunctionByAcResponse> call, Throwable t) {
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+        });
+    }
+
+    private void initFunctions(FunctionByAcResponse body) {
+        if (body.getResult() != null) {
+            List<FunctionByAcResponse.Result> functionData = body.getResult();
+            mListFunction.clear();
+            for (FunctionByAcResponse.Result a : functionData) {
+                mListFunction.add(a);
+            }
+            mListFunctionAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -189,6 +247,22 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
                 showPopupMenu(view);
             }
         });
+
+        mListFunctionAdapter.SetOnItemClickListener(new ListFunctionAdapter.OnItemClickListener() {
+            @Override
+            public void onImgOptionsClick(View view, int position) {
+                showFunctionPopupMenu(view, position);
+            }
+        });
+    }
+
+    private void showFunctionPopupMenu(View view, int position) {
+        // inflate menu
+        PopupMenu popup = new PopupMenu(mContext, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_info_node, popup.getMenu());
+        popup.setOnMenuItemClickListener(new FunctionMenuItemClickListener(position));
+        popup.show();
     }
 
     private void showPopupMenu(View view) {
@@ -263,21 +337,6 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
         }
     }
 
-    private class ActuatorMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_update_info:
-                    showSubmitUpdateDialog();
-                    return true;
-                case R.id.action_delete_info:
-                    return true;
-
-            }
-            return false;
-        }
-    }
-
     private void showSubmitUpdateDialog() {
         final String name = String.valueOf(editDeviceName.getText());
         final String description = String.valueOf(editDescription.getText());
@@ -320,6 +379,72 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ActuatorsResponse> call, Throwable t) {
                 Logger.d(TAG, t.toString());
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+        });
+    }
+
+    private class ActuatorMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_update_info:
+                    showSubmitUpdateDialog();
+                    return true;
+                case R.id.action_delete_info:
+                    return true;
+
+            }
+            return false;
+        }
+    }
+
+    private class FunctionMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+        int mPosition;
+
+        private FunctionMenuItemClickListener(int position) {
+            mPosition = position;
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_update_info:
+                    Toast.makeText(mContext, "action_update_info", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.action_delete_info:
+                    Toast.makeText(mContext, "action_delete_info", Toast.LENGTH_SHORT).show();
+                    String functionId  = mListFunction.get(mPosition).getId();
+                    if(functionId!=null){
+                        requestDeleteFunction(functionId);
+                    }
+                    return true;
+
+            }
+            return false;
+        }
+    }
+
+    private void requestDeleteFunction(String functionId) {
+        ProgressDialogLoader.progressdialog_creation(mContext, "Deleting...");
+
+        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
+        Call<ResponseBody> callFunction = apiService.deleteFunction(functionId);
+        callFunction.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(mContext, R.string.toast_delete_device_successful, Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(mContext, R.string.toast_delete_device_fail, Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 ProgressDialogLoader.progressdialog_dismiss();
             }
         });

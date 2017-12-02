@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vuduc.tluiot.ActuatorAddActivity">
+    tools:context="com.vuduc.tluiot.GroupExecuDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,22 +30,19 @@
         </android.support.design.widget.AppBarLayout>
 
         <RelativeLayout
-            android:id="@+id/rl_info_device"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/app_bar_top"
-            android:background="@color/windowBackground"
+            android:layout_below="@id/app_bar_top"
             android:padding="@dimen/margin_medium">
 
             <TextView
                 android:id="@+id/tvLabelNodeInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/img_options"
-                android:layout_alignLeft="@+id/txt_node_name"
-                android:layout_alignStart="@+id/txt_node_name"
-                android:layout_marginBottom="10dp"
-                android:text="Thông tin Thiết bị thực thi"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="Điều kiện thực thi"
                 android:textColor="@color/navigationBar"
                 android:textSize="@dimen/txt_medium"/>
 
@@ -118,29 +115,29 @@
                 android:textSize="@dimen/txt_medium"/>
 
             <TextView
-                android:id="@+id/txt_node_area"
+                android:id="@+id/txt_function"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edit_node_describe"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:text="Khu vực"
+                android:text="Function"
                 android:textColor="@color/navigationBar"
                 android:textSize="@dimen/txt_medium"/>
 
             <TextView
-                android:id="@+id/edit_node_area"
+                android:id="@+id/edit_function"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/txt_node_area"
+                android:layout_alignBaseline="@+id/txt_function"
                 android:layout_marginRight="@dimen/error_label_spacing"
-                android:layout_toLeftOf="@+id/btn_edit_area"
+                android:layout_toLeftOf="@+id/btn_function"
                 android:hint="@string/nulls"
                 android:textColor="@color/primary"
                 android:textSize="@dimen/txt_medium"/>
 
             <ImageView
-                android:id="@+id/btn_edit_area"
+                android:id="@+id/btn_function"
                 android:layout_width="@dimen/tab_padding_bottom"
                 android:layout_height="@dimen/tab_padding_bottom"
                 android:layout_alignParentRight="true"
@@ -150,7 +147,7 @@
                 android:src="@drawable/pencil_edit_button"/>
 
             <fr.ganfra.materialspinner.MaterialSpinner
-                android:id="@+id/spinner_list_area"
+                android:id="@+id/spinner_list_function"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/edit_node_describe"
@@ -159,68 +156,14 @@
                 app:ms_hint="Danh sách khu vực"
                 android:visibility="gone"/>
 
-            <TextView
-                android:id="@+id/txt_device_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_node_area"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:text="Loại thiết bị"
-                android:textColor="@color/navigationBar"
-                android:textSize="@dimen/txt_medium"/>
-
-            <TextView
-                android:id="@+id/edit_device_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/txt_device_type"
-                android:layout_marginRight="@dimen/error_label_spacing"
-                android:layout_toLeftOf="@+id/btn_edit_device_type"
-                android:hint="@string/nulls"
-                android:textColor="@color/primary"
-                android:textSize="@dimen/txt_medium"/>
-
-            <ImageView
-                android:id="@+id/btn_edit_device_type"
-                android:layout_width="@dimen/tab_padding_bottom"
-                android:layout_height="@dimen/tab_padding_bottom"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/btn_edit_area"
-                android:layout_marginRight="@dimen/margin_small"
-                android:layout_marginTop="14dp"
-                android:src="@drawable/pencil_edit_button"/>
-
-            <fr.ganfra.materialspinner.MaterialSpinner
-                android:id="@+id/spinner_list_device_type"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_execuCondition"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/edit_node_area"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="10dp"
-                app:ms_hint="Danh sách loại thiết bị"
-                android:visibility="gone"/>
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_function"
+                android:layout_marginTop="@dimen/margin_big">
+
+            </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
-
-        <TextView
-            android:id="@+id/txt_list_function"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:padding="@dimen/margin_medium"
-            android:layout_below="@id/rl_info_device"
-            android:text="Danh sách van điện từ"
-            android:textSize="@dimen/txt_medium"
-            android:textColor="@color/textIcons"
-            android:gravity="center_horizontal"
-            android:background="@color/accent"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_functions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_below="@id/txt_list_function">
-        </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

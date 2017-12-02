@@ -1,5 +1,6 @@
 package com.vuduc.tluiot;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -22,6 +23,7 @@ import com.vuduc.models.WeatherResponse;
 import com.vuduc.network.ApiUtils;
 import com.vuduc.network.RetrofitClient;
 import com.vuduc.network.WeatherApiInterface;
+import com.vuduc.until.ProgressDialogLoader;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,11 +69,13 @@ public class WeatherActivity extends AppCompatActivity {
     RecyclerView rv_next_day;
     private WeatherAdapter weatherAdapter;
     private List<NextDayWeatherResponse.ListBean> listWeather;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+        mContext = this;
         addControls();
         addEvents();
     }
@@ -79,8 +83,8 @@ public class WeatherActivity extends AppCompatActivity {
     private void addEvents() {
         //RV
         listWeather = new ArrayList<>();
-        weatherAdapter = new WeatherAdapter(getApplicationContext(), listWeather);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        weatherAdapter = new WeatherAdapter(mContext, listWeather);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         rv_next_day.setLayoutManager(layoutManager);
         rv_next_day.setItemAnimator(new DefaultItemAnimator());
         rv_next_day.setAdapter(weatherAdapter);
@@ -102,7 +106,7 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void getNextDayWeatherApi(String cityName) {
-        //WeatherApiInterface apiService = RetrofitClient.getClient(MYWEATHER_URL).create(WeatherApiInterface.class);
+
         WeatherApiInterface apiService = ApiUtils.getWeatherApiService();
         Call<NextDayWeatherResponse> callNextDayWeather = apiService.getNextDayWeather(cityName, "metric", API_KEY);
         callNextDayWeather.enqueue(new Callback<NextDayWeatherResponse>() {
@@ -111,7 +115,6 @@ public class WeatherActivity extends AppCompatActivity {
                 Log.d("message", response.toString());
                 initNextDayWeatherApi(response.body());
             }
-
             @Override
             public void onFailure(Call<NextDayWeatherResponse> call, Throwable t) {
                 Log.e(TAG, t.toString());
@@ -131,6 +134,7 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void getWeatherApi(String cityName) {
+        ProgressDialogLoader.progressdialog_creation(mContext, "Loading...");
         WeatherApiInterface apiService = ApiUtils.getWeatherApiService();
         Call<WeatherResponse> callWeather = apiService.getWeatherPresent(cityName, "metric", API_KEY);
         callWeather.enqueue(new Callback<WeatherResponse>() {
@@ -140,11 +144,12 @@ public class WeatherActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     initWeatherApi(response.body());
                 }
+                ProgressDialogLoader.progressdialog_dismiss();
             }
-
             @Override
             public void onFailure(Call<WeatherResponse> call, Throwable t) {
                 Log.e(TAG, t.toString());
+                ProgressDialogLoader.progressdialog_dismiss();
             }
         });
     }

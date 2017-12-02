@@ -36,6 +36,7 @@
     <string name="nav_item_node_sensor">Node cảm biến</string>
     <string name="nav_item_weather">Thời tiết</string>
     <string name="nav_item_device_type">Loại thiết bị</string>
+    <string name="nav_item_group_condition">Điều kiện thực thi</string>
     <string name="nav_item_signout">Đăng xuất</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -68,16 +69,21 @@
     <string name="toast_add_device_fail">Thêm thiết bị thất bại.</string>
     <string name="toast_add_device_type_successful">Thêm loại thiết bị thành công.</string>
     <string name="toast_add_device_type_fail">Thêm loại thiết bị thất bại.</string>
+
     <string name="toast_update_device_node_successful">Sửa cảm biến thành công.</string>
     <string name="toast_update_device_node_fail">Sửa cảm biến thất bại.</string>
     <string name="toast_update_device_type_successful">Sửa loại thiết bị thành công.</string>
     <string name="toast_update_device_type_fail">Sửa loại thiết bị thất bại.</string>
     <string name="toast_update_device_successful">Sửa thiết bị thành công.</string>
     <string name="toast_update_device_fail">Sửa thiết bị thất bại.</string>
+
     <string name="toast_delete_device_node_successful">Xóa cảm biến thành công.</string>
     <string name="toast_delete_device_node_fail">Xóa cảm biến thất bại.</string>
     <string name="toast_delete_device_type_successful">Xóa loại thiết bị thành công.</string>
     <string name="toast_delete_device_type_fail">Xóa loại thiết bị thất bại.</string>
+    <string name="toast_delete_device_successful">Xóa thiết bị thành công.</string>
+    <string name="toast_delete_device_fail">Xóa thiết bị thất bại.</string>
+
     <string name="toast_update_area_successful">Sửa thông tin thành công.</string>
     <string name="toast_update_area_fail">Sửa thông tin thất bại.</string>
     <string name="action_update_info_succesful">Sửa thông tin thành công</string>

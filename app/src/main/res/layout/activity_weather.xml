@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.vuduc.tluiot.WeatherActivity">
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:id="@+id/drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        tools:context="com.vuduc.tluiot.WeatherActivity">
 
 
     <android.support.design.widget.CoordinatorLayout
@@ -23,14 +23,14 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
                 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:local="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:layout_scrollFlags="scroll|enterAlways|snap"
-                    local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+                                                   xmlns:local="http://schemas.android.com/apk/res-auto"
+                                                   android:id="@+id/toolbar"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="?attr/actionBarSize"
+                                                   android:background="?attr/colorPrimary"
+                                                   app:layout_scrollFlags="scroll|enterAlways|snap"
+                                                   local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                                                   local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
             </android.support.design.widget.AppBarLayout>
 
@@ -52,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="15"
                         android:hint="Hà Nội"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"/>
 
                     <Button
                         android:id="@+id/btn_search"
@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="@string/btn_update"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -77,7 +77,7 @@
                         android:layout_marginTop="2dp"
                         android:text="Tên thành phố"
                         android:textColor="@color/navigationBar"
-                        android:textSize="@dimen/txt_large" />
+                        android:textSize="@dimen/txt_large"/>
 
                     <TextView
                         android:id="@+id/txt_day"
@@ -86,7 +86,7 @@
                         android:layout_marginTop="@dimen/margin_small"
                         android:text="Ngày tháng"
                         android:textColor="@color/navigationBar"
-                        android:textSize="@dimen/txt_small_large" />
+                        android:textSize="@dimen/txt_small_large"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
                         <ImageView
                             android:id="@+id/img_icon_status"
                             android:layout_width="64dp"
-                            android:layout_height="64dp" />
+                            android:layout_height="64dp"/>
 
                         <TextView
                             android:id="@+id/txt_temp_avg"
@@ -107,7 +107,7 @@
                             android:layout_marginLeft="@dimen/margin_small"
                             android:text="N/A°C"
                             android:textColor="@color/navigationBar"
-                            android:textSize="35sp" />
+                            android:textSize="35sp"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
                                 android:layout_marginLeft="@dimen/margin_small"
                                 android:text="N/A°C"
                                 android:textColor="@color/navigationBar"
-                                android:textSize="@dimen/txt_large" />
+                                android:textSize="@dimen/txt_large"/>
 
                             <TextView
                                 android:id="@+id/txt_temp_min"
@@ -134,7 +134,7 @@
                                 android:layout_marginLeft="@dimen/margin_small"
                                 android:text="N/A°C"
                                 android:textColor="@color/navigationBar"
-                                android:textSize="@dimen/txt_large" />
+                                android:textSize="@dimen/txt_large"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:text="Trạng thái"
                         android:textColor="@color/navigationBar"
-                        android:textSize="@dimen/txt_large" />
+                        android:textSize="@dimen/txt_large"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -164,7 +164,7 @@
                         <ImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:src="@drawable/air_humidity" />
+                            android:src="@drawable/air_humidity"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -178,7 +178,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/humidity"
                                 android:textColor="#000"
-                                android:textSize="@dimen/txt_small_medium" />
+                                android:textSize="@dimen/txt_small_medium"/>
 
                             <TextView
                                 android:id="@+id/txt_humidity"
@@ -186,7 +186,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/nulls"
                                 android:textColor="#000"
-                                android:textSize="@dimen/txt_small_medium" />
+                                android:textSize="@dimen/txt_small_medium"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -201,7 +201,7 @@
                             android:id="@+id/imageView2"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:src="@drawable/rainny" />
+                            android:src="@drawable/rainny"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -215,7 +215,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/cloudiness"
                                 android:textColor="#000"
-                                android:textSize="@dimen/txt_small_medium" />
+                                android:textSize="@dimen/txt_small_medium"/>
 
                             <TextView
                                 android:id="@+id/txt_cloudiness"
@@ -223,19 +223,25 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/nulls"
                                 android:textColor="#000"
-                                android:textSize="@dimen/txt_small_medium" />
+                                android:textSize="@dimen/txt_small_medium"/>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:layout_marginLeft="@dimen/floating_label_bottom_spacing"
-                    android:id="@+id/rv_next_day"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_large">
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:padding="@dimen/margin_medium">
 
-                </android.support.v7.widget.RecyclerView>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_next_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>

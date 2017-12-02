@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:layout_marginRight="@dimen/floating_label_bottom_spacing">
+    android:layout_marginRight="@dimen/margin_medium">
 
     <TextView
         android:id="@+id/txt_thu"

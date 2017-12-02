@@ -46,7 +46,6 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
     private String mId, mName, mDescription, mAreaId, mDeviceTypeID, mAreaName, mDeviceTypeName;
 
     private List<ActuatorInfosResponse.Result> mActuators;
-    private CountDownTimer mCountDownTimer;
     private Context mContext;
     private long mStartTime = 0, mStopTime = 0, mActiveTime = 0;
 
@@ -71,7 +70,7 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
         //setCheckedSwitch
         if (actuator.isStatus()) {
             holder.switch_actuator_realtime.setChecked(true);
-            startCountDownTimer(holder.txt_actuator_time);
+            startCountDownTimer(holder.txt_actuator_time, holder.mCountDownTimer);
         } else {
             holder.switch_actuator_realtime.setChecked(false);
         }
@@ -80,11 +79,10 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (holder.switch_actuator_realtime.isChecked()) {
-                    pauseCountDownTimer(holder.txt_actuator_time);
-                    holder.switch_actuator_realtime.setChecked(false);
-                } else {
                     holder.switch_actuator_realtime.setChecked(true);
-
+                } else {
+                    pauseCountDownTimer(holder.txt_actuator_time, holder.mCountDownTimer);
+                    holder.switch_actuator_realtime.setChecked(false);
                 }
             }
         });
@@ -105,18 +103,20 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
         });
     }
 
-    private void pauseCountDownTimer(TextView txt_actuator_time) {
-        mCountDownTimer.cancel();
+    private void pauseCountDownTimer(TextView txt_actuator_time, CountDownTimer countDownTimer) {
+        countDownTimer.cancel();
     }
 
     public void onPauseFragment() {
         Log.d(TAG, "pauseCountDownTimer: ");
-        mCountDownTimer.cancel();
+//        if(mCountDownTimer!=null){
+//            mCountDownTimer.cancel();
+//        }
     }
 
-    private void startCountDownTimer(final TextView txt_actuator_time) {
+    private void startCountDownTimer(final TextView txt_actuator_time, CountDownTimer countDownTimer) {
         mStartTime = Long.parseLong(txt_actuator_time.getText().toString()) * 1000;
-        mCountDownTimer = new CountDownTimer(mStartTime, 1000) {
+        countDownTimer = new CountDownTimer(mStartTime, 1000) {
             @Override
             public void onTick(long l) {
                 Log.d(TAG, "onTick: " + l);
@@ -152,7 +152,7 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
 
     private void showAlertDialog(ActuatorInfosResponse.Result actuator) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("Thông tin cảm biến");
+        builder.setTitle("Thông tin thiết bị");
         builder.setCancelable(false); //click outSide to dismiss dialog
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View alertLayout = inflater.inflate(R.layout.dialog_actuator, null);
@@ -198,6 +198,7 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
         ImageView img_options;
 
         View itemView;
+        CountDownTimer mCountDownTimer;
 
         public MyViewHolder(View itemView) {
             super(itemView);

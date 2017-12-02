@@ -83,6 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_type_device"
+        android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_medium"
         android:text="@string/info_area"
@@ -99,6 +100,5 @@
         android:hint="@string/nulls"
         android:textColor="@color/primary"
         android:textSize="@dimen/txt_medium"/>
-
 
 </RelativeLayout>

@@ -8,8 +8,14 @@ import com.vuduc.models.DataByDaysResponse;
 import com.vuduc.models.DataByHoursResponse;
 import com.vuduc.models.DeviceNodeResponse;
 import com.vuduc.models.DeviceTypeResponse;
+import com.vuduc.models.ExecuConditionByGroupResponse;
+import com.vuduc.models.FunctionByAcResponse;
+import com.vuduc.models.FunctionsResponse;
+import com.vuduc.models.GroupExecuResponse;
 import com.vuduc.models.Node;
 import com.vuduc.models.NodeByIdResponse;
+
+import java.security.acl.Group;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -17,6 +23,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -58,6 +65,18 @@ public interface SprayIoTApiInterface {
 
     @GET("/getInfoActuators")
     Call<ActuatorInfosResponse> getActuatorInfos();
+
+    @GET("/getFunctionByActuatorId/{id}")
+    Call<FunctionByAcResponse> getFunctionByActuatorId(@Path("id") String actuatorID);
+
+    @GET("/getFunctions")
+    Call<FunctionsResponse> getFunctions();
+
+    @GET("/getGroupExcutionConditionByFunction/{id}")
+    Call<GroupExecuResponse> getGroupExecuByFunction(@Path("id") String functionID);
+
+    @GET("/getExecutionConditionByGroup/{id}")
+    Call<ExecuConditionByGroupResponse> getExecutionConditionByGroup(@Path("id") String groupID);
 
     @FormUrlEncoded
     @POST("/addArea")
@@ -119,4 +138,7 @@ public interface SprayIoTApiInterface {
 
     @DELETE("/deleteDeviceType/{id}")
     Call<ResponseBody> deleteDeviceType(@Path("id") String deviceTypeId);
+
+    @DELETE("/deleteFunction/{id}")
+    Call<ResponseBody> deleteFunction(@Path("id") String funcionId);
 }

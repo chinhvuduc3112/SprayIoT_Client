@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_spray_iot"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -46,6 +46,10 @@
         <activity android:name=".ActuatorAddActivity">
         </activity>
         <activity android:name=".ActuatorUpdateActivity">
+        </activity>
+        <activity android:name=".GroupExecuConditionActivity">
+        </activity>
+        <activity android:name=".GroupExecuDetailActivity">
         </activity>
     </application>
 
