@@ -12,7 +12,7 @@ import java.util.List;
 public class FunctionByAcResponse {
 
     /**
-     * result : [{"_id":"5a032bcdcab58f288cac10a7","name":"func may bom 1","activityDuration":10,"trash":false,"status":false,"actuator":{"_id":"5a032a2f2f331f2bac34ed29","name":"may bom 1","description":"mo ta","deviceTypeId":"59f6ee05978a7d2f4cdb63b1","idArea":"59b8f37091a7e52e3441a9f8","time":10,"status":true,"trash":false,"__v":0}}]
+     * result : [{"_id":"5a21296d5843b420747a56cc","name":"van 1","activityDuration":10,"manualTime":20,"description":"mo ta van 1 test 1","trash":false,"status":true,"actuator":{"_id":"5a032a2f2f331f2bac34ed29","name":"may bom 1","description":"mo ta","deviceTypeId":"59f6ee05978a7d2f4cdb63b1","idArea":"59b8f37091a7e52e3441a9f8","time":10,"status":true,"trash":false,"__v":0}},{"_id":"5a2129845843b420747a56cd","name":"van 2","activityDuration":0,"manualTime":15,"description":"mo ta cai gi day","trash":false,"status":true,"actuator":{"_id":"5a032a2f2f331f2bac34ed29","name":"may bom 1","description":"mo ta","deviceTypeId":"59f6ee05978a7d2f4cdb63b1","idArea":"59b8f37091a7e52e3441a9f8","time":10,"status":true,"trash":false,"__v":0}}]
      * status : 1
      */
 
@@ -44,11 +44,13 @@ public class FunctionByAcResponse {
 
     public static class Result {
         /**
-         * _id : 5a032bcdcab58f288cac10a7
-         * name : func may bom 1
+         * _id : 5a21296d5843b420747a56cc
+         * name : van 1
          * activityDuration : 10
+         * manualTime : 20
+         * description : mo ta van 1 test 1
          * trash : false
-         * status : false
+         * status : true
          * actuator : {"_id":"5a032a2f2f331f2bac34ed29","name":"may bom 1","description":"mo ta","deviceTypeId":"59f6ee05978a7d2f4cdb63b1","idArea":"59b8f37091a7e52e3441a9f8","time":10,"status":true,"trash":false,"__v":0}
          */
 
@@ -57,7 +59,11 @@ public class FunctionByAcResponse {
         @SerializedName("name")
         private String name;
         @SerializedName("activityDuration")
-        private long activityDuration;
+        private int activityDuration;
+        @SerializedName("manualTime")
+        private int manualTime;
+        @SerializedName("description")
+        private String description;
         @SerializedName("trash")
         private boolean trash;
         @SerializedName("status")
@@ -86,12 +92,28 @@ public class FunctionByAcResponse {
             this.name = name;
         }
 
-        public long getActivityDuration() {
+        public int getActivityDuration() {
             return activityDuration;
         }
 
-        public void setActivityDuration(long activityDuration) {
+        public void setActivityDuration(int activityDuration) {
             this.activityDuration = activityDuration;
+        }
+
+        public int getManualTime() {
+            return manualTime;
+        }
+
+        public void setManualTime(int manualTime) {
+            this.manualTime = manualTime;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
         }
 
         public boolean isTrash() {

@@ -3,10 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/margin_medium">
 
     <TextView
-        android:id="@+id/txt_node_name"
+        android:id="@+id/txt_function_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/vLine1"
@@ -16,11 +17,11 @@
         android:textColor="@color/navigationBar"
         android:textSize="@dimen/txt_medium"/>
 
-    <TextView
-        android:id="@+id/edit_node_name"
+    <EditText
+        android:id="@+id/edit_function_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txt_node_name"
+        android:layout_alignBaseline="@+id/txt_function_name"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/error_label_spacing"
         android:hint="@string/nulls"
@@ -28,21 +29,21 @@
         android:textSize="@dimen/txt_medium"/>
 
     <TextView
-        android:id="@+id/txt_node_describe"
+        android:id="@+id/txt_function_describe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_node_name"
+        android:layout_below="@+id/txt_function_name"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_medium"
         android:text="@string/info_describe"
         android:textColor="@color/navigationBar"
         android:textSize="@dimen/txt_medium"/>
 
-    <TextView
-        android:id="@+id/edit_node_describe"
+    <EditText
+        android:id="@+id/edit_function_describe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_node_describe"
+        android:layout_below="@id/txt_function_describe"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_medium"
         android:gravity="top|left"
@@ -56,52 +57,45 @@
         android:textSize="@dimen/txt_medium"/>
 
     <TextView
-        android:id="@+id/txt_type_sensor"
+        android:id="@+id/txt_actuator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_node_describe"
+        android:layout_below="@+id/edit_function_describe"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_medium"
-        android:text="@string/type_sensor"
+        android:text="Van điện từ"
         android:textColor="@color/navigationBar"
         android:textSize="@dimen/txt_medium"/>
 
     <TextView
-        android:id="@+id/edit_type_sensor"
+        android:id="@+id/edit_actuator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txt_type_sensor"
+        android:layout_alignBaseline="@+id/txt_actuator"
         android:layout_marginRight="@dimen/error_label_spacing"
+        android:layout_toLeftOf="@+id/btn_actuator"
+        android:hint="@string/nulls"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/txt_medium"/>
+
+    <ImageView
+        android:id="@+id/btn_actuator"
+        android:layout_width="@dimen/tab_padding_bottom"
+        android:layout_height="@dimen/tab_padding_bottom"
         android:layout_alignParentRight="true"
-        android:hint="@string/nulls"
-        android:textColor="@color/primary"
-        android:textSize="@dimen/txt_medium"/>
-
-    <TextView
-        android:id="@+id/txt_node_note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_type_sensor"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:text="@string/info_node"
-        android:textColor="@color/navigationBar"
-        android:textSize="@dimen/txt_medium"/>
-
-    <TextView
-        android:id="@+id/edit_node_note"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_node_note"
+        android:layout_below="@+id/edit_function_describe"
         android:layout_marginRight="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:gravity="top|left"
-        android:hint="@string/nulls"
-        android:inputType="textMultiLine"
-        android:lines="7"
-        android:maxLines="20"
-        android:minLines="5"
-        android:scrollbars="vertical"
-        android:textColor="@color/primary"
-        android:textSize="@dimen/txt_medium"/>
+        android:layout_marginTop="14dp"
+        android:src="@drawable/pencil_edit_button"/>
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spinner_list_actuator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/edit_function_describe"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        app:ms_hint="Danh sách khu vực"
+        android:visibility="gone"/>
+
 </RelativeLayout>

@@ -12,7 +12,7 @@ import java.util.List;
 public class DeviceNodeResponse {
 
     /**
-     * result : [{"_id":"59999aa1df986f212c94f275","name":"cảm biến ánh sáng","description":"cảm biến ánh sáng node 2","note":"","trash":false,"data":0,"deviceType":{"_id":"599997d3df986f212c94f271","name":"lightSensor","note":"cảm biến ánh sáng","trash":false,"__v":0}},{"_id":"59999b31df986f212c94f276","name":"cảm biến nhiệt độ","description":"cảm biến nhiệt độ node 2","note":"","trash":false,"data":0,"deviceType":{"_id":"599998bbdf986f212c94f273","name":"tempSensor","note":"cảm biến nhiệt độ","trash":false,"__v":0}},{"_id":"59999b50df986f212c94f277","name":"cảm biến độ ẩm đất","description":"cảm biến độ ẩm đất node 2","note":"","trash":false,"data":0,"deviceType":{"_id":"599997f4df986f212c94f272","name":"humiSensor","note":"cảm biến độ ẩm","trash":false,"__v":0}},{"_id":"59999b69df986f212c94f278","name":"cảm biến độ ẩm không khí","description":"cảm biến độ ẩm không khí node 2","note":"","trash":false,"data":0,"deviceType":{"_id":"599998dadf986f212c94f274","name":"airHumiSensor","note":"cảm biến độ ẩm không khí","trash":false,"__v":0}}]
+     * result : [{"_id":"59e71176913a6308905af17d","name":"Temp416303ff","description":"Cảm biến nhiệt độ NodeIoT 1","nodeId":"59e70c39913a6308905af17a","note":"","trash":false,"data":27,"deviceType":{"_id":"599998bbdf986f212c94f273","name":"tempSensor","note":"cảm biến nhiệt độ","trash":false,"__v":0}},{"_id":"59e711a7913a6308905af17e","name":"Hum416303ff","description":"Cảm biến độ ẩm NodeIoT 1","nodeId":"59e70c39913a6308905af17a","note":"","trash":false,"data":50,"deviceType":{"_id":"599997f4df986f212c94f272","name":"humiSensor","note":"cảm biến độ ẩm","trash":false,"__v":0}},{"_id":"59e711e5913a6308905af17f","name":"Shum416303ff","description":"Cảm biến độ ẩm đất NodeIoT 1","nodeId":"59e70c39913a6308905af17a","note":"","trash":false,"data":9,"deviceType":{"_id":"599998dadf986f212c94f274","name":"airHumiSensor","note":"cảm biến độ ẩm không khí","trash":false,"__v":0}},{"_id":"59e71209913a6308905af180","name":"Lux416303ff","description":"Cảm biến ánh sáng NodeIoT 1 ","nodeId":"59e70c39913a6308905af17a","note":"ápnca","trash":false,"data":500,"deviceType":{"_id":"599997d3df986f212c94f271","name":"lightSensor","note":"cảm biến ánh sáng","trash":false,"__v":0}},{"_id":"5a2258ce633ac5119460b041","name":"Rain416303ff","description":"cảm biến mưa NodeIoT 1","nodeId":"59e70c39913a6308905af17a","note":"â","trash":false,"data":0,"deviceType":{"_id":"5a192f594ee59c0e8007a65d","name":"rainSensor","note":"Cảm biến mưa","trash":false,"__v":0}}]
      * status : 1
      */
 
@@ -44,13 +44,14 @@ public class DeviceNodeResponse {
 
     public static class Result {
         /**
-         * _id : 59999aa1df986f212c94f275
-         * name : cảm biến ánh sáng
-         * description : cảm biến ánh sáng node 2
+         * _id : 59e71176913a6308905af17d
+         * name : Temp416303ff
+         * description : Cảm biến nhiệt độ NodeIoT 1
+         * nodeId : 59e70c39913a6308905af17a
          * note :
          * trash : false
-         * data : 0
-         * deviceType : {"_id":"599997d3df986f212c94f271","name":"lightSensor","note":"cảm biến ánh sáng","trash":false,"__v":0}
+         * data : 27
+         * deviceType : {"_id":"599998bbdf986f212c94f273","name":"tempSensor","note":"cảm biến nhiệt độ","trash":false,"__v":0}
          */
 
         @SerializedName("_id")
@@ -59,6 +60,8 @@ public class DeviceNodeResponse {
         private String name;
         @SerializedName("description")
         private String description;
+        @SerializedName("nodeId")
+        private String nodeId;
         @SerializedName("note")
         private String note;
         @SerializedName("trash")
@@ -97,6 +100,14 @@ public class DeviceNodeResponse {
             this.description = description;
         }
 
+        public String getNodeId() {
+            return nodeId;
+        }
+
+        public void setNodeId(String nodeId) {
+            this.nodeId = nodeId;
+        }
+
         public String getNote() {
             return note;
         }
@@ -131,9 +142,9 @@ public class DeviceNodeResponse {
 
         public static class DeviceType {
             /**
-             * _id : 599997d3df986f212c94f271
-             * name : lightSensor
-             * note : cảm biến ánh sáng
+             * _id : 599998bbdf986f212c94f273
+             * name : tempSensor
+             * note : cảm biến nhiệt độ
              * trash : false
              * __v : 0
              */

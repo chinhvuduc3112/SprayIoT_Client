@@ -1,169 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/srlLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.vuduc.tluiot.GroupExecuDetailActivity">
 
-    <RelativeLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar_top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <android.support.v7.widget.Toolbar
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:local="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
-        </android.support.design.widget.AppBarLayout>
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/app_bar_top"
-            android:padding="@dimen/margin_medium">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvLabelNodeInfo"
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <android.support.v7.widget.Toolbar
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:local="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|enterAlways|snap"
+                    local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+            </android.support.design.widget.AppBarLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/app_bar_top"
+                android:padding="@dimen/margin_medium">
+
+                <TextView
+                    android:id="@+id/tvLabelNodeInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="Điều kiện thực thi"
+                    android:textColor="@color/navigationBar"
+                    android:textSize="@dimen/txt_medium"/>
+
+                <ImageView
+                    android:id="@+id/img_options"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:padding="@dimen/margin_medium"
+                    android:src="@drawable/ic_more_vert_grey_500_24dp"/>
+
+                <View
+                    android:id="@+id/vLine1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/tvLabelNodeInfo"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:background="@color/primaryDark"/>
+
+                <TextView
+                    android:id="@+id/txt_node_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/vLine1"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="@string/info_name"
+                    android:textColor="@color/navigationBar"
+                    android:textSize="@dimen/txt_medium"/>
+
+                <EditText
+                    android:id="@+id/edit_device_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/txt_node_name"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/error_label_spacing"
+                    android:hint="@string/nulls"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/txt_medium"/>
+
+                <TextView
+                    android:id="@+id/txt_node_describe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_node_name"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="@string/info_describe"
+                    android:textColor="@color/navigationBar"
+                    android:textSize="@dimen/txt_medium"/>
+
+                <EditText
+                    android:id="@+id/edit_node_describe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_node_describe"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:gravity="top|left"
+                    android:hint="Mô tả Node 1"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:maxLines="10"
+                    android:minLines="3"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/txt_medium"/>
+
+                <TextView
+                    android:id="@+id/txt_function"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edit_node_describe"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="Van điện từ"
+                    android:textColor="@color/navigationBar"
+                    android:textSize="@dimen/txt_medium"/>
+
+                <TextView
+                    android:id="@+id/edit_function"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/txt_function"
+                    android:layout_marginRight="@dimen/error_label_spacing"
+                    android:layout_toLeftOf="@+id/btn_function"
+                    android:hint="@string/nulls"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/txt_medium"/>
+
+                <ImageView
+                    android:id="@+id/btn_function"
+                    android:layout_width="@dimen/tab_padding_bottom"
+                    android:layout_height="@dimen/tab_padding_bottom"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/edit_node_describe"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/pencil_edit_button"/>
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/spinner_list_function"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/edit_node_describe"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"
+                    app:ms_hint="Danh sách khu vực"/>
+
+                <TextView
+                    android:id="@+id/txt_group_autoTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_function"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="Thời gian (phút)"
+                    android:textColor="@color/navigationBar"
+                    android:textSize="@dimen/txt_medium"/>
+
+                <EditText
+                    android:id="@+id/edit_group_autoTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/txt_group_autoTime"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/error_label_spacing"
+                    android:hint="0"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/txt_medium"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:id="@+id/txt_group_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_group_autoTime"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="Loại điều kiện"
+                    android:textColor="@color/navigationBar"
+                    android:textSize="@dimen/txt_medium"/>
+
+                <TextView
+                    android:id="@+id/edit_type_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/txt_group_type"
+                    android:layout_marginRight="@dimen/error_label_spacing"
+                    android:layout_toLeftOf="@+id/btn_group_type"
+                    android:hint="@string/nulls"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/txt_medium"/>
+
+                <ImageView
+                    android:id="@+id/btn_group_type"
+                    android:layout_width="@dimen/tab_padding_bottom"
+                    android:layout_height="@dimen/tab_padding_bottom"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/txt_group_autoTime"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/pencil_edit_button"/>
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/spinner_list_group_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/edit_node_describe"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"
+                    app:ms_hint="Loại điều kiện"/>
+
+                <TextView
+                    android:id="@+id/txt_unit_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_group_type"
+                    android:layout_marginTop="@dimen/margin_big"
+                    android:text="Đơn vị: Ánh sáng(Lux), Nhiệt độ(°C), Độ ẩm(%)\nMưa: 1(Không), 0(Có)"
+                    android:textColor="@color/navigationBar"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_execuCondition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_unit_type"
+                    android:layout_marginTop="@dimen/margin_big"/>
+
+            </RelativeLayout>
+
+            <com.github.clans.fab.FloatingActionMenu
+                android:id="@+id/fab_info_actuator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:text="Điều kiện thực thi"
-                android:textColor="@color/navigationBar"
-                android:textSize="@dimen/txt_medium"/>
-
-            <ImageView
-                android:id="@+id/img_options"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:padding="@dimen/margin_medium"
-                android:src="@drawable/ic_more_vert_grey_500_24dp"/>
-
-            <View
-                android:id="@+id/vLine1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/tvLabelNodeInfo"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:background="@color/primaryDark"/>
-
-            <TextView
-                android:id="@+id/txt_node_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/vLine1"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:text="@string/info_name"
-                android:textColor="@color/navigationBar"
-                android:textSize="@dimen/txt_medium"/>
-
-            <EditText
-                android:id="@+id/edit_device_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/txt_node_name"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/error_label_spacing"
-                android:hint="@string/nulls"
-                android:textColor="@color/primary"
-                android:textSize="@dimen/txt_medium"/>
-
-            <TextView
-                android:id="@+id/txt_node_describe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_node_name"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:text="@string/info_describe"
-                android:textColor="@color/navigationBar"
-                android:textSize="@dimen/txt_medium"/>
-
-            <EditText
-                android:id="@+id/edit_node_describe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_node_describe"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:gravity="top|left"
-                android:hint="Mô tả Node 1"
-                android:inputType="textMultiLine"
-                android:lines="5"
-                android:maxLines="10"
-                android:minLines="3"
-                android:scrollbars="vertical"
-                android:textColor="@color/primary"
-                android:textSize="@dimen/txt_medium"/>
-
-            <TextView
-                android:id="@+id/txt_function"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/edit_node_describe"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:text="Function"
-                android:textColor="@color/navigationBar"
-                android:textSize="@dimen/txt_medium"/>
-
-            <TextView
-                android:id="@+id/edit_function"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/txt_function"
-                android:layout_marginRight="@dimen/error_label_spacing"
-                android:layout_toLeftOf="@+id/btn_function"
-                android:hint="@string/nulls"
-                android:textColor="@color/primary"
-                android:textSize="@dimen/txt_medium"/>
-
-            <ImageView
-                android:id="@+id/btn_function"
-                android:layout_width="@dimen/tab_padding_bottom"
-                android:layout_height="@dimen/tab_padding_bottom"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/edit_node_describe"
-                android:layout_marginRight="@dimen/margin_small"
-                android:layout_marginTop="14dp"
-                android:src="@drawable/pencil_edit_button"/>
-
-            <fr.ganfra.materialspinner.MaterialSpinner
-                android:id="@+id/spinner_list_function"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/edit_node_describe"
-                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
-                app:ms_hint="Danh sách khu vực"
-                android:visibility="gone"/>
+                android:layout_marginRight="10dp"
+                fab:menu_animationDelayPerItem="50"
+                fab:menu_backgroundColor="@android:color/transparent"
+                fab:menu_buttonSpacing="0dp"
+                fab:menu_colorNormal="@color/accent"
+                fab:menu_colorPressed="@color/primary"
+                fab:menu_colorRipple="#99FFFFFF"
+                fab:menu_fab_label="Đóng"
+                fab:menu_fab_size="normal"
+                fab:menu_icon="@drawable/fab_add"
+                fab:menu_labels_colorNormal="#333333"
+                fab:menu_labels_colorPressed="#444444"
+                fab:menu_labels_colorRipple="#66FFFFFF"
+                fab:menu_labels_cornerRadius="3dp"
+                fab:menu_labels_ellipsize="none"
+                fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+                fab:menu_labels_margin="0dp"
+                fab:menu_labels_maxLines="-1"
+                fab:menu_labels_padding="8dp"
+                fab:menu_labels_paddingBottom="4dp"
+                fab:menu_labels_paddingLeft="8dp"
+                fab:menu_labels_paddingRight="8dp"
+                fab:menu_labels_paddingTop="4dp"
+                fab:menu_labels_position="left"
+                fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+                fab:menu_labels_showShadow="true"
+                fab:menu_labels_singleLine="false"
+                fab:menu_labels_textColor="@color/textIcons"
+                fab:menu_labels_textSize="@dimen/txt_small"
+                fab:menu_openDirection="up">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_execuCondition"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_function"
-                android:layout_marginTop="@dimen/margin_big">
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fab_create_actuator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fab_add"
+                    fab:fab_colorNormal="@color/accent"
+                    fab:fab_colorPressed="@color/primary"
+                    fab:fab_colorRipple="#99FFFFFF"
+                    fab:fab_label="Tạo mới"
+                    fab:fab_size="mini"/>
 
-            </android.support.v7.widget.RecyclerView>
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fab_gone_fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fab_add"
+                    fab:fab_colorNormal="@color/accent"
+                    fab:fab_colorPressed="@color/primary"
+                    fab:fab_colorRipple="#99FFFFFF"
+                    fab:fab_label="Ẩn floating button"
+                    fab:fab_size="mini"/>
+
+            </com.github.clans.fab.FloatingActionMenu>
         </RelativeLayout>
-    </RelativeLayout>
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>
+

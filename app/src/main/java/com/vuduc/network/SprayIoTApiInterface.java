@@ -104,6 +104,11 @@ public interface SprayIoTApiInterface {
                                         @Field("deviceTypeId") String deviceTypeId, @Field("idArea") String idArea);
 
     @FormUrlEncoded
+    @POST("/addGroupExcutionCondition")
+    Call<GroupExecuResponse> addGroupCondition(@Field("name") String nodeName, @Field("description") String description,
+                                               @Field("functionId") String functionId, @Field("autoTime") int autoTime, @Field("status") Boolean status);
+
+    @FormUrlEncoded
     @PUT("/updateArea")
     Call<AreaResponse> updateArea(@Field("name") String areaName, @Field("note") String areaNode,
                                   @Field("x") int x, @Field("y") int y,
@@ -132,6 +137,22 @@ public interface SprayIoTApiInterface {
     @PUT("/updateInfoActuator")
     Call<ActuatorsResponse> updateInfoActuator(@Field("_id") String id, @Field("name") String name, @Field("description") String description,
                                            @Field("idArea") String idArea, @Field("deviceTypeId") String deviceTypeId);
+
+    @FormUrlEncoded
+    @PUT("/updateInfoFunction")
+    Call<FunctionsResponse> updateInfoFunction(@Field("_id") String id, @Field("name") String name, @Field("description") String description,
+                                               @Field("actuatorId") String actuatorId);
+
+    @FormUrlEncoded
+    @PUT("/updateInfoExecutionCondition")
+    Call<ExecuConditionByGroupResponse> updateInfoCondition(@Field("_id") String id, @Field("name") String name, @Field("description") String description,
+                                                            @Field("compare") int compare, @Field("compareValue") int compareValue,
+                                                            @Field("deviceNodeId") String deviceNodeID);
+
+    @FormUrlEncoded
+    @PUT("/updateGroupExcutionCondition")
+    Call<GroupExecuResponse> updateGroupExecu(@Field("_id") String id, @Field("name") String name, @Field("description") String description,
+                                              @Field("functionId") String functionId, @Field("status") Boolean groupType, @Field("autoTime") int autoTime);
 
     @DELETE("/deleteDeviceNode/{id}")
     Call<ResponseBody> deleteDeviceNode(@Path("id") String deviceNodeId);

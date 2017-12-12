@@ -69,6 +69,8 @@
     <string name="toast_add_device_fail">Thêm thiết bị thất bại.</string>
     <string name="toast_add_device_type_successful">Thêm loại thiết bị thành công.</string>
     <string name="toast_add_device_type_fail">Thêm loại thiết bị thất bại.</string>
+    <string name="toast_add_info_successful">Thêm thông tin thành công.</string>
+    <string name="toast_add_info_fail">Thêm thông tin thất bại.</string>
 
     <string name="toast_update_device_node_successful">Sửa cảm biến thành công.</string>
     <string name="toast_update_device_node_fail">Sửa cảm biến thất bại.</string>
@@ -76,6 +78,8 @@
     <string name="toast_update_device_type_fail">Sửa loại thiết bị thất bại.</string>
     <string name="toast_update_device_successful">Sửa thiết bị thành công.</string>
     <string name="toast_update_device_fail">Sửa thiết bị thất bại.</string>
+    <string name="toast_update_info_successful">Sửa thông tin thành công.</string>
+    <string name="toast_update_info_fail">Sửa thông tin thất bại.</string>
 
     <string name="toast_delete_device_node_successful">Xóa cảm biến thành công.</string>
     <string name="toast_delete_device_node_fail">Xóa cảm biến thất bại.</string>

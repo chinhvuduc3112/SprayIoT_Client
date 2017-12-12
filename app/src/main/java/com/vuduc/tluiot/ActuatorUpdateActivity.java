@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,12 +24,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.vuduc.adapters.ListActuatorAdapter;
 import com.vuduc.adapters.ListFunctionAdapter;
 import com.vuduc.models.ActuatorsResponse;
 import com.vuduc.models.AreaResponse;
 import com.vuduc.models.DeviceTypeResponse;
 import com.vuduc.models.FunctionByAcResponse;
+import com.vuduc.models.FunctionsResponse;
 import com.vuduc.network.ApiUtils;
 import com.vuduc.network.SprayIoTApiInterface;
 import com.vuduc.until.Logger;
@@ -43,7 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ActuatorUpdateActivity extends AppCompatActivity {
+public class ActuatorUpdateActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = ActuatorUpdateActivity.class.getSimpleName();
     @BindView(R.id.img_options)
     ImageView imgOptions;
@@ -65,6 +71,14 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
     ImageView btnEditDeviceType;
     @BindView(R.id.rv_functions)
     RecyclerView mRVFunction;
+    @BindView(R.id.srlLayout)
+    SwipeRefreshLayout srlLayout;
+    @BindView(R.id.fab_info_actuator)
+    FloatingActionMenu fabFunction;
+    @BindView(R.id.fab_create_function)
+    FloatingActionButton fabCreateFunction;
+    @BindView(R.id.fab_gone_fab)
+    FloatingActionButton fabGoneFab;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
@@ -73,10 +87,12 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
     List<DeviceTypeResponse.ResultBean> mListDeviceType;
     List<String> arrDeviceTypeName;
     List<FunctionByAcResponse.Result> mListFunction;
-
+    ArrayAdapter<String> actuatorAdapter;
+    List<ActuatorsResponse.ResultBean> mListActuator;
+    List<String> arrActuatorName = new ArrayList<>();
     private Context mContext;
     private ListFunctionAdapter mListFunctionAdapter;
-    private String mId, mAreaId, mDeviceTypeId;
+    private String mId, mAreaId, mDeviceTypeId, actuatorID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +163,8 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
         mRVFunction.setItemAnimator(new DefaultItemAnimator());
         mRVFunction.setNestedScrollingEnabled(false);
         mRVFunction.setAdapter(mListFunctionAdapter);
+
+        srlLayout.setOnRefreshListener(this);
     }
 
     private void getFunctions() {
@@ -252,6 +270,20 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
             @Override
             public void onImgOptionsClick(View view, int position) {
                 showFunctionPopupMenu(view, position);
+            }
+        });
+
+        fabCreateFunction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        fabGoneFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabFunction.setVisibility(View.GONE);
             }
         });
     }
@@ -384,44 +416,145 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
         });
     }
 
-    private class ActuatorMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_update_info:
-                    showSubmitUpdateDialog();
-                    return true;
-                case R.id.action_delete_info:
-                    return true;
-
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getFunctions();
+                fabFunction.setVisibility(View.VISIBLE);
+                srlLayout.setRefreshing(false);
             }
-            return false;
-        }
+        }, 1500);
     }
 
-    private class FunctionMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
-        int mPosition;
+    private void showUpdateFunctionInfoDialog(final FunctionByAcResponse.Result itemFunction) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Thông tin van điện từ");
+        builder.setCancelable(false); //click outSide to dismiss dialog
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View alertLayout = inflater.inflate(R.layout.dialog_update_function_info, null);
+        builder.setView(alertLayout);
 
-        private FunctionMenuItemClickListener(int position) {
-            mPosition = position;
-        }
+        //addControls
+        final EditText editFunctionName = alertLayout.findViewById(R.id.edit_function_name);
+        final EditText editFunctionDescribe = alertLayout.findViewById(R.id.edit_function_describe);
+        final TextView editActuator = alertLayout.findViewById(R.id.edit_actuator);
+        ImageView btnActuator = alertLayout.findViewById(R.id.btn_actuator);
+        final MaterialSpinner spinnerListActuator = alertLayout.findViewById(R.id.spinner_list_actuator);
 
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_update_info:
-                    Toast.makeText(mContext, "action_update_info", Toast.LENGTH_SHORT).show();
-                    return true;
-                case R.id.action_delete_info:
-                    Toast.makeText(mContext, "action_delete_info", Toast.LENGTH_SHORT).show();
-                    String functionId  = mListFunction.get(mPosition).getId();
-                    if(functionId!=null){
-                        requestDeleteFunction(functionId);
+        //Function spinner
+        actuatorAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrActuatorName);
+        actuatorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerListActuator.setAdapter(actuatorAdapter);
+
+        //initInfo
+        editFunctionName.setText(itemFunction.getName());
+        editFunctionDescribe.setText(itemFunction.getDescription());
+        editActuator.setText(itemFunction.getActuator().getName());
+        actuatorID = itemFunction.getActuator().getId();
+        //addEvents
+        btnActuator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActuators();
+                spinnerListActuator.setVisibility(View.VISIBLE);
+                spinnerListActuator.performClick();
+
+                spinnerListActuator.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        if (i != -1) {
+                            editActuator.setText(arrActuatorName.get(i));
+                            actuatorID = mListActuator.get(i).getId();
+                        }
+                        spinnerListActuator.setVisibility(View.GONE);
                     }
-                    return true;
 
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
             }
-            return false;
+        });
+
+
+        builder.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.setPositiveButton("Cập nhật", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String functionId = itemFunction.getId();
+                String functionName = String.valueOf(editFunctionName.getText());
+                String functionDescription = String.valueOf(editFunctionDescribe.getText());
+
+                if (functionId != null) {
+                    requestUpdateFunctionInfo(functionId, functionName, functionDescription, actuatorID);
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void requestUpdateFunctionInfo(String functionId, String functionName, String functionDescription, String actuatorID) {
+        ProgressDialogLoader.progressdialog_creation(mContext, "Updating...");
+
+        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
+        Call<FunctionsResponse> callFunction = apiService.updateInfoFunction(functionId, functionName, functionDescription, actuatorID);
+        callFunction.enqueue(new Callback<FunctionsResponse>() {
+            @Override
+            public void onResponse(Call<FunctionsResponse> call, Response<FunctionsResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(mContext, R.string.toast_update_area_successful, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, R.string.toast_update_area_fail, Toast.LENGTH_SHORT).show();
+                }
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<FunctionsResponse> call, Throwable t) {
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+        });
+    }
+
+    private void getActuators() {
+        ProgressDialogLoader.progressdialog_creation(mContext, "Loading...");
+
+        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
+        Call<ActuatorsResponse> callActuator = apiService.getActuators();
+        callActuator.enqueue(new Callback<ActuatorsResponse>() {
+            @Override
+            public void onResponse(Call<ActuatorsResponse> call, Response<ActuatorsResponse> response) {
+                if (response.isSuccessful()) {
+                    initListActuator(response.body());
+                }
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ActuatorsResponse> call, Throwable t) {
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+        });
+    }
+
+    private void initListActuator(ActuatorsResponse body) {
+        if (body.getResult() != null) {
+            mListActuator = body.getResult();
+            arrActuatorName.clear();
+            for (ActuatorsResponse.ResultBean a : mListActuator) {
+                arrActuatorName.add(a.getName());
+            }
+            actuatorAdapter.notifyDataSetChanged();
         }
     }
 
@@ -448,5 +581,47 @@ public class ActuatorUpdateActivity extends AppCompatActivity {
                 ProgressDialogLoader.progressdialog_dismiss();
             }
         });
+    }
+
+    private class ActuatorMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_update_info:
+                    showSubmitUpdateDialog();
+                    return true;
+                case R.id.action_delete_info:
+                    return true;
+
+            }
+            return false;
+        }
+    }
+
+    private class FunctionMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+        int mPosition;
+
+        private FunctionMenuItemClickListener(int position) {
+            mPosition = position;
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_update_info:
+                    FunctionByAcResponse.Result itemFunction = mListFunction.get(mPosition);
+                    showUpdateFunctionInfoDialog(itemFunction);
+                    return true;
+                case R.id.action_delete_info:
+                    Toast.makeText(mContext, "action_delete_info", Toast.LENGTH_SHORT).show();
+                    String functionId = mListFunction.get(mPosition).getId();
+                    if (functionId != null) {
+                        requestDeleteFunction(functionId);
+                    }
+                    return true;
+
+            }
+            return false;
+        }
     }
 }

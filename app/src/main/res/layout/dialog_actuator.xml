@@ -100,5 +100,4 @@
         android:hint="@string/nulls"
         android:textColor="@color/primary"
         android:textSize="@dimen/txt_medium"/>
-
 </RelativeLayout>

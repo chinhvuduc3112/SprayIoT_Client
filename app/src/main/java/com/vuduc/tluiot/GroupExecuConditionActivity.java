@@ -12,6 +12,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,6 +49,8 @@ public class GroupExecuConditionActivity extends AppCompatActivity implements Sw
     public static final String GROUPEXECU_ID = "GROUPEXECU_ID";
     public static final String GROUPEXECU_NAME = "GROUPEXECU_NAME";
     public static final String GROUPEXECU_DESCRIPTION = "GROUPEXECU_DESCRIPTION";
+    public static final String GROUPEXECU_AUTOTIME = "GROUPEXECU_AUTOTIME";
+    public static final String GROUPEXECU_STATUS = "GROUPEXECU_STATUS";
     public static final String FUNCTION_ID = "FUNCTION_ID";
     public static final String FUNCTION_NAME = "FUNCTION_NAME";
 
@@ -180,7 +183,6 @@ public class GroupExecuConditionActivity extends AppCompatActivity implements Sw
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                spinnerListFunctions.setSelected(false);
             }
         });
 
@@ -220,16 +222,19 @@ public class GroupExecuConditionActivity extends AppCompatActivity implements Sw
                 String groupID = groupExecu.getId();
                 String groupName = groupExecu.getName();
                 String groupDescrip = groupExecu.getDescription();
+                Boolean groupType = groupExecu.isStatus();
+                int groupAutoTime = groupExecu.getAutoTime();
                 String functionID = groupExecu.getFunction().getId();
                 String functionName = groupExecu.getFunction().getName();
 
-                intentDetailActivity(groupID, groupName, groupDescrip, functionID, functionName);
+                intentDetailActivity(groupID, groupName, groupDescrip, functionID, functionName, groupType, groupAutoTime);
             }
         });
 
         mFabCreateGroupExecu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(mContext, GroupExecuAddActivity.class));
             }
         });
         mFabGoneFab.setOnClickListener(new View.OnClickListener() {
@@ -240,7 +245,8 @@ public class GroupExecuConditionActivity extends AppCompatActivity implements Sw
         });
     }
 
-    private void intentDetailActivity(String groupID, String groupName, String groupDescrip, String functionID, String functionName) {
+    private void intentDetailActivity(String groupID, String groupName, String groupDescrip, String functionID,
+                                      String functionName, Boolean groupType, int groupAutoTime) {
         Intent intent = new Intent(mContext, GroupExecuDetailActivity.class);
         Bundle groupBundle = new Bundle();
         groupBundle.putString(GROUPEXECU_ID, groupID);
@@ -248,6 +254,8 @@ public class GroupExecuConditionActivity extends AppCompatActivity implements Sw
         groupBundle.putString(GROUPEXECU_DESCRIPTION, groupDescrip);
         groupBundle.putString(FUNCTION_ID, functionID);
         groupBundle.putString(FUNCTION_NAME, functionName);
+        groupBundle.putBoolean(GROUPEXECU_STATUS, groupType);
+        groupBundle.putInt(GROUPEXECU_AUTOTIME, groupAutoTime);
         intent.putExtra(TAG, groupBundle);
         mContext.startActivity(intent);
     }
@@ -257,7 +265,7 @@ public class GroupExecuConditionActivity extends AppCompatActivity implements Sw
         builder.setTitle("Thông tin điều kiện thực thi");
         builder.setCancelable(false); //click outSide to dismiss dialog
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View alertLayout = inflater.inflate(R.layout.dialog_actuator, null);
+        View alertLayout = inflater.inflate(R.layout.dialog_group_condition, null);
         builder.setView(alertLayout);
 
         //addControls
@@ -265,6 +273,7 @@ public class GroupExecuConditionActivity extends AppCompatActivity implements Sw
         TextView editDeviceDescribe = alertLayout.findViewById(R.id.edit_device_describe);
         TextView editFunctionName = alertLayout.findViewById(R.id.edit_type_device);
         TextView editTime = alertLayout.findViewById(R.id.edit_area_name);
+        TextView editGroupType = alertLayout.findViewById(R.id.edit_type_group);
         TextView txtFunctionName = alertLayout.findViewById(R.id.txt_type_device);
         TextView txtTime = alertLayout.findViewById(R.id.txt_area_name);
 
@@ -272,8 +281,14 @@ public class GroupExecuConditionActivity extends AppCompatActivity implements Sw
         editDeviceName.setText(groupExecu.getName());
         editDeviceDescribe.setText(groupExecu.getDescription());
         editFunctionName.setText(groupExecu.getFunction().getName());
-        editTime.setText(String.valueOf(groupExecu.getFunction().getActivityDuration()));
-        txtFunctionName.setText("Tên chức năng");
+        editTime.setText(String.valueOf(groupExecu.getAutoTime()));
+
+        if(groupExecu.isStatus()){
+            editGroupType.setText("Bật");
+        }else{
+            editGroupType.setText("Tắt");
+        }
+        txtFunctionName.setText("Tên van điện từ");
         txtTime.setText("Thời gian hoạt động");
 
         builder.setPositiveButton("Thoát", new DialogInterface.OnClickListener() {

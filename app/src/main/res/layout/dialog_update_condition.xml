@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_medium">
+
+    <TextView
+        android:id="@+id/txt_condition_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vLine1"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="@string/info_name"
+        android:textColor="@color/navigationBar"
+        android:textSize="@dimen/txt_medium"/>
+
+    <EditText
+        android:id="@+id/edit_condition_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txt_condition_name"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/error_label_spacing"
+        android:hint="@string/nulls"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/txt_medium"/>
+
+    <TextView
+        android:id="@+id/txt_condition_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_condition_name"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="@string/info_describe"
+        android:textColor="@color/navigationBar"
+        android:textSize="@dimen/txt_medium"/>
+
+    <EditText
+        android:id="@+id/edit_condition_describe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_condition_describe"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:gravity="top|left"
+        android:hint="@string/nulls"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:maxLines="10"
+        android:minLines="3"
+        android:scrollbars="vertical"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/txt_medium"/>
+
+    <TextView
+        android:id="@+id/txt_compare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_condition_describe"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="So sánh"
+        android:textColor="@color/navigationBar"
+        android:textSize="@dimen/txt_medium"/>
+
+    <TextView
+        android:id="@+id/edit_compare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txt_compare"
+        android:layout_marginRight="@dimen/error_label_spacing"
+        android:layout_toLeftOf="@+id/btn_compare"
+        android:hint="@string/nulls"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/txt_large"/>
+
+    <ImageView
+        android:id="@+id/btn_compare"
+        android:layout_width="@dimen/tab_padding_bottom"
+        android:layout_height="@dimen/tab_padding_bottom"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/edit_condition_describe"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/pencil_edit_button"/>
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spinner_list_type_compare"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@+id/edit_condition_describe"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"
+        app:ms_hint="So sánh"/>
+
+    <TextView
+        android:id="@+id/txt_compare_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_compare"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="14dp"
+        android:text="Giá trị"
+        android:textColor="@color/navigationBar"
+        android:textSize="@dimen/txt_medium"/>
+
+    <EditText
+        android:id="@+id/edit_compare_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txt_compare_value"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/error_label_spacing"
+        android:hint="@string/nulls"
+        android:inputType="number"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/txt_medium"/>
+
+    <TextView
+        android:id="@+id/txt_node_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_compare_value"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="14dp"
+        android:text="Node cảm biến"
+        android:textColor="@color/navigationBar"
+        android:textSize="@dimen/txt_medium"/>
+
+    <TextView
+        android:id="@+id/edit_node_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txt_node_name"
+        android:layout_marginRight="@dimen/error_label_spacing"
+        android:layout_toLeftOf="@+id/btn_node"
+        android:hint="@string/nulls"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/txt_medium"/>
+
+    <ImageView
+        android:id="@+id/btn_node"
+        android:layout_width="@dimen/tab_padding_bottom"
+        android:layout_height="@dimen/tab_padding_bottom"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txt_compare_value"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/pencil_edit_button"/>
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spinner_list_node"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/edit_condition_describe"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"
+        app:ms_hint="Node cảm biến"/>
+
+    <TextView
+        android:id="@+id/txt_device_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_node_name"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="14dp"
+        android:text="Cảm biến"
+        android:textColor="@color/navigationBar"
+        android:textSize="@dimen/txt_medium"/>
+
+    <TextView
+        android:id="@+id/edit_device_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txt_device_name"
+        android:layout_marginRight="@dimen/error_label_spacing"
+        android:layout_toLeftOf="@+id/btn_device"
+        android:hint="@string/nulls"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/txt_medium"/>
+
+    <ImageView
+        android:id="@+id/btn_device"
+        android:layout_width="@dimen/tab_padding_bottom"
+        android:layout_height="@dimen/tab_padding_bottom"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txt_node_name"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/pencil_edit_button"/>
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spinner_list_device"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/edit_condition_describe"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"
+        app:ms_hint="Node cảm biến"/>
+</RelativeLayout>

@@ -12,7 +12,7 @@ import java.util.List;
 public class GroupExecuResponse {
 
     /**
-     * result : [{"_id":"5a032c13cab58f288cac10a8","name":"group dieu kien 1","description":"mo ta 1","trash":false,"function":{"_id":"5a032bcdcab58f288cac10a7","name":"van 1","actuatorId":"5a032a2f2f331f2bac34ed29","activityDuration":10,"trash":false,"status":false,"__v":0}}]
+     * result : [{"_id":"5a27a1e373328b14301c4201","name":"group dieu kien 1","description":"mo ta 1","trash":false,"autoTime":15,"status":true,"function":{"_id":"5a2129845843b420747a56cd","name":"van 2","actuatorId":"5a042bfb03e2ef31540f30f0","activityDuration":20,"manualTime":15,"description":"mo ta cai gi day","trash":false,"status":true,"__v":0}}]
      * status : 1
      */
 
@@ -44,11 +44,13 @@ public class GroupExecuResponse {
 
     public static class ResultBean {
         /**
-         * _id : 5a032c13cab58f288cac10a8
+         * _id : 5a27a1e373328b14301c4201
          * name : group dieu kien 1
          * description : mo ta 1
          * trash : false
-         * function : {"_id":"5a032bcdcab58f288cac10a7","name":"van 1","actuatorId":"5a032a2f2f331f2bac34ed29","activityDuration":10,"trash":false,"status":false,"__v":0}
+         * autoTime : 15
+         * status : true
+         * function : {"_id":"5a2129845843b420747a56cd","name":"van 2","actuatorId":"5a042bfb03e2ef31540f30f0","activityDuration":20,"manualTime":15,"description":"mo ta cai gi day","trash":false,"status":true,"__v":0}
          */
 
         @SerializedName("_id")
@@ -59,6 +61,10 @@ public class GroupExecuResponse {
         private String description;
         @SerializedName("trash")
         private boolean trash;
+        @SerializedName("autoTime")
+        private int autoTime;
+        @SerializedName("status")
+        private boolean status;
         @SerializedName("function")
         private FunctionBean function;
 
@@ -99,6 +105,22 @@ public class GroupExecuResponse {
             this.trash = trash;
         }
 
+        public int getAutoTime() {
+            return autoTime;
+        }
+
+        public void setAutoTime(int autoTime) {
+            this.autoTime = autoTime;
+        }
+
+        public boolean isStatus() {
+            return status;
+        }
+
+        public void setStatus(boolean status) {
+            this.status = status;
+        }
+
         public FunctionBean getFunction() {
             return function;
         }
@@ -109,12 +131,14 @@ public class GroupExecuResponse {
 
         public static class FunctionBean {
             /**
-             * _id : 5a032bcdcab58f288cac10a7
-             * name : van 1
-             * actuatorId : 5a032a2f2f331f2bac34ed29
-             * activityDuration : 10
+             * _id : 5a2129845843b420747a56cd
+             * name : van 2
+             * actuatorId : 5a042bfb03e2ef31540f30f0
+             * activityDuration : 20
+             * manualTime : 15
+             * description : mo ta cai gi day
              * trash : false
-             * status : false
+             * status : true
              * __v : 0
              */
 
@@ -126,6 +150,10 @@ public class GroupExecuResponse {
             private String actuatorId;
             @SerializedName("activityDuration")
             private int activityDuration;
+            @SerializedName("manualTime")
+            private int manualTime;
+            @SerializedName("description")
+            private String description;
             @SerializedName("trash")
             private boolean trash;
             @SerializedName("status")
@@ -168,6 +196,22 @@ public class GroupExecuResponse {
 
             public void setActivityDuration(int activityDuration) {
                 this.activityDuration = activityDuration;
+            }
+
+            public int getManualTime() {
+                return manualTime;
+            }
+
+            public void setManualTime(int manualTime) {
+                this.manualTime = manualTime;
+            }
+
+            public String getDescription() {
+                return description;
+            }
+
+            public void setDescription(String description) {
+                this.description = description;
             }
 
             public boolean isTrash() {
