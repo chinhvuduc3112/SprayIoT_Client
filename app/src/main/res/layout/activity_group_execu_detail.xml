@@ -293,7 +293,7 @@
                     fab:fab_colorNormal="@color/accent"
                     fab:fab_colorPressed="@color/primary"
                     fab:fab_colorRipple="#99FFFFFF"
-                    fab:fab_label="Tạo mới"
+                    fab:fab_label="Tạo mới điều kiện"
                     fab:fab_size="mini"/>
 
                 <com.github.clans.fab.FloatingActionButton

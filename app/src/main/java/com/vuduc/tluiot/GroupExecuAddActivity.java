@@ -119,7 +119,7 @@ public class GroupExecuAddActivity extends AppCompatActivity {
 
         //Toolbar
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Thêm mới điều kiện");
+        getSupportActionBar().setTitle("Thêm mới nhóm điều kiện");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

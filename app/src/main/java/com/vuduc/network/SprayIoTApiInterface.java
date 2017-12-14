@@ -109,6 +109,12 @@ public interface SprayIoTApiInterface {
                                                @Field("functionId") String functionId, @Field("autoTime") int autoTime, @Field("status") Boolean status);
 
     @FormUrlEncoded
+    @POST("/addExecutionCondition")
+    Call<ExecuConditionByGroupResponse> addCondition(@Field("name") String name, @Field("description") String description,
+                                                     @Field("groupExecutionConditionId") String groupID, @Field("deviceNodeId") String deviceNodeID,
+                                                     @Field("compare") int compare, @Field("compareValue") int compareValue);
+
+    @FormUrlEncoded
     @PUT("/updateArea")
     Call<AreaResponse> updateArea(@Field("name") String areaName, @Field("note") String areaNode,
                                   @Field("x") int x, @Field("y") int y,

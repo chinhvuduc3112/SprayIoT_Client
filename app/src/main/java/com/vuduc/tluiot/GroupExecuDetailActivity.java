@@ -38,7 +38,6 @@ import com.vuduc.network.SprayIoTApiInterface;
 import com.vuduc.until.Logger;
 import com.vuduc.until.ProgressDialogLoader;
 
-import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,7 +112,7 @@ public class GroupExecuDetailActivity extends AppCompatActivity {
     private ArrayAdapter<String> mFunctionAdapter, mGroupTypeAdapter;
     private ExecuConditionAdapter mExecuConditionAdapter;
     private String mGroupExecuID, mFunctionID;
-    private Boolean mGroupExecuStatus=true;
+    private Boolean mGroupExecuStatus = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,11 +178,11 @@ public class GroupExecuDetailActivity extends AppCompatActivity {
         editGroupExecuName.setText(groupExecuName);
         editGroupExecuDescription.setText(groupExecuDescription);
         editFunction.setText(functionName);
-        editGroupAutoTime.setText(groupAutoTime+"");
+        editGroupAutoTime.setText(groupAutoTime + "");
 
-        if(mGroupExecuStatus){
+        if (mGroupExecuStatus) {
             editTypeGroup.setText("Bật");
-        }else{
+        } else {
             editTypeGroup.setText("Tắt");
         }
 
@@ -262,10 +261,10 @@ public class GroupExecuDetailActivity extends AppCompatActivity {
                 spinnerListGroupType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        if(i==0){
+                        if (i == 0) {
                             editTypeGroup.setText("Bật");
                             mGroupExecuStatus = true;
-                        }else{
+                        } else {
                             editTypeGroup.setText("Tắt");
                             mGroupExecuStatus = false;
                         }
@@ -578,6 +577,8 @@ public class GroupExecuDetailActivity extends AppCompatActivity {
                             spinnerListDevice.setVisibility(View.GONE);
                         }
                     });
+                } else {
+                    Toast.makeText(mContext, "Xin lỗi! bạn chưa chọn NODE", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -725,9 +726,9 @@ public class GroupExecuDetailActivity extends AppCompatActivity {
         callGroup.enqueue(new Callback<GroupExecuResponse>() {
             @Override
             public void onResponse(Call<GroupExecuResponse> call, Response<GroupExecuResponse> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Toast.makeText(mContext, R.string.toast_update_info_successful, Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(mContext, R.string.toast_update_info_fail, Toast.LENGTH_SHORT).show();
                 }
                 ProgressDialogLoader.progressdialog_dismiss();
