@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_medium">
+
+    <TextView
+        android:id="@+id/txt_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vLine1"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="Thời gian"
+        android:textColor="@color/navigationBar"
+        android:textSize="@dimen/txt_medium"/>
+
+    <EditText
+        android:id="@+id/edit_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txt_time"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:hint="0"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/txt_medium"
+        android:inputType="number"/>
+</RelativeLayout>

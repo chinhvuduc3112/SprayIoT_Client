@@ -16,16 +16,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vuduc.models.ActuatorInfosResponse;
+import com.vuduc.models.ManualUpdateActuator;
+import com.vuduc.network.ApiUtils;
+import com.vuduc.network.SprayIoTApiInterface;
 import com.vuduc.tluiot.ActuatorUpdateActivity;
 import com.vuduc.tluiot.R;
+import com.vuduc.until.ProgressDialogLoader;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by admin on 11/3/2017.
@@ -47,7 +57,6 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
 
     private List<ActuatorInfosResponse.Result> mActuators;
     private Context mContext;
-    private long mStartTime = 0, mStopTime = 0, mActiveTime = 0;
 
     public ListActuatorAdapter(Context mContext, List<ActuatorInfosResponse.Result> mActuators) {
         this.mActuators = mActuators;
@@ -70,7 +79,7 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
         //setCheckedSwitch
         if (actuator.isStatus()) {
             holder.switch_actuator_realtime.setChecked(true);
-            startCountDownTimer(holder.txt_actuator_time, holder.mCountDownTimer);
+            startCountDownTimer(holder, actuator);
         } else {
             holder.switch_actuator_realtime.setChecked(false);
         }
@@ -78,11 +87,19 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
         holder.switch_actuator_realtime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (holder.switch_actuator_realtime.isChecked()) {
-                    holder.switch_actuator_realtime.setChecked(true);
+                if (b) {
+                    //true
+                    if (!holder.isRunning || actuator.isStatus() == false) {
+                        manualONActuator(holder, actuator);
+                    }
                 } else {
-                    pauseCountDownTimer(holder.txt_actuator_time, holder.mCountDownTimer);
-                    holder.switch_actuator_realtime.setChecked(false);
+                    //false
+                    if (holder.isRunning & actuator.isStatus() == true) {
+                        manualPauseActuator(holder, actuator);
+                    }
+//                    } else {
+//                        pauseCountDownTimer(holder);
+//                    }
                 }
             }
         });
@@ -103,42 +120,138 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
         });
     }
 
-    private void pauseCountDownTimer(TextView txt_actuator_time, CountDownTimer countDownTimer) {
-        countDownTimer.cancel();
+    private void manualONActuator(final MyViewHolder holder, final ActuatorInfosResponse.Result actuator) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Chỉnh thời gian bật");
+        builder.setCancelable(false); //click outSide to dismiss dialog
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View alertLayout = inflater.inflate(R.layout.dialog_manual_time, null);
+        builder.setView(alertLayout);
+
+        //addControls
+        final EditText editTime = alertLayout.findViewById(R.id.edit_time);
+
+        builder.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int time = Integer.parseInt(String.valueOf(editTime.getText()));
+                manualUpdateStatusActuatorResponse(holder, actuator, time, true);
+            }
+        });
+
+        builder.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                holder.switch_actuator_realtime.setChecked(false);
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
-    public void onPauseFragment() {
-        Log.d(TAG, "pauseCountDownTimer: ");
-//        if(mCountDownTimer!=null){
-//            mCountDownTimer.cancel();
-//        }
+    private void manualPauseActuator(final MyViewHolder holder, final ActuatorInfosResponse.Result actuator) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Spray IoT");
+        builder.setMessage("Bạn có chắc muốn TẮT không?");
+        builder.setCancelable(false); //click outSide to dismiss dialog=
+        builder.setPositiveButton("CÓ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                manualUpdateStatusActuatorResponse(holder, actuator, 0, false);
+                holder.isRunning = false;
+            }
+        });
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                holder.switch_actuator_realtime.setChecked(true);
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
-    private void startCountDownTimer(final TextView txt_actuator_time, CountDownTimer countDownTimer) {
-        mStartTime = Long.parseLong(txt_actuator_time.getText().toString()) * 1000;
-        countDownTimer = new CountDownTimer(mStartTime, 1000) {
+    private void manualUpdateStatusActuatorResponse(final MyViewHolder holder, final ActuatorInfosResponse.Result actuator, int i, final boolean b) {
+        ProgressDialogLoader.progressdialog_creation(mContext, "Updating...");
+
+        if (actuator.getId() != null) {
+            SprayIoTApiInterface apiInterface = ApiUtils.getSprayIoTApiService();
+            retrofit2.Call<ManualUpdateActuator> callActuator = apiInterface.manualUpdateStatusActuator(actuator.getId(), i, b);
+            callActuator.enqueue(new Callback<ManualUpdateActuator>() {
+                @Override
+                public void onResponse(Call<ManualUpdateActuator> call, Response<ManualUpdateActuator> response) {
+                    if (response.isSuccessful()) {
+                        notifyDataSetChanged();
+                        if (b) {
+                            Toast.makeText(mContext, "BẬT thành công \n Relaod trang để tải lại thông tin", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mContext, "TẮT thành công \n Relaod trang để tải lại thông tin", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(mContext, "Hành động thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                    ProgressDialogLoader.progressdialog_dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<ManualUpdateActuator> call, Throwable t) {
+                    ProgressDialogLoader.progressdialog_dismiss();
+                }
+            });
+        }
+    }
+
+    private void pauseCountDownTimer(final MyViewHolder holder) {
+        holder.txt_actuator_time.setText("Dừng");
+        holder.isRunning = false;
+        holder.switch_actuator_realtime.setChecked(false);
+    }
+
+    private void startCountDownTimer(final MyViewHolder holder, ActuatorInfosResponse.Result actuator) {
+        Log.d("CHINH", "startCountDownTimer: " + actuator.getName());
+
+        holder.mStartTime = actuator.getTime() * 1000;
+
+        holder.mCountDownTimer = new CountDownTimer(holder.mStartTime, 1000) {
             @Override
             public void onTick(long l) {
-                Log.d(TAG, "onTick: " + l);
-                txt_actuator_time.setText(l / 1000 + " min");
-                mStopTime = (int) (l / 1000);
+                if (holder.isRunning) {
+                    holder.txt_actuator_time.setText(l / 1000 + " min");
+                    holder.mStopTime = (int) (l / 1000);
+                    holder.isRunning = true;
+                }
             }
 
             @Override
             public void onFinish() {
-                txt_actuator_time.setText("Dừng");
+                holder.txt_actuator_time.setText("Dừng");
+                holder.isRunning = false;
+                holder.switch_actuator_realtime.setChecked(false);
             }
         }.start();
     }
 
     private void getActuatorInfo(ActuatorInfosResponse.Result actuator) {
-        mId = actuator.getId();
-        mName = actuator.getName();
-        mDescription = actuator.getDescription();
-        mAreaId = actuator.getArea().getId();
-        mAreaName = actuator.getArea().getName();
-        mDeviceTypeID = actuator.getDeviceType().getId();
-        mDeviceTypeName = actuator.getDeviceType().getName();
+        if (actuator.getId() != null) {
+            mId = actuator.getId();
+            mName = actuator.getName();
+            mDescription = actuator.getDescription();
+            if(actuator.getArea()!=null){
+                mAreaId = actuator.getArea().getId();
+            }else{
+                mAreaId = null;
+            }
+            if(actuator.getArea()!=null){
+                mAreaName = actuator.getArea().getName();
+            }else{
+                mAreaName = "null";
+            }
+            mDeviceTypeID = actuator.getDeviceType().getId();
+            mDeviceTypeName = actuator.getDeviceType().getName();
+        }
     }
 
     private void showPopupMenu(View view) {
@@ -168,7 +281,11 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
         editDeviceName.setText(actuator.getName());
         editDeviceDescribe.setText(actuator.getDescription());
         editTypeDevice.setText(actuator.getDeviceType().getName());
-        editAreaName.setText(actuator.getArea().getName());
+        if (actuator.getArea() != null) {
+            editAreaName.setText(actuator.getArea().getName());
+        } else {
+            editAreaName.setText("null");
+        }
 
         builder.setPositiveButton("Thoát", new DialogInterface.OnClickListener() {
             @Override
@@ -199,10 +316,14 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
 
         View itemView;
         CountDownTimer mCountDownTimer;
+        long mStartTime = 0, mStopTime = 0;
+        boolean isRunning = true;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.itemView = itemView;
+            this.setIsRecyclable(false);
+
             ButterKnife.bind(this, itemView);
         }
     }

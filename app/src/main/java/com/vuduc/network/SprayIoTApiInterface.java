@@ -12,6 +12,8 @@ import com.vuduc.models.ExecuConditionByGroupResponse;
 import com.vuduc.models.FunctionByAcResponse;
 import com.vuduc.models.FunctionsResponse;
 import com.vuduc.models.GroupExecuResponse;
+import com.vuduc.models.ManualUpdateActuator;
+import com.vuduc.models.ManualUpdateFunction;
 import com.vuduc.models.Node;
 import com.vuduc.models.NodeByIdResponse;
 
@@ -159,6 +161,16 @@ public interface SprayIoTApiInterface {
     @PUT("/updateGroupExcutionCondition")
     Call<GroupExecuResponse> updateGroupExecu(@Field("_id") String id, @Field("name") String name, @Field("description") String description,
                                               @Field("functionId") String functionId, @Field("status") Boolean groupType, @Field("autoTime") int autoTime);
+
+    @FormUrlEncoded
+    @PUT("/manualUpdateStatusActuator")
+    Call<ManualUpdateActuator> manualUpdateStatusActuator(@Field("actuatorId") String actuatorId, @Field("time") int time,
+                                                          @Field("status") Boolean status);
+
+    @FormUrlEncoded
+    @PUT("/manualUpdateFunctionStatusById")
+    Call<ManualUpdateFunction> manualUpdateFunctionStatus(@Field("functionId") String functionId, @Field("time") int time,
+                                                          @Field("status") Boolean status);
 
     @DELETE("/deleteDeviceNode/{id}")
     Call<ResponseBody> deleteDeviceNode(@Path("id") String deviceNodeId);

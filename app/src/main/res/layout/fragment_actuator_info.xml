@@ -5,23 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/srlLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context="com.vuduc.fragments.ActuatorInfoFragment">
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/app_bar_top"
             android:padding="@dimen/margin_medium">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_list_actuator"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"/>
 
@@ -88,6 +84,4 @@
 
             </com.github.clans.fab.FloatingActionMenu>
         </RelativeLayout>
-
-    </android.support.v4.widget.NestedScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>

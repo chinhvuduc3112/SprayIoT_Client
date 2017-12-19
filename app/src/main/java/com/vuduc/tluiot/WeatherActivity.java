@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.vuduc.adapters.WeatherAdapter;
@@ -92,9 +93,8 @@ public class WeatherActivity extends AppCompatActivity {
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "btn_search.....");
                 String cityName = edit_city_name.getText().toString();
-                String cityName1 = "Hanoi";
+                String cityName1 = "Ha noi";
                 if (cityName.equals("")) {
                     cityName = cityName1;
                 }
@@ -123,13 +123,15 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void initNextDayWeatherApi(NextDayWeatherResponse data) {
-        if (data != null) {
+        if (!data.getCod().equals("404")) {
             List<NextDayWeatherResponse.ListBean> listBean = data.getList();
             listWeather.clear();
             for (NextDayWeatherResponse.ListBean lb : listBean) {
                 listWeather.add(lb);
             }
             weatherAdapter.notifyDataSetChanged();
+        }else{
+            Toast.makeText(mContext, "City not found", Toast.LENGTH_SHORT).show();
         }
     }
 

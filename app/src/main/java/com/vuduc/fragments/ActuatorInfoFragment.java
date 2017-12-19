@@ -142,7 +142,6 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
             public void run() {
                 getActuators();
                 fabInfoActuator.setVisibility(View.VISIBLE);
-                mListActuatorAdapter.onPauseFragment();
                 srlLayout.setRefreshing(false);
             }
         }, 1500);
@@ -151,6 +150,5 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
     @Override
     public void onPause() {
         super.onPause();
-        mListActuatorAdapter.onPauseFragment();
     }
 }
