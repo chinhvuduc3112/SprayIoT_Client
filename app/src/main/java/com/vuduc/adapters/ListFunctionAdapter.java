@@ -1,21 +1,35 @@
 package com.vuduc.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vuduc.models.FunctionByAcResponse;
+import com.vuduc.models.ManualUpdateFunction;
+import com.vuduc.network.ApiUtils;
+import com.vuduc.network.SprayIoTApiInterface;
 import com.vuduc.tluiot.R;
+import com.vuduc.until.ProgressDialogLoader;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by VuDuc on 11/15/2017.
@@ -43,16 +57,154 @@ public class ListFunctionAdapter extends RecyclerView.Adapter<ListFunctionAdapte
     }
 
     @Override
-    public void onBindViewHolder(ListFunctionAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final ListFunctionAdapter.MyViewHolder holder, int position) {
         final FunctionByAcResponse.Result function = mListFunction.get(position);
 
         holder.txt_actuator_name.setText(function.getName());
         holder.txt_actuator_time.setText(function.getActivityDuration() + "");
         if (function.isStatus()) {
             holder.switch_actuator_realtime.setChecked(true);
+            startCountDownTimer(holder, function);
         } else {
             holder.switch_actuator_realtime.setChecked(false);
         }
+
+        holder.switch_actuator_realtime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    //true
+                    if (!holder.isRunning || function.isStatus() == false) {
+                        manualONFunction(holder, function);
+                    }
+                } else {
+                    //false
+                    if (holder.isRunning & function.isStatus() == true) {
+                        manualPauseFunction(holder, function);
+                    }
+                }
+            }
+        });
+    }
+
+    private void manualONFunction(final MyViewHolder holder, final FunctionByAcResponse.Result function) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Chỉnh thời gian bật");
+        builder.setCancelable(false); //click outSide to dismiss dialog
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View alertLayout = inflater.inflate(R.layout.dialog_manual_time, null);
+        builder.setView(alertLayout);
+
+        //addControls
+        final EditText editTime = alertLayout.findViewById(R.id.edit_time);
+
+        builder.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int time = Integer.parseInt(String.valueOf(editTime.getText()));
+                manualUpdateStatusFunctionResponse(holder, function, time, true);
+            }
+        });
+
+        builder.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                holder.switch_actuator_realtime.setChecked(false);
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void manualPauseFunction(final MyViewHolder holder, final FunctionByAcResponse.Result function) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Spray IoT");
+        builder.setMessage("Bạn có chắc muốn TẮT không?");
+        builder.setCancelable(false); //click outSide to dismiss dialog=
+        builder.setPositiveButton("CÓ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                manualUpdateStatusFunctionResponse(holder, function, 0, false);
+                holder.isRunning = false;
+            }
+        });
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                holder.switch_actuator_realtime.setChecked(true);
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void manualUpdateStatusFunctionResponse(MyViewHolder holder, FunctionByAcResponse.Result function, int i, final boolean b) {
+        ProgressDialogLoader.progressdialog_creation(mContext, "Updating...");
+
+        if (function.getId() != null) {
+            SprayIoTApiInterface apiInterface = ApiUtils.getSprayIoTApiService();
+            retrofit2.Call<ManualUpdateFunction> callFunction = apiInterface.manualUpdateFunctionStatus(function.getId(), i, b);
+            callFunction.enqueue(new Callback<ManualUpdateFunction>() {
+                @Override
+                public void onResponse(Call<ManualUpdateFunction> call, Response<ManualUpdateFunction> response) {
+                    if (response.isSuccessful()) {
+
+                        updateListFunction(response.body());
+
+                        if (b) {
+                            Toast.makeText(mContext, "BẬT thành công \n Relaod trang để tải lại thông tin", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mContext, "TẮT thành công \n Relaod trang để tải lại thông tin", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(mContext, "Hành động thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                    ProgressDialogLoader.progressdialog_dismiss();
+                }
+
+                private void updateListFunction(ManualUpdateFunction body) {
+                    List<ManualUpdateFunction.ResultBean.FunctionsBean> functions = body.getResult().getFunctions();
+                    for (FunctionByAcResponse.Result a : mListFunction) {
+                        for (ManualUpdateFunction.ResultBean.FunctionsBean b : functions) {
+                            if (a.getId().equals(b.getId())) {
+                                a.setActivityDuration(b.getActivityDuration());
+                                a.setStatus(b.isStatus());
+                            }
+                        }
+                    }
+                    notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Call<ManualUpdateFunction> call, Throwable t) {
+                    ProgressDialogLoader.progressdialog_dismiss();
+                }
+            });
+        }
+    }
+
+    private void startCountDownTimer(final MyViewHolder holder, FunctionByAcResponse.Result function) {
+        long startTime = function.getActivityDuration() * 1000;
+
+        holder.mCountDownTimer = new CountDownTimer(startTime, 1000) {
+            @Override
+            public void onTick(long l) {
+                if (holder.isRunning) {
+                    holder.txt_actuator_time.setText(l / 1000 + " min");
+                    holder.isRunning = true;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                holder.txt_actuator_time.setText("Dừng");
+                holder.isRunning = false;
+                holder.switch_actuator_realtime.setChecked(false);
+            }
+        }.start();
     }
 
 
@@ -83,10 +235,13 @@ public class ListFunctionAdapter extends RecyclerView.Adapter<ListFunctionAdapte
         ImageView img_options;
 
         View itemView;
+        CountDownTimer mCountDownTimer;
+        boolean isRunning = true;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.itemView = itemView;
+            this.setIsRecyclable(false);
             ButterKnife.bind(this, itemView);
 
             img_options.setOnClickListener(this);

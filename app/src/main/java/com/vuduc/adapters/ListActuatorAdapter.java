@@ -135,7 +135,9 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 int time = Integer.parseInt(String.valueOf(editTime.getText()));
-                manualUpdateStatusActuatorResponse(holder, actuator, time, true);
+                if(editTime.getText()!=null){
+                    manualUpdateStatusActuatorResponse(holder, actuator, time, true);
+                }
             }
         });
 
@@ -184,16 +186,29 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
                 @Override
                 public void onResponse(Call<ManualUpdateActuator> call, Response<ManualUpdateActuator> response) {
                     if (response.isSuccessful()) {
-                        notifyDataSetChanged();
+
+                        updateListActuator(response.body());
+
                         if (b) {
-                            Toast.makeText(mContext, "BẬT thành công \n Relaod trang để tải lại thông tin", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "BẬT thành công", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(mContext, "TẮT thành công \n Relaod trang để tải lại thông tin", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "TẮT thành công", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(mContext, "Hành động thất bại", Toast.LENGTH_SHORT).show();
                     }
                     ProgressDialogLoader.progressdialog_dismiss();
+                }
+
+                private void updateListActuator(ManualUpdateActuator body) {
+                    ManualUpdateActuator.ResultBean actuators = body.getResult();
+                    for (ActuatorInfosResponse.Result a : mActuators) {
+                        if (a.getId().equals(actuators.getId())) {
+                            a.setTime(actuators.getTime());
+                            a.setStatus(actuators.isStatus());
+                        }
+                    }
+                    notifyDataSetChanged();
                 }
 
                 @Override
@@ -239,14 +254,14 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
             mId = actuator.getId();
             mName = actuator.getName();
             mDescription = actuator.getDescription();
-            if(actuator.getArea()!=null){
+            if (actuator.getArea() != null) {
                 mAreaId = actuator.getArea().getId();
-            }else{
+            } else {
                 mAreaId = null;
             }
-            if(actuator.getArea()!=null){
+            if (actuator.getArea() != null) {
                 mAreaName = actuator.getArea().getName();
-            }else{
+            } else {
                 mAreaName = "null";
             }
             mDeviceTypeID = actuator.getDeviceType().getId();
