@@ -41,7 +41,7 @@ public class AreaActivity extends AppCompatActivity {
 
         //Toolbar
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(R.string.sensor);
+        getSupportActionBar().setTitle("Khu vực");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
