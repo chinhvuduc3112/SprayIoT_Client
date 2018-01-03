@@ -63,7 +63,7 @@
         android:layout_below="@+id/edit_function_describe"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_medium"
-        android:text="Van điện từ"
+        android:text="Thiết bị thực thi"
         android:textColor="@color/navigationBar"
         android:textSize="@dimen/txt_medium"/>
 

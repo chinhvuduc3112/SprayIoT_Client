@@ -77,7 +77,7 @@ public class ActuatorAddActivity extends AppCompatActivity {
 
         //Toolbar
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(R.string.sensor);
+        getSupportActionBar().setTitle("Thiết bị Thực thi");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -168,7 +168,11 @@ public class ActuatorAddActivity extends AppCompatActivity {
                 String name = String.valueOf(editDeviceName.getText());
                 String description = String.valueOf(editDescription.getText());
 
-                requestAddActuator(name, description);
+                if(mDeviceTypeId!=null){
+                    requestAddActuator(name, description);
+                }else{
+                    Toast.makeText(mContext, "Mời bạn nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
