@@ -112,8 +112,10 @@ public class WeatherActivity extends AppCompatActivity {
         callNextDayWeather.enqueue(new Callback<NextDayWeatherResponse>() {
             @Override
             public void onResponse(Call<NextDayWeatherResponse> call, Response<NextDayWeatherResponse> response) {
-                Log.d("message", response.toString());
-                initNextDayWeatherApi(response.body());
+                if(response.isSuccessful()){
+                    Log.d("message", response.toString());
+                    initNextDayWeatherApi(response.body());
+                }
             }
             @Override
             public void onFailure(Call<NextDayWeatherResponse> call, Throwable t) {
@@ -142,8 +144,8 @@ public class WeatherActivity extends AppCompatActivity {
         callWeather.enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                Log.d("message", response.toString());
                 if (response.isSuccessful()) {
+                    Log.d("message", response.toString());
                     initWeatherApi(response.body());
                 }
                 ProgressDialogLoader.progressdialog_dismiss();
@@ -157,41 +159,45 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void initWeatherApi(WeatherResponse data) {
-        txt_city.setText(data.getName());
+        if (!data.getWeather().equals("")){
+            txt_city.setText(data.getName());
 
-        List<WeatherResponse.Weather> weathers = data.getWeather();
-        String t = weathers.get(0).getDescription();
-        txt_status.setText(t);
-        Log.d("trang thai", t);
+            List<WeatherResponse.Weather> weathers = data.getWeather();
+            String t = weathers.get(0).getDescription();
+            txt_status.setText(t);
+            Log.d("trang thai", t);
 
-        long longDay = Long.valueOf(data.getDt());
-        Date date = new Date(longDay * 1000L);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE yyyy-MM-dd HH-mm-ss");
-        String Day = simpleDateFormat.format(date);
-        txt_day.setText(Day);
+            long longDay = Long.valueOf(data.getDt());
+            Date date = new Date(longDay * 1000L);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE yyyy-MM-dd HH-mm-ss");
+            String Day = simpleDateFormat.format(date);
+            txt_day.setText(Day);
 
-        String iconStatus = weathers.get(0).getIcon();
-        Picasso.with(WeatherActivity.this).load("http://openweathermap.org/img/w/" + iconStatus + ".png").into(img_icon_status);
+            String iconStatus = weathers.get(0).getIcon();
+            Picasso.with(WeatherActivity.this).load("http://openweathermap.org/img/w/" + iconStatus + ".png").into(img_icon_status);
 
-        WeatherResponse.Main main = data.getMain();
-        Double nhietDoAvg = main.getTemp();
-        String NhieuDoAvg = String.valueOf(nhietDoAvg.intValue());
-        Double nhietDoMax = main.getTempMax();
-        String NhieuDoMax = String.valueOf(nhietDoMax.intValue());
-        Double nhietDoMin = main.getTempMin();
-        String NhieuDoMin = String.valueOf(nhietDoMin.intValue());
-        int doAm = main.getHumidity();
-        String DoAm = String.valueOf(doAm);
+            WeatherResponse.Main main = data.getMain();
+            Double nhietDoAvg = main.getTemp();
+            String NhieuDoAvg = String.valueOf(nhietDoAvg.intValue());
+            Double nhietDoMax = main.getTempMax();
+            String NhieuDoMax = String.valueOf(nhietDoMax.intValue());
+            Double nhietDoMin = main.getTempMin();
+            String NhieuDoMin = String.valueOf(nhietDoMin.intValue());
+            int doAm = main.getHumidity();
+            String DoAm = String.valueOf(doAm);
 
-        txt_temp_avg.setText(NhieuDoAvg + "°C");
-        txt_temp_max.setText(NhieuDoMax + "°C");
-        txt_temp_min.setText(NhieuDoMin + "°C");
-        txt_humidity.setText(DoAm + "%");
+            txt_temp_avg.setText(NhieuDoAvg + "°C");
+            txt_temp_max.setText(NhieuDoMax + "°C");
+            txt_temp_min.setText(NhieuDoMin + "°C");
+            txt_humidity.setText(DoAm + "%");
 
-        WeatherResponse.Clouds clouds = data.getClouds();
-        int cloudinessTemp = clouds.getAll();
-        String cloudiness = String.valueOf(cloudinessTemp);
-        txt_cloudiness.setText(cloudiness + "%");
+            WeatherResponse.Clouds clouds = data.getClouds();
+            int cloudinessTemp = clouds.getAll();
+            String cloudiness = String.valueOf(cloudinessTemp);
+            txt_cloudiness.setText(cloudiness + "%");
+        }else{
+            Toast.makeText(mContext, "Có gì đó sai sai ở đây!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
