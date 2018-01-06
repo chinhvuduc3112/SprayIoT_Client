@@ -228,14 +228,14 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
     private void startCountDownTimer(final MyViewHolder holder, ActuatorInfosResponse.Result actuator) {
         Log.d("CHINH", "startCountDownTimer: " + actuator.getName());
 
-        holder.mStartTime = actuator.getTime() * 1000;
+        holder.mStartTime = actuator.getTime() * 60000;
 
-        holder.mCountDownTimer = new CountDownTimer(holder.mStartTime, 1000) {
+        holder.mCountDownTimer = new CountDownTimer(holder.mStartTime, 60000) {
             @Override
             public void onTick(long l) {
                 if (holder.isRunning) {
-                    holder.txt_actuator_time.setText(l / 1000 + " min");
-                    holder.mStopTime = (int) (l / 1000);
+                    holder.txt_actuator_time.setText(l / 60000 + " min");
+                    holder.mStopTime = (int) (l / 60000);
                     holder.isRunning = true;
                 }
             }

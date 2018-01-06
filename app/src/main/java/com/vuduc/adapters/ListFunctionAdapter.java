@@ -187,13 +187,13 @@ public class ListFunctionAdapter extends RecyclerView.Adapter<ListFunctionAdapte
     }
 
     private void startCountDownTimer(final MyViewHolder holder, FunctionByAcResponse.Result function) {
-        long startTime = function.getActivityDuration() * 1000;
+        long startTime = function.getActivityDuration() * 60000;
 
-        holder.mCountDownTimer = new CountDownTimer(startTime, 1000) {
+        holder.mCountDownTimer = new CountDownTimer(startTime, 60000) {
             @Override
             public void onTick(long l) {
                 if (holder.isRunning) {
-                    holder.txt_actuator_time.setText(l / 1000 + " min");
+                    holder.txt_actuator_time.setText(l / 60000 + " min");
                     holder.isRunning = true;
                 }
             }

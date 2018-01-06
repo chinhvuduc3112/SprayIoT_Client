@@ -69,10 +69,10 @@ public class AreaDeviceFragment extends Fragment implements SwipeRefreshLayout.O
         rv_list_node.setAdapter(mAreaNodeAdapter);
     }
 
-    private void getNodeByIdArea() {
-        if (mAreaID != null) {
+    private void getNodeByIdArea(String areaID) {
+        if (areaID != null) {
             SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
-            Call<Node> callNodes = apiService.getNodeByIdArea(mAreaID);
+            Call<Node> callNodes = apiService.getNodeByIdArea(areaID);
             callNodes.enqueue(new Callback<Node>() {
                 @Override
                 public void onResponse(Call<Node> call, Response<Node> response) {
@@ -101,6 +101,7 @@ public class AreaDeviceFragment extends Fragment implements SwipeRefreshLayout.O
 
     public void setAreaID(String areaID) {
         mAreaID = areaID;
+        getNodeByIdArea(areaID);
     }
 
     @Override
@@ -109,7 +110,7 @@ public class AreaDeviceFragment extends Fragment implements SwipeRefreshLayout.O
             @Override
             public void run() {
                 //handler
-                getNodeByIdArea();
+                getNodeByIdArea(mAreaID);
                 srlLayout.setRefreshing(false);
             }
         }, 1500);

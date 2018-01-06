@@ -6,8 +6,8 @@ package com.vuduc.network;
 
 public class ApiUtils {
     public static final String WEATHER_URL = "http://api.openweathermap.org/data/2.5/";
-    public static final String SPRAY_IOT = "http://192.168.1.5:8090/";
-//    public static final String SPRAY_IOT = "http://172.16.6.59:8090/";
+//    public static final String SPRAY_IOT = "http://192.168.1.5:8090/";
+    public static final String SPRAY_IOT = "http://172.16.6.21:8090/";
 
     public ApiUtils() {
     }
