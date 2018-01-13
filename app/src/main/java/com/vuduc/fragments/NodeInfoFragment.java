@@ -357,7 +357,7 @@ public class NodeInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             public void run() {
                 //handler
                 getNodes();
-                resetTextView();
+                //resetTextView();
                 srlLayout.setRefreshing(false);
             }
         }, 1500);
