@@ -13,7 +13,7 @@ public class ManualUpdateActuator {
 
     /**
      * status : 1
-     * result : {"name":"may bom 1","id":"5a032a2f2f331f2bac34ed29","status":true,"time":20,"functions":[{"_id":"5a21296d5843b420747a56cc","name":"van 1","actuatorId":"5a032a2f2f331f2bac34ed29","description":"mo ta van 1 test 1","trash":false,"__v":0,"manualTime":20,"activityDuration":15,"status":true}]}
+     * result : {"name":"may bom 1","_id":"5a032a2f2f331f2bac34ed29","status":true,"time":5,"functions":[{"_id":"5a21296d5843b420747a56cc","name":"van 1","actuatorId":"5a032a2f2f331f2bac34ed29","description":"mo ta van 1 test 1","trash":false,"__v":0,"manualTime":0,"activityDuration":5,"status":true}]}
      */
 
     @SerializedName("status")
@@ -45,15 +45,15 @@ public class ManualUpdateActuator {
     public static class ResultBean {
         /**
          * name : may bom 1
-         * id : 5a032a2f2f331f2bac34ed29
+         * _id : 5a032a2f2f331f2bac34ed29
          * status : true
-         * time : 20
-         * functions : [{"_id":"5a21296d5843b420747a56cc","name":"van 1","actuatorId":"5a032a2f2f331f2bac34ed29","description":"mo ta van 1 test 1","trash":false,"__v":0,"manualTime":20,"activityDuration":15,"status":true}]
+         * time : 5
+         * functions : [{"_id":"5a21296d5843b420747a56cc","name":"van 1","actuatorId":"5a032a2f2f331f2bac34ed29","description":"mo ta van 1 test 1","trash":false,"__v":0,"manualTime":0,"activityDuration":5,"status":true}]
          */
 
         @SerializedName("name")
         private String name;
-        @SerializedName("id")
+        @SerializedName("_id")
         private String id;
         @SerializedName("status")
         private boolean status;
@@ -115,8 +115,8 @@ public class ManualUpdateActuator {
              * description : mo ta van 1 test 1
              * trash : false
              * __v : 0
-             * manualTime : 20
-             * activityDuration : 15
+             * manualTime : 0
+             * activityDuration : 5
              * status : true
              */
 

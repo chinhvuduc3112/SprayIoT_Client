@@ -135,7 +135,7 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 int time = Integer.parseInt(String.valueOf(editTime.getText()));
-                if(editTime.getText()!=null){
+                if (editTime.getText() != null) {
                     manualUpdateStatusActuatorResponse(holder, actuator, time, true);
                 }
             }
@@ -203,7 +203,11 @@ public class ListActuatorAdapter extends RecyclerView.Adapter<ListActuatorAdapte
                 private void updateListActuator(ManualUpdateActuator body) {
                     ManualUpdateActuator.ResultBean actuators = body.getResult();
                     for (ActuatorInfosResponse.Result a : mActuators) {
+                        Log.d("Chinh test ", "| actuator2: " + actuators.getId());//deo hieu sao null
+                        Log.d("Chinh test ", "| actuator3: " + a.getId());
+                        Log.d("Chinh test ", "| actuator4: " + actuators.isStatus());
                         if (a.getId().equals(actuators.getId())) {
+                            Log.d("Chinh test ", "| actuator: " + actuators.isStatus());
                             a.setTime(actuators.getTime());
                             a.setStatus(actuators.isStatus());
                         }

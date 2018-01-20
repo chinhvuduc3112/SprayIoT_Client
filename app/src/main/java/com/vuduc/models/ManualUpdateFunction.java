@@ -13,7 +13,7 @@ public class ManualUpdateFunction {
 
     /**
      * status : 1
-     * result : {"name":"máy bơm 2","id":"5a042bfb03e2ef31540f30f0","status":true,"time":15,"functions":[{"_id":"5a2129845843b420747a56cd","name":"van 2","actuatorId":"5a042bfb03e2ef31540f30f0","description":"mo ta cai gi day","trash":false,"__v":0,"manualTime":15,"activityDuration":15,"status":true}]}
+     * result : {"name":"may bom 1","_id":"5a032a2f2f331f2bac34ed29","status":true,"time":5,"functions":[{"_id":"5a21296d5843b420747a56cc","name":"van 1","actuatorId":"5a032a2f2f331f2bac34ed29","description":"mo ta van 1 test 1","trash":false,"__v":0,"manualTime":0,"activityDuration":5,"status":true}]}
      */
 
     @SerializedName("status")
@@ -44,16 +44,16 @@ public class ManualUpdateFunction {
 
     public static class ResultBean {
         /**
-         * name : máy bơm 2
-         * id : 5a042bfb03e2ef31540f30f0
+         * name : may bom 1
+         * _id : 5a032a2f2f331f2bac34ed29
          * status : true
-         * time : 15
-         * functions : [{"_id":"5a2129845843b420747a56cd","name":"van 2","actuatorId":"5a042bfb03e2ef31540f30f0","description":"mo ta cai gi day","trash":false,"__v":0,"manualTime":15,"activityDuration":15,"status":true}]
+         * time : 5
+         * functions : [{"_id":"5a21296d5843b420747a56cc","name":"van 1","actuatorId":"5a032a2f2f331f2bac34ed29","description":"mo ta van 1 test 1","trash":false,"__v":0,"manualTime":0,"activityDuration":5,"status":true}]
          */
 
         @SerializedName("name")
         private String name;
-        @SerializedName("id")
+        @SerializedName("_id")
         private String id;
         @SerializedName("status")
         private boolean status;
@@ -109,14 +109,14 @@ public class ManualUpdateFunction {
 
         public static class FunctionsBean {
             /**
-             * _id : 5a2129845843b420747a56cd
-             * name : van 2
-             * actuatorId : 5a042bfb03e2ef31540f30f0
-             * description : mo ta cai gi day
+             * _id : 5a21296d5843b420747a56cc
+             * name : van 1
+             * actuatorId : 5a032a2f2f331f2bac34ed29
+             * description : mo ta van 1 test 1
              * trash : false
              * __v : 0
-             * manualTime : 15
-             * activityDuration : 15
+             * manualTime : 0
+             * activityDuration : 5
              * status : true
              */
 
