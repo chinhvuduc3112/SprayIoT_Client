@@ -61,7 +61,12 @@ public class ListFunctionAdapter extends RecyclerView.Adapter<ListFunctionAdapte
         final FunctionByAcResponse.Result function = mListFunction.get(position);
 
         holder.txt_actuator_name.setText(function.getName());
-        holder.txt_actuator_time.setText(function.getActivityDuration() + "");
+        if (function.getActivityDuration() < 0) {
+            holder.txt_actuator_time.setText("0");
+        } else {
+            holder.txt_actuator_time.setText(function.getActivityDuration() + "");
+        }
+
         if (function.isStatus()) {
             holder.switch_actuator_realtime.setChecked(true);
             startCountDownTimer(holder, function);

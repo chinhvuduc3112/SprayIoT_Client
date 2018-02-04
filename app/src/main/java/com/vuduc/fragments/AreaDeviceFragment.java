@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,6 @@ public class AreaDeviceFragment extends Fragment implements SwipeRefreshLayout.O
                 @Override
                 public void onResponse(Call<Node> call, Response<Node> response) {
                     if (response.isSuccessful()) {
-                        //Logger.d(TAG,response.toString());
                         initListNode(response.body());
                     }
                 }
@@ -93,6 +93,7 @@ public class AreaDeviceFragment extends Fragment implements SwipeRefreshLayout.O
     private void initListNode(Node data) {
         List<Node.ResultBean> listBean = data.getResult();
         listNode.clear();
+        Log.d(TAG, "initListNode: "+listBean.size());
         for (Node.ResultBean lb : listBean) {
             listNode.add(lb);
         }

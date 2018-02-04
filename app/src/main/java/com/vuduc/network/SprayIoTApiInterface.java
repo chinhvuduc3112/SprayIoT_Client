@@ -136,7 +136,7 @@ public interface SprayIoTApiInterface {
 
     @FormUrlEncoded
     @PUT("/updateDeviceNode")
-    Call<DeviceNodeResponse> updateDeviceNode(@Field("_id") String id, @Field("name") String nodeName,
+    Call<DeviceNodeResponse>updateDeviceNode(@Field("_id") String id, @Field("name") String nodeName,
                                               @Field("description") String description, @Field("note") String note,
                                               @Field("deviceTypeId") String deviceTypeId,
                                               @Field("nodeId") String nodeId, @Field("trash") Boolean isTrash);
