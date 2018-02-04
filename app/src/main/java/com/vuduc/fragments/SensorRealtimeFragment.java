@@ -137,10 +137,10 @@ public class SensorRealtimeFragment extends Fragment implements SwipeRefreshLayo
                     txt_value_temp.setText(a.getData() + "");
                     break;
                 case "humiSensor":
-                    txt_value_humi.setText(a.getData() + "");
+                    txt_value_humiAir.setText(a.getData() + "");
                     break;
                 case "airHumiSensor":
-                    txt_value_humiAir.setText(a.getData() + "");
+                    txt_value_humi.setText(a.getData() + "");
                     break;
             }
         }
