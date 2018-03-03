@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new SensorRealtimeFragment(), "Cảm biến");
-        adapter.addFragment(new ActuatorRealtimeFragment(), "Thực thi");
+//        adapter.addFragment(new ActuatorRealtimeFragment(), "Thực thi");
         viewPager.setAdapter(adapter);
     }
 }

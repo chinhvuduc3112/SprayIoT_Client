@@ -273,24 +273,26 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
     private void initDataByDays(DataByDaysResponse data) {
         int i = 0;
         resetChart();
-        List<String> mLable = new ArrayList<>();
-        for (DataByDaysResponse.Result a : data.getResult()) {
-            mLable.add(getDate(a.getDate()));
-            if (a.getAvgData() != -1) {
-                mDataSet.addEntry(new Entry(i, a.getAvgData()));
-            } else {
-                mDataSet.addEntry(new Entry(i, 0));
+        if (data.getResult() != null) {
+            List<String> mLable = new ArrayList<>();
+            for (DataByDaysResponse.Result a : data.getResult()) {
+                mLable.add(getDate(a.getDate()));
+                if (a.getAvgData() != -1) {
+                    mDataSet.addEntry(new Entry(i, a.getAvgData()));
+                } else {
+                    mDataSet.addEntry(new Entry(i, 0));
+                }
+
+
+                i++;
             }
+            XAxis xAxis = mChart.getXAxis();
+            xAxis.setValueFormatter(new IndexAxisValueFormatter(mLable));
 
-
-            i++;
+            mChartData.notifyDataChanged();
+            mChart.notifyDataSetChanged();
+            mChart.invalidate();
         }
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(mLable));
-
-        mChartData.notifyDataChanged();
-        mChart.notifyDataSetChanged();
-        mChart.invalidate();
     }
 
     private String getDate(long timeStamp) {
@@ -323,21 +325,23 @@ public class NodeStatisticsFragment extends Fragment implements SwipeRefreshLayo
     }
 
     private void initDataByHours(DataByHoursResponse data) {
-        int i = 0;
-        resetChart();
-        for (DataByHoursResponse.ResultBean a : data.getResult()) {
-            if (a.getAvgData() != -1) {
-                mDataSet.addEntry(new Entry(i, a.getAvgData()));
-                mChartData.notifyDataChanged();
-                mChart.notifyDataSetChanged();
-                mChart.invalidate();
-            } else {
-                mDataSet.addEntry(new Entry(i, 0));
-                mChartData.notifyDataChanged();
-                mChart.notifyDataSetChanged();
-                mChart.invalidate();
+        if (data.getResult() != null) {
+            int i = 0;
+            resetChart();
+            for (DataByHoursResponse.ResultBean a : data.getResult()) {
+                if (a.getAvgData() != -1) {
+                    mDataSet.addEntry(new Entry(i, a.getAvgData()));
+                    mChartData.notifyDataChanged();
+                    mChart.notifyDataSetChanged();
+                    mChart.invalidate();
+                } else {
+                    mDataSet.addEntry(new Entry(i, 0));
+                    mChartData.notifyDataChanged();
+                    mChart.notifyDataSetChanged();
+                    mChart.invalidate();
+                }
+                i++;
             }
-            i++;
         }
     }
 
