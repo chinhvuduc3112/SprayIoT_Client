@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,22 +125,24 @@ public class SensorRealtimeFragment extends Fragment implements SwipeRefreshLayo
     }
 
     private void initDeviceNode(DeviceNodeResponse data) {
-        listDeviceNode = new ArrayList<>();
-        listDeviceNode = data.getResult();
-        for (DeviceNodeResponse.Result a : listDeviceNode) {
-            switch (a.getDeviceType().getName()) {
-                case "lightSensor":
-                    txt_value_light.setText(a.getData() + "");
-                    break;
-                case "tempSensor":
-                    txt_value_temp.setText(a.getData() + "");
-                    break;
-                case "humiSensor":
-                    txt_value_humiAir.setText(a.getData() + "");
-                    break;
-                case "airHumiSensor":
-                    txt_value_humi.setText(a.getData() + "");
-                    break;
+        if (data.getStatus() != 0) {
+            listDeviceNode = new ArrayList<>();
+            listDeviceNode = data.getResult();
+            for (DeviceNodeResponse.Result a : listDeviceNode) {
+                switch (a.getDeviceType().getName()) {
+                    case "lightSensor":
+                        txt_value_light.setText(a.getData() + "");
+                        break;
+                    case "tempSensor":
+                        txt_value_temp.setText(a.getData() + "");
+                        break;
+                    case "humiSensor":
+                        txt_value_humiAir.setText(a.getData() + "");
+                        break;
+                    case "airHumiSensor":
+                        txt_value_humi.setText(a.getData() + "");
+                        break;
+                }
             }
         }
     }
