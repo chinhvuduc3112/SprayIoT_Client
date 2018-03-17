@@ -79,17 +79,17 @@ public class ActuatorRealtimeAdapter extends RecyclerView.Adapter<ActuatorRealti
                 TimeUnit.MILLISECONDS.toSeconds(milis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milis)));
         holder.txt_actuator_time.setText(time);
 
-        if(actuatorRealtime.getStatus()){
+        if (actuatorRealtime.getStatus()) {
             holder.switch_actuator_realtime.setChecked(true);
-        }else {
+        } else {
             holder.switch_actuator_realtime.setChecked(false);
         }
         holder.switch_actuator_realtime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
+                if (isChecked) {
                     actuatorRealtime.setStatus(true);
-                }else{
+                } else {
                     actuatorRealtime.setStatus(false);
                 }
             }

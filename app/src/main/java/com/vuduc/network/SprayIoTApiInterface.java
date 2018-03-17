@@ -4,6 +4,7 @@ import com.vuduc.models.ActuatorInfosResponse;
 import com.vuduc.models.ActuatorsResponse;
 import com.vuduc.models.AreaByIdResponse;
 import com.vuduc.models.AreaResponse;
+import com.vuduc.models.AutoableResponse;
 import com.vuduc.models.DataByDaysResponse;
 import com.vuduc.models.DataByHoursResponse;
 import com.vuduc.models.DeviceNodeResponse;
@@ -185,4 +186,11 @@ public interface SprayIoTApiInterface {
 
     @DELETE("/deleteFunction/{id}")
     Call<ResponseBody> deleteFunction(@Path("id") String funcionId);
+
+    @GET("/getAutoable")
+    Call<AutoableResponse> getAutoable();
+
+    @FormUrlEncoded
+    @POST("/setAutoable")
+    Call<AutoableResponse> setAutoable(@Field("able") boolean able);
 }

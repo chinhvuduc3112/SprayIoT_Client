@@ -10,14 +10,18 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.vuduc.adapters.ListActuatorAdapter;
 import com.vuduc.models.ActuatorInfosResponse;
+import com.vuduc.models.AutoableResponse;
 import com.vuduc.network.ApiUtils;
 import com.vuduc.network.SprayIoTApiInterface;
 import com.vuduc.tluiot.ActuatorAddActivity;
@@ -46,6 +50,8 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
     FloatingActionButton fabCreateActuator;
     @BindView(R.id.fab_gone_fab)
     FloatingActionButton fabGoneFab;
+    @BindView(R.id.switch_change_mode)
+    SwitchCompat switchChangeMode;
 
     List<ActuatorInfosResponse.Result> mListActuator = new ArrayList<>();
 
@@ -69,6 +75,7 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
             @Override
             public void run() {
                 getActuators();
+                getAutoableStatus();
             }
         }).start();
         addControls();
@@ -86,6 +93,8 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
         rvListActuator.setAdapter(mListActuatorAdapter);
 
         srlLayout.setOnRefreshListener(this);
+
+
     }
 
     private void addEvents() {
@@ -95,10 +104,63 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
                 startActivity(new Intent(getActivity(), ActuatorAddActivity.class));
             }
         });
+
         fabGoneFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fabInfoActuator.setVisibility(View.GONE);
+            }
+        });
+
+        switchChangeMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                changeModeControl(isChecked);
+            }
+        });
+    }
+
+    private void changeModeControl(final boolean isChecked) {
+        ProgressDialogLoader.progressdialog_creation(getActivity(), "Changing...");
+        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
+        Call<AutoableResponse> callService = apiService.setAutoable(isChecked);
+        callService.enqueue(new Callback<AutoableResponse>() {
+            @Override
+            public void onResponse(Call<AutoableResponse> call, Response<AutoableResponse> response) {
+                if (isChecked) {
+//                    Toast.makeText(mContext, "BẬT thành công", Toast.LENGTH_SHORT).show();
+                } else {
+//                    Toast.makeText(mContext, "TẮT thành công", Toast.LENGTH_SHORT).show();
+                }
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<AutoableResponse> call, Throwable t) {
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+        });
+    }
+
+    private void getAutoableStatus() {
+        SprayIoTApiInterface apiService = ApiUtils.getSprayIoTApiService();
+        Call<AutoableResponse> callService = apiService.getAutoable();
+        callService.enqueue(new Callback<AutoableResponse>() {
+            @Override
+            public void onResponse(Call<AutoableResponse> call, Response<AutoableResponse> response) {
+                if (response.isSuccessful()) {
+                    initAutoable(response.body());
+                }
+                ProgressDialogLoader.progressdialog_dismiss();
+            }
+
+            private void initAutoable(AutoableResponse body) {
+                switchChangeMode.setChecked(body.isAutoable());
+            }
+
+            @Override
+            public void onFailure(Call<AutoableResponse> call, Throwable t) {
+                ProgressDialogLoader.progressdialog_dismiss();
             }
         });
     }
@@ -114,7 +176,6 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
                 if (response.isSuccessful())
                     initActuators(response.body());
                 ProgressDialogLoader.progressdialog_dismiss();
-
             }
 
             @Override
