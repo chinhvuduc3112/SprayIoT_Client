@@ -276,6 +276,17 @@
             fab:menu_openDirection="up">
 
             <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_create_actuator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fab_add"
+                fab:fab_colorNormal="@color/accent"
+                fab:fab_colorPressed="@color/primary"
+                fab:fab_colorRipple="#99FFFFFF"
+                fab:fab_label="Tạo mới actuator"
+                fab:fab_size="mini"/>
+
+            <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_create_function"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -283,7 +294,7 @@
                 fab:fab_colorNormal="@color/accent"
                 fab:fab_colorPressed="@color/primary"
                 fab:fab_colorRipple="#99FFFFFF"
-                fab:fab_label="Tạo mới"
+                fab:fab_label="Tạo mới van điện từ"
                 fab:fab_size="mini"/>
 
             <com.github.clans.fab.FloatingActionButton

@@ -55,6 +55,8 @@
         </activity>
         <activity android:name=".ConditionAddActivity">
         </activity>
+        <activity android:name=".FunctionAddActivity">
+        </activity>
     </application>
 
 </manifest>

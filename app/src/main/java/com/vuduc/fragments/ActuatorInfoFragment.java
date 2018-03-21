@@ -94,7 +94,8 @@ public class ActuatorInfoFragment extends Fragment implements SwipeRefreshLayout
 
         srlLayout.setOnRefreshListener(this);
 
-
+        //Invisiable FAB
+        fabInfoActuator.setVisibility(View.GONE);
     }
 
     private void addEvents() {

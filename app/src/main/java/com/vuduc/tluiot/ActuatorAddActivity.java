@@ -63,6 +63,7 @@ public class ActuatorAddActivity extends AppCompatActivity {
 
     private Context mContext;
     private String mAreaId, mDeviceTypeId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,9 +169,9 @@ public class ActuatorAddActivity extends AppCompatActivity {
                 String name = String.valueOf(editDeviceName.getText());
                 String description = String.valueOf(editDescription.getText());
 
-                if(mDeviceTypeId!=null){
+                if (mDeviceTypeId != null) {
                     requestAddActuator(name, description);
-                }else{
+                } else {
                     Toast.makeText(mContext, "Mời bạn nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 }
             }

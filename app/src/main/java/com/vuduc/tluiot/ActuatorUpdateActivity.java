@@ -50,7 +50,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActuatorUpdateActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
-    private static final String TAG = ActuatorUpdateActivity.class.getSimpleName();
+    public static final String TAG = ActuatorUpdateActivity.class.getSimpleName();
     @BindView(R.id.img_options)
     ImageView imgOptions;
     @BindView(R.id.edit_device_name)
@@ -75,6 +75,8 @@ public class ActuatorUpdateActivity extends AppCompatActivity implements SwipeRe
     SwipeRefreshLayout srlLayout;
     @BindView(R.id.fab_info_actuator)
     FloatingActionMenu fabFunction;
+    @BindView(R.id.fab_create_actuator)
+    FloatingActionButton fabCreateActuator;
     @BindView(R.id.fab_create_function)
     FloatingActionButton fabCreateFunction;
     @BindView(R.id.fab_gone_fab)
@@ -90,6 +92,7 @@ public class ActuatorUpdateActivity extends AppCompatActivity implements SwipeRe
     ArrayAdapter<String> actuatorAdapter;
     List<ActuatorsResponse.ResultBean> mListActuator;
     List<String> arrActuatorName = new ArrayList<>();
+
     private Context mContext;
     private ListFunctionAdapter mListFunctionAdapter;
     private String mId, mAreaId, mDeviceTypeId, actuatorID;
@@ -276,7 +279,18 @@ public class ActuatorUpdateActivity extends AppCompatActivity implements SwipeRe
         fabCreateFunction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(mContext, FunctionAddActivity.class);
+                Bundle bundle  = new Bundle();
+                bundle.putString("ACTUATOR_ID", mId);
+                intent.putExtra(TAG, bundle);
+                mContext.startActivity(intent);
+            }
+        });
 
+        fabCreateActuator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActuatorUpdateActivity.this, ActuatorAddActivity.class));
             }
         });
 
@@ -453,6 +467,7 @@ public class ActuatorUpdateActivity extends AppCompatActivity implements SwipeRe
         editFunctionDescribe.setText(itemFunction.getDescription());
         editActuator.setText(itemFunction.getActuator().getName());
         actuatorID = itemFunction.getActuator().getId();
+
         //addEvents
         btnActuator.setOnClickListener(new View.OnClickListener() {
             @Override
