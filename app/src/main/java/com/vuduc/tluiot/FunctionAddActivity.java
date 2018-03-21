@@ -101,7 +101,7 @@ public class FunctionAddActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         //Toolbar
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("van điện từ");
+        getSupportActionBar().setTitle("Van điện từ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
